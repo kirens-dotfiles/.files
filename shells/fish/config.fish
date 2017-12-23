@@ -3,10 +3,10 @@
 #
 
 # Find all my dotfiles
-set -g -x DOTFILES ~/.config/..dotfiles
+#set -g -x DOTFILES ~/.config/..dotfiles
 
 # Load aliases
-source $DOTFILES/shells/.aliases
+source $DOTFILES/shells/fish/.aliases
 
 # Volume stuff
-source $DOTFILES/shells/volume.fish
+source $DOTFILES/shells/fish/volume.fish
