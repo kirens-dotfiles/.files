@@ -3,6 +3,13 @@ alias vim=nvim
 alias vi=vim
 alias r="vi -R"
 
+# Git shorthands
+alias gs="git status"
+alias gsu="gs -uno"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+
 # Move about and look around
 alias l="ls -lA"
 alias la="ls -A"
