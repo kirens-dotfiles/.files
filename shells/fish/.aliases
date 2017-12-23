@@ -1,0 +1,48 @@
+# I'm lazy and like vim
+alias vim=nvim
+alias vi=vim
+alias r="vi -R"
+
+# Move about and look around
+alias l="ls -lA"
+alias la="ls -A"
+
+# Quick clear
+alias cls=clear
+
+# Edit aliases
+alias aliasstore="vi ~/.config/..dotfiles/shells/.aliases"
+
+# WiFi
+alias wifi="nmcli device wifi list"
+
+# Power mgmt
+alias hibernate-pc="systemctl hibernate"
+alias sleep-pc="systemctl suspend"
+
+# Nixos conf shortcut
+alias nxc="vi /etc/nixos/configuration.nix"
+alias snxc="sudo nvim /etc/nixos/configuration.nix"
+
+alias gens="sudo nix-env -p /nix/var/nix/profiles/system --list-generations"
+alias delgen="sudo nix-env -p /nix/var/nix/profiles/system --dry-run --delete-generations"
+alias dodelgen="sudo nix-env -p /nix/var/nix/profiles/system --delete-generations"
+
+alias bootentry="sudo nixos-rebuild switch -p"
+
+# Battery
+alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|to\ full|percentage'"
+
+# Screen
+alias brightness="xrandr --output eDP1 --brightness"
+
+# Voume
+#function vol {
+#  echo $1
+#}
+
+
+# xterm-color
+alias dark="xrdb -merge ~/.config/..dotfiles/shells/xterm/themes/solarized.dark"
+alias light="xrdb -merge ~/.config/..dotfiles/shells/xterm/themes/solarized.light"
+
