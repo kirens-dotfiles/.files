@@ -1,0 +1,1 @@
+echo "#include \"$(pwd)/X11/.Xresources\"" > ${HOME}/.Xresources

@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+# move to dotfiles root
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+cd ..
+
+# run all installers
+bash install/individual/.xinitrc
+bash install/individual/.Xresources
+bash install/individual/config.fish
