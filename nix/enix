@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+
+nvim src/
+#echo $(pwd)
+
+echo "-- Storing current config"
+rm -rf /tmp/nixconf-restorept
+mkdir /tmp/nixconf-restorept
+cp -r /etc/nixos/* /tmp/nixconf-restorept/
+
+echo "-- Writing new config"
+sudo cp -r src/* /etc/nixos/
+
+echo "------------------------------"
+echo "-- Testing config ------------"
+echo "------------------------------"
+
+if sudo nixos-rebuild test; then
+    # Safe to switch
+    echo "------------------------------"
+    echo "-- Building config -----------"
+    echo "------------------------------"
+    sudo nixos-rebuild switch
+else
+    # Revert
+    echo "------------------------------"
+    echo "-- Reverting changes ---------"
+    echo "------------------------------"
+    sudo cp -r /tmp/nixconf-restorept/* /etc/nixos/
+fi
+
+ls -ld result
+unlink result
