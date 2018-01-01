@@ -28,8 +28,10 @@ alias hibernate-pc="systemctl hibernate"
 alias sleep-pc="systemctl suspend"
 
 # Nixos conf shortcut
-alias nxc="vi /etc/nixos/configuration.nix"
-alias snxc="sudo nvim /etc/nixos/configuration.nix"
+#alias nxc="vi /etc/nixos/configuration.nix"
+#alias snxc="sudo nvim /etc/nixos/configuration.nix"
+alias nxc="vi -R $DOTFILES/nix/src"
+alias snxc="bash $DOTFILES/nix/enix"
 
 alias gens="sudo nix-env -p /nix/var/nix/profiles/system --list-generations"
 alias delgen="sudo nix-env -p /nix/var/nix/profiles/system --dry-run --delete-generations"
