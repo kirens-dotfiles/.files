@@ -1,0 +1,1 @@
+echo "source \"$(pwd)/X11/.xprofile\"" > ${HOME}/.xprofile

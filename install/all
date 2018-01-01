@@ -5,6 +5,6 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 cd ..
 
 # run all installers
-bash install/individual/.xinitrc
+bash install/individual/.xprofile
 bash install/individual/.Xresources
 bash install/individual/config.fish
