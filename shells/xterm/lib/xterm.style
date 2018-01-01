@@ -1,7 +1,7 @@
 xterm*utf8: 2
 xterm*showBlinkAsBold: false
 xterm*showMissingGlyphs: true
-#xterm*visualBell: true
+!xterm*visualBell: true
 
 xterm*cursorUnderLine: true
 xterm*cursorBlink: true

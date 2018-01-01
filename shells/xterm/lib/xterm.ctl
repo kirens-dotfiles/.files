@@ -3,4 +3,4 @@ xterm*VT100.Translations: #override \
                  Ctrl Shift <Key>V:    insert-selection(CLIPBOARD) \n\
                  Ctrl Shift <Key>C:    copy-selection(CLIPBOARD)
 
-# xterm*selectToClipboard: false
+! xterm*selectToClipboard: false
