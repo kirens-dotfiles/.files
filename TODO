@@ -4,6 +4,7 @@
    * look into using servo for emeded sites / webbrowser, sequrity aspects?
    * look into neovim coloring errors
    * nvim as standard editor
+   * fish conf dir should be a symlink so functions can be loaded ad hoc
 
  NIXOS
 
