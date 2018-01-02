@@ -1,0 +1,41 @@
+> TODOS
+ GENERAL
+
+   * look into using servo for emeded sites / webbrowser, sequrity aspects?
+   * look into neovim coloring errors
+   * nvim as standard editor
+
+ NIXOS
+
+   * Separate hardware-config
+   * mullvad vpn
+   * acpid - lid close -> sleep-pc
+
+ XMONAD SPECIFIC
+ 
+   * Multiple screens, more info at:
+      https://hackage.haskell.org/package/xmonad-0.13/docs/XMonad-StackSet.html
+      https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Replacing_greedyView_with_view
+      https://www.reddit.com/r/xmonad/comments/ndww5/dual_screens_multi_monitors_tips_and_tricks/
+   * Create typeclass for Keybinding to make script extendable
+   * Custom Layout, allowing:
+      On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)  
+   * xscreensaver
+
+> ACTIVE
+
+ GENERAL
+
+   * Bluetooth headphones
+
+ XMONAD SPECIFIC
+
+   * Keybindings for Volume/Brightness
+
+> DEFER (should do but uncertain how to solve after initial cursory review, so will defer till have more time to research)
+
+> DONE 
+
+> TESTED/REJECTED/WONTFIX
+
+
