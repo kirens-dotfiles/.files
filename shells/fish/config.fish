@@ -2,8 +2,9 @@
 # Funky fishsoup
 #
 
-# Find all my dotfiles
-#set -g -x DOTFILES ~/.config/..dotfiles
+# Modify environment
+# Find all my dotfile-executables
+set -gx PATH $DOTFILES/executables $PATH
 
 # Load aliases
 source $DOTFILES/shells/fish/.aliases
