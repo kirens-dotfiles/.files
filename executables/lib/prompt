@@ -1,0 +1,11 @@
+prompt_yn () {
+    MSG=${1:-'Proceed?'}
+    read -p "$MSG [y/N] " -n 1 -r
+    echo ""
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then return 1; fi
+}
+prompt () {
+    MSG=${1:-'Input:'}
+    read -p "$MSG " -r
+    echo ""
+}

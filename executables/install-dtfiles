@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+cd $(dtfiles-script-dir)
+
+# Signal that we're comming from loader
+LOADER="yes"
+
+# Move to dotfiles root
+cd ..
+
+# load script
+source ./install/all
