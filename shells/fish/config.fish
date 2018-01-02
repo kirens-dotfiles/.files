@@ -11,3 +11,6 @@ source $DOTFILES/shells/fish/.aliases
 
 # Volume stuff
 source $DOTFILES/shells/fish/volume.fish
+
+# Prompt_stuff stuff
+source $DOTFILES/shells/fish/prompt.fish
