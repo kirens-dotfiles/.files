@@ -22,6 +22,7 @@
    * Custom Layout, allowing:
       On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)  
    * xscreensaver
+   * editTODO shortcut should autocommit + -push
 
 > ACTIVE
 

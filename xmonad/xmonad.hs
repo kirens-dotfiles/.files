@@ -148,7 +148,11 @@ defaultBackground = "default.jpg"
 setBkgrnd :: BackgroundName -> X ()
 setBkgrnd n = spawn $ "feh --bg-fill $HOME/backgrounds/" ++ n
 
+-- Introspective
+--------------------------------------------------------------------------
+editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/xmonad.hs\""
 
+editTODO = spawn "xterm -e \"vi $DOTFILES/TODO\""
 
 
 -----------------------------------------------------------------------}}}
@@ -183,6 +187,8 @@ main = do
         , ("<XF86MonBrightnessDown>", backlightDn)
         , ("<XF86AudioRaiseVolume>", vol 1)
         , ("<XF86AudioLowerVolume>", vol (-1))
+        , ("M-e", editXmonadConfig)
+        , ("M-t", editTODO)
         --, ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
         --, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         --, ((0, xK_Print), spawn "scrot")
