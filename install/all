@@ -8,4 +8,5 @@ fi
 bash install/individual/.xprofile
 bash install/individual/.Xresources
 bash install/individual/config.fish
+bash install/individual/.xmonad
 
