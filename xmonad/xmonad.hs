@@ -23,7 +23,7 @@ import XMonad.Util.Run
 import XMonad.Util.EZConfig
 
 -- Arrow composition
-import Control.Arrow hiding ((<+>))
+import Control.Arrow hiding ((<+>), (|||))
 
 -- Workspace cycling
 import XMonad.Actions.CycleWS
@@ -154,6 +154,23 @@ editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/xmonad.hs\""
 
 editTODO = spawn "xterm -e \"vi $DOTFILES/TODO\""
 
+-----------------------------------------------------------------------}}}
+-- Layouts                                                             {{{
+--------------------------------------------------------------------------
+myLayout = tiled ||| Mirror tiled ||| Full
+  where
+    -- default tiling algorithm partitions the screen into two panes
+    tiled = Tall nmaster delta ratio
+
+    -- The default number of windows in the master pane
+    nmaster = 1
+
+    -- Default proportion of screen occupied by master pane
+    ratio = 2/3
+
+    -- Percent of screen to increment by when resizing panes
+    delta = 5/100
+
 
 -----------------------------------------------------------------------}}}
 -- Startup                                                             {{{
@@ -170,6 +187,7 @@ startup = do
 
 configBase = defaultConfig
   { manageHook  = manageDocks <+> manageHook defaultConfig
+--  , layoutHook  = myLayout --avoidStruts  $  layoutHook defaultConfig
   , layoutHook  = avoidStruts  $  layoutHook defaultConfig
   , logHook     = fadeInactiveLogHook 0.8
   , startupHook = startup
@@ -179,7 +197,8 @@ configBase = defaultConfig
 
 main = do
     xmonad $ configBase `additionalKeysP`
-        [ ("M-<Space>", spawn "dmenu_run")
+        [ ("M-C-<Space>", spawn "dmenu_run")
+        , ("M-d", kill)
 --        , ("M-<Enter>", spawn "xterm")
         , ("M-C-<Left>", prevWS)
         , ("M-C-<Right>", nextWS)
