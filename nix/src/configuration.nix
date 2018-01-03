@@ -55,7 +55,7 @@
     ];
   };
 
- powerManagement.enable = true; 
+  powerManagement.enable = true; 
 
   networking.hostName = "nixpix"; # Define your hostname.
 #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -160,8 +160,8 @@
       enableContribAndExtras = true;
       extraPackages = haskellPackages: [
         haskellPackages.xmonad-contrib
-	haskellPackages.xmonad-extras
-	haskellPackages.xmonad
+        haskellPackages.xmonad-extras
+        haskellPackages.xmonad
       ];
     };
     windowManager.default = "xmonad";
@@ -177,7 +177,7 @@
       slim = {
         enable = true;
         defaultUser = "kiren";
-	theme = pkgs.fetchurl {
+        theme = pkgs.fetchurl {
           url = "https://github.com/edwtjo/nixos-black-theme/archive/v1.0.tar.gz";
           sha256 = "13bm7k3p6k7yq47nba08bn48cfv536k4ipnwwp1q1l2ydlp85r9d";
         };
@@ -185,39 +185,37 @@
     };
     # Trackpad
     synaptics = {
-    	enable = true;
-#	dev = "/dev/input/mouse2";
-	minSpeed = "0.6";
-	maxSpeed = "3";
-	accelFactor = "0.1";
-	
-	palmDetect = true;
-        twoFingerScroll = true;
+      enable = true;
+#   dev = "/dev/input/mouse2";
+      minSpeed = "0.6";
+      maxSpeed = "3";
+      accelFactor = "0.1";
 
-	additionalOptions = ''
-          Option "VertScrollDelta" "-100"
-          Option "HorizScrollDelta" "-100"
-		'';
-     };
-   };
+      palmDetect = true;
+      twoFingerScroll = true;
+      additionalOptions = ''
+        Option "VertScrollDelta" "-100"
+        Option "HorizScrollDelta" "-100"
+        '';
+    };
+  };
 
   services.compton = {
     enable = true;
   };
 
-   services.redshift = {
-     enable = true;
-     latitude = "57.687574";
-     longitude = "11.979733";
-     temperature.day = 6500;
-     temperature.night = 3500;
-     brightness.day = "1";
-     brightness.night = "0.5";
-   };
+  services.redshift = {
+    enable = true;
+    latitude = "57.687574";
+    longitude = "11.979733";
+    temperature.day = 6500;
+    temperature.night = 3500;
+    brightness.day = "1";
+    brightness.night = "0.5";
+  };
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "17.09"; # Did you read the comment?
-
 }
