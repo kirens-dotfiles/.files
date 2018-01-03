@@ -9,6 +9,7 @@ alias gsu="gs -uno"
 alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
+alias gd="git diff"
 
 # Move about and look around
 alias l="ls -lA"
