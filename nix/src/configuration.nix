@@ -78,6 +78,7 @@
     ntfs3g
 
     # tools
+    bind
     wget
     unzip
     sudo
@@ -89,12 +90,13 @@
     haskellPackages.xmonad
     haskellPackages.xmonad-contrib
     haskellPackages.xmonad-extras
+    haskellPackages.X11
 
     # X11 stuff
     compton
 
     feh
-#    xclip
+    xclip
     xlibs.xbacklight
     xlibs.xev
     xlibs.xmodmap

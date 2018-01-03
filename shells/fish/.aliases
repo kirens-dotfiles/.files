@@ -15,11 +15,17 @@ alias gd="git diff"
 alias l="ls -lA"
 alias la="ls -A"
 
+# Copy paste pipe
+alias pbcopy="xclip -selection clipboard"
+alias cpy=pbcopy
+alias pbpaste="xclip -o -selection clipboard"
+alias pst=pbpaste
+
 # Quick clear
 alias cls=clear
 
 # Edit aliases
-alias aliasstore="vi ~/.config/..dotfiles/shells/.aliases"
+alias aliasstore="vi $DOTFILES/shells/fish/.aliases"
 
 # WiFi
 alias wifi="nmcli device wifi list"
@@ -32,7 +38,8 @@ alias sleep-pc="systemctl suspend"
 #alias nxc="vi /etc/nixos/configuration.nix"
 #alias snxc="sudo nvim /etc/nixos/configuration.nix"
 alias nxc="vi -R $DOTFILES/nix/src"
-alias snxc="bash $DOTFILES/nix/enix"
+alias snxc="bash $DOTFILES/executables/enix"
+alias nix-hspackages="nix-env -f \"<nixpkgs>\" -qaP -A haskellPackages"
 
 alias gens="sudo nix-env -p /nix/var/nix/profiles/system --list-generations"
 alias delgen="sudo nix-env -p /nix/var/nix/profiles/system --dry-run --delete-generations"
