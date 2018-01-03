@@ -3,8 +3,28 @@
 set -x fish_prompt_pwd_dir_length 0
 
 
+## Git Shell stuff
+set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showstashstate 'yes'
+#set __fish_git_prompt_showuntrackedfiles 'yes'
+set __fish_git_prompt_showupstream 'yes'
+set __fish_git_prompt_color_branch $fish_color_param
+set __fish_git_prompt_color_upstream_ahead green
+set __fish_git_prompt_color_upstream_behind red
+# Status Chars
+set __fish_git_prompt_char_dirtystate '⚡'
+set __fish_git_prompt_char_stagedstate '→'
+set __fish_git_prompt_char_untrackedfiles '☡'
+set __fish_git_prompt_char_stashstate '↩'
+set __fish_git_prompt_char_upstream_ahead '+'
+set __fish_git_prompt_char_upstream_behind '-'
+
+
+
 # The function that is executed on prompt before cmd input
 function fish_prompt
+    set last_status $status
+
   # Keep margin at bottom 1/3
     set -l cRow (bash -c 'IFS=\';\' read -sdR -p $\'\E[6n\' ROW COL;echo "${ROW#*[}"')
     set -l lines (tput lines)
@@ -17,16 +37,9 @@ function fish_prompt
         tput cup "$ROW"
     end
 
-  # Which branch are we on?
-    set -l git_branch (git branch ^/dev/null | sed -n '/\* /s///p')
-    set -l git ""
-    if test (string length "$git_branch") -ne 0
-        set git "{$git_branch}"
-    end
-
   # Print everything
     echo -s "$USER" @ (prompt_hostname) \
          ' ' (set_color $fish_color_cwd) (prompt_pwd) \
-         (set_color $fish_color_param) " $git " (set_color normal)
+         (__fish_git_prompt)
     echo -n -s "> "
 end
