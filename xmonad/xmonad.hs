@@ -19,7 +19,7 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import XMonad.Util.Run
 
--- Special keybindings
+-- Modifiy keybindings and use EMACS spec style bindings
 import XMonad.Util.EZConfig
 
 -- Arrow composition
@@ -195,11 +195,14 @@ configBase = defaultConfig
   , modMask     = mod4Mask  -- Rebind Mod to the Windows key
   } 
 
+modNone :: KeyMask
+modNone = 0
+
 main = do
     xmonad $ configBase `additionalKeysP`
-        [ ("M-C-<Space>", spawn "dmenu_run")
+        [ ("M-a", spawn "dmenu_run")
+        , ("M-s", spawn "xterm")
         , ("M-d", kill)
---        , ("M-<Enter>", spawn "xterm")
         , ("M-C-<Left>", prevWS)
         , ("M-C-<Right>", nextWS)
         , ("<XF86MonBrightnessUp>", backlightUp)
@@ -212,6 +215,8 @@ main = do
         --, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         --, ((0, xK_Print), spawn "scrot")
         ]
+        -- `Start` is enough to open dmenu
+        --`additionalKeys` [ ((modNone, xK_Super_L), (spawn "dmenu_run")) ]
 
 {-
 handleEventHook2   = handleEventHook defaultConfig `mappend`

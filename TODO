@@ -12,7 +12,7 @@
    * mullvad vpn
    * acpid - lid close -> sleep-pc
 
- XMONAD SPECIFIC
+ XMONAD
  
    * Multiple screens, more info at:
       https://hackage.haskell.org/package/xmonad-0.13/docs/XMonad-StackSet.html
@@ -31,11 +31,15 @@
 
    * Bluetooth headphones
 
- XMONAD SPECIFIC
+ XMONAD
 
    * Keybindings for Volume/Brightness
 
 > DEFER (should do but uncertain how to solve after initial cursory review, so will defer till have more time to research)
+
+ XMONAD
+
+   * Only press Super to open dmenu
 
 > DONE 
 
