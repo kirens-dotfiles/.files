@@ -19,6 +19,9 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import XMonad.Util.Run
 
+-- Date (for screenshots)
+import Data.Time
+
 -- Modifiy keybindings and use EMACS spec style bindings
 import XMonad.Util.EZConfig
 
@@ -154,6 +157,26 @@ editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/xmonad.hs\""
 
 editTODO = spawn "xterm -e \"vi $DOTFILES/TODO\""
 
+-- Screen grab
+--------------------------------------------------------------------------
+printScreen :: X ()
+printScreen = dateTimeStr >>= (\n->
+  spawn $ "import -silent -window root \"$HOME/screenshots/screenshot-"++n++".png\""
+  )
+
+dateTimeStr :: (MonadIO m) => m String
+dateTimeStr = liftIO getCurrentTime >>= return.composite
+  where
+    composite t = date t ++ 'T' : time t
+    date = show.utctDay
+    time = show.timeToTimeOfDay.utctDayTime
+
+
+-- Trackpad ctl
+--------------------------------------------------------------------------
+toggleTrackpad :: X ()
+toggleTrackpad = spawn "$HOME/.xmonad/lib/scripts/lockptr"
+
 -----------------------------------------------------------------------}}}
 -- Layouts                                                             {{{
 --------------------------------------------------------------------------
@@ -204,13 +227,17 @@ main = do
         , ("M-s", spawn "xterm")
         , ("M-d", kill)
         , ("M-C-<Left>", prevWS)
+        , ("M-C-h", prevWS)
         , ("M-C-<Right>", nextWS)
+        , ("M-C-l", nextWS)
         , ("<XF86MonBrightnessUp>", backlightUp)
         , ("<XF86MonBrightnessDown>", backlightDn)
         , ("<XF86AudioRaiseVolume>", vol 1)
         , ("<XF86AudioLowerVolume>", vol (-1))
         , ("M-e", editXmonadConfig)
         , ("M-t", editTODO)
+        , ("M-p", toggleTrackpad)
+        , ("<Print>", printScreen)
         --, ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
         --, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         --, ((0, xK_Print), spawn "scrot")
