@@ -15,9 +15,12 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import Graphics.X11.ExtraTypes.XF86
---import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 import XMonad.Util.Run
+
+-- Layout Toggling
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
 
 -- Date (for screenshots)
 import Data.Time
@@ -198,7 +201,8 @@ resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --o
 -----------------------------------------------------------------------}}}
 -- Layouts                                                             {{{
 --------------------------------------------------------------------------
-myLayout = tiled ||| Mirror tiled ||| Full
+myLayout = mkToggle (FULL ?? EOT)
+         $ tiled ||| Mirror tiled
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled = Tall nmaster delta ratio
@@ -272,6 +276,7 @@ myKeys conf = mkKeymap conf $
   , ("M-C-<Right>", nextWS)
   , ("M-C-l",       nextWS)
   , ("M-<Space>",   sendMessage NextLayout)
+  , ("M-f",         sendMessage $ Toggle FULL)
 
   -- Media keys
   , ("<XF86MonBrightnessUp>", backlightUp)
