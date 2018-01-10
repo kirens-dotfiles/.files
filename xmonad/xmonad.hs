@@ -31,6 +31,12 @@ import Control.Arrow hiding ((<+>), (|||))
 -- Workspace cycling
 import XMonad.Actions.CycleWS
 
+-- Multiple monitors
+import qualified XMonad.StackSet as W
+
+-- Key-binding map
+import qualified Data.Map as Map
+
 -- Trancparent Inactive Windows
 import XMonad.Hooks.FadeInactive
 
@@ -153,8 +159,10 @@ setBkgrnd n = spawn $ "feh --bg-fill $HOME/backgrounds/" ++ n
 
 -- Introspective
 --------------------------------------------------------------------------
+editXmonadConfig :: X ()
 editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/xmonad.hs\""
 
+editTODO :: X ()
 editTODO = spawn "xterm -e \"vi $DOTFILES/TODO\""
 
 -- Screen grab
@@ -176,6 +184,16 @@ dateTimeStr = liftIO getCurrentTime >>= return.composite
 --------------------------------------------------------------------------
 toggleTrackpad :: X ()
 toggleTrackpad = spawn "$HOME/.xmonad/lib/scripts/lockptr"
+
+
+-- Some screen stuff
+--------------------------------------------------------------------------
+-- This is a crude hack, that may or may not kill or restart compton. TODO
+restartCompton :: X ()
+restartCompton = spawn "sh -c 'ps -e | grep compton | grep -oe \"[0-9]*\" | head -1 | xargs kill'"
+
+resetScreens :: X ()
+resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --output HDMI1 --off --output DP1 --off"
 
 -----------------------------------------------------------------------}}}
 -- Layouts                                                             {{{
@@ -210,40 +228,88 @@ startup = do
 
 configBase = defaultConfig
   { manageHook  = manageDocks <+> manageHook defaultConfig
---  , layoutHook  = myLayout --avoidStruts  $  layoutHook defaultConfig
-  , layoutHook  = avoidStruts  $  layoutHook defaultConfig
+  , layoutHook  = myLayout --avoidStruts  $  layoutHook defaultConfig
   , logHook     = fadeInactiveLogHook 0.8
   , startupHook = startup
   , borderWidth = 0
   , modMask     = mod4Mask  -- Rebind Mod to the Windows key
+  , keys        = myKeys
   } 
 
 modNone :: KeyMask
 modNone = 0
 
 main = do
-    xmonad $ configBase `additionalKeysP`
-        [ ("M-a", spawn "dmenu_run")
-        , ("M-s", spawn "xterm")
-        , ("M-d", kill)
-        , ("M-C-<Left>", prevWS)
-        , ("M-C-h", prevWS)
-        , ("M-C-<Right>", nextWS)
-        , ("M-C-l", nextWS)
-        , ("<XF86MonBrightnessUp>", backlightUp)
-        , ("<XF86MonBrightnessDown>", backlightDn)
-        , ("<XF86AudioRaiseVolume>", vol 1)
-        , ("<XF86AudioLowerVolume>", vol (-1))
-        , ("M-e", editXmonadConfig)
-        , ("M-t", editTODO)
-        , ("M-p", toggleTrackpad)
-        , ("<Print>", printScreen)
-        --, ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-        --, ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-        --, ((0, xK_Print), spawn "scrot")
-        ]
-        -- `Start` is enough to open dmenu
-        --`additionalKeys` [ ((modNone, xK_Super_L), (spawn "dmenu_run")) ]
+    xmonad configBase -- `additionalKeysP`
+
+type KeyBnd = String
+-- This should be made a better generalization (KeyBnd strings error prone) TODO
+keysWithPar :: (KeyBnd -> a -> (KeyBnd, X ())) -> [KeyBnd] -> [a] -> [(KeyBnd, X ())]
+keysWithPar fn ks as = [ fn k a | (k, a) <- zip ks as ]
+
+numsWith :: KeyBnd -> [KeyBnd]
+numsWith k = map ((k++).show) [1..9]
+
+myKeys conf = mkKeymap conf $
+  -- Quick launches
+  [ ("M-a", spawn "dmenu_run")
+  , ("M-s", spawn "xterm")
+  , ("M-e", editXmonadConfig)
+  , ("M-t", editTODO)
+
+  -- Window mgmt
+  , ("M-d",          kill)
+  , ("M-<Return>",   windows W.focusMaster)
+  , ("M-j",          windows W.focusDown)
+  , ("M-k",          windows W.focusUp)
+  , ("M-S-j",        windows W.swapDown)
+  , ("M-S-k",        windows W.swapUp)
+  , ("M-S-<Return>", windows W.swapMaster)
+
+  -- Workspaces
+  , ("M-C-<Left>",  prevWS)
+  , ("M-C-h",       prevWS)
+  , ("M-C-<Right>", nextWS)
+  , ("M-C-l",       nextWS)
+  , ("M-<Space>",   sendMessage NextLayout)
+
+  -- Media keys
+  , ("<XF86MonBrightnessUp>", backlightUp)
+  , ("<XF86MonBrightnessDown>", backlightDn)
+  , ("<XF86AudioRaiseVolume>", vol 1)
+  , ("<XF86AudioLowerVolume>", vol (-1))
+  , ("M-p", toggleTrackpad)
+  , ("<Print>", printScreen)
+
+  -- misc
+  , ("M-o", resetScreens)
+  , ("M-S-o", restartCompton)
+  --, ("M-S-z", spawn "xscreensaver-command -lock")
+  ]
+  -- Switch workspace
+  ++ keysWithPar 
+       (\bind i -> (bind, windows $ W.greedyView i))
+       (numsWith "M-")
+       (XMonad.workspaces conf)
+  -- Move window to workspace
+  ++ keysWithPar 
+       (\bind i -> (bind, windows $ W.shift i))
+       (numsWith "M-S-")
+       (XMonad.workspaces conf)
+
+  -- Switch monitor
+  ++ keysWithPar
+       (\bind i -> (bind, screenWorkspace i >>= flip whenJust (windows . (W.view))))
+       (numsWith "M-M1-")
+       [0..2]
+  -- Move window to monitors
+  ++ keysWithPar
+       (\bind i -> (bind, screenWorkspace i >>= flip whenJust (windows . (W.shift))))
+       (numsWith "M-M1-S-")
+       [0..2]
+
+  -- `Start` is enough to open dmenu
+  --`additionalKeys` [ ((modNone, xK_Super_L), (spawn "dmenu_run")) ]
 
 {-
 handleEventHook2   = handleEventHook defaultConfig `mappend`
