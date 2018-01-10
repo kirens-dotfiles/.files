@@ -34,6 +34,9 @@
 #  # Use the systemd-boot EFI boot loader.
 #  boot.loader.systemd-boot.enable = true;
   boot = {
+    # Keep up to date to avoid meltdown
+    kernelPackages = pkgs.linuxPackages_latest;
+
     loader.grub = {
       enable = true;
       version = 2;
@@ -84,6 +87,7 @@
     sudo
     neovim
     gitAndTools.gitFull
+    pdftk
 
     ghc
     haskellPackages.xmobar
@@ -93,10 +97,11 @@
     haskellPackages.X11
 
     # X11 stuff
-    compton
+    arandr
 
     feh
     xclip
+    xorg.xwininfo
     xlibs.xbacklight
     xlibs.xev
     xlibs.xmodmap
@@ -109,6 +114,7 @@
     dmenu
 
     gimp
+    libreoffice
     thunderbird
     firefox
     chromium
