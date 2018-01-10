@@ -5,6 +5,7 @@
    * look into neovim coloring errors
    * nvim as standard editor
    * fish conf dir should be a symlink so functions can be loaded ad hoc
+   * using `logger` in some config-scipts?
 
  NIXOS
 
@@ -30,6 +31,7 @@
  GENERAL
 
    * Bluetooth headphones
+   * Ctrl+BS as kill-word in fish
 
  XMONAD
 
