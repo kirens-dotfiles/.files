@@ -269,6 +269,8 @@ myKeys conf = mkKeymap conf $
   , ("M-S-j",        windows W.swapDown)
   , ("M-S-k",        windows W.swapUp)
   , ("M-S-<Return>", windows W.swapMaster)
+  , ("M-h",          sendMessage Shrink)
+  , ("M-l",          sendMessage Expand)
 
   -- Workspaces
   , ("M-C-<Left>",  prevWS)
