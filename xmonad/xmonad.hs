@@ -18,6 +18,9 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import XMonad.Util.Run
 
+-- To exit XMonad
+import System.Exit
+
 -- Layout Toggling
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
@@ -168,6 +171,9 @@ editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/xmonad.hs\""
 editTODO :: X ()
 editTODO = spawn "xterm -e \"vi $DOTFILES/TODO\""
 
+reloadXMonad :: X ()
+reloadXMonad = spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"
+
 -- Screen grab
 --------------------------------------------------------------------------
 printScreen :: X ()
@@ -228,11 +234,11 @@ startup = do
 -- Main                                                                {{{
 --------------------------------------------------------------------------
 
-
+main = xmonad $ docks configBase
 
 configBase = defaultConfig
   { manageHook  = manageDocks <+> manageHook defaultConfig
-  , layoutHook  = myLayout --avoidStruts  $  layoutHook defaultConfig
+  , layoutHook  = avoidStruts $ myLayout
   , logHook     = fadeInactiveLogHook 0.8
   , startupHook = startup
   , borderWidth = 0
@@ -240,13 +246,17 @@ configBase = defaultConfig
   , keys        = myKeys
   } 
 
+
+ 
+-----------------------------------------------------------------------}}}
+-- Key bindings                                                        {{{
+--------------------------------------------------------------------------
+
+type KeyBnd = String
+
 modNone :: KeyMask
 modNone = 0
 
-main = do
-    xmonad configBase -- `additionalKeysP`
-
-type KeyBnd = String
 -- This should be made a better generalization (KeyBnd strings error prone) TODO
 keysWithPar :: (KeyBnd -> a -> (KeyBnd, X ())) -> [KeyBnd] -> [a] -> [(KeyBnd, X ())]
 keysWithPar fn ks as = [ fn k a | (k, a) <- zip ks as ]
@@ -291,6 +301,8 @@ myKeys conf = mkKeymap conf $
   -- misc
   , ("M-o", resetScreens)
   , ("M-S-o", restartCompton)
+  , ("M-<Esc>", reloadXMonad)
+  , ("M-S-<Esc>", io (exitWith ExitSuccess))
   --, ("M-S-z", spawn "xscreensaver-command -lock")
   ]
   -- Switch workspace
@@ -317,9 +329,3 @@ myKeys conf = mkKeymap conf $
 
   -- `Start` is enough to open dmenu
   --`additionalKeys` [ ((modNone, xK_Super_L), (spawn "dmenu_run")) ]
-
-{-
-handleEventHook2   = handleEventHook defaultConfig `mappend`
-                     keyUpEventHook `mappend`
-                     fullscreenEventHook
--}
