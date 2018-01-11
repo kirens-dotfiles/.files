@@ -272,23 +272,23 @@ myKeys conf = mkKeymap conf $
   , ("M-t", editTODO)
 
   -- Window mgmt
-  , ("M-d",          kill)
-  , ("M-<Return>",   windows W.focusMaster)
-  , ("M-j",          windows W.focusDown)
-  , ("M-k",          windows W.focusUp)
-  , ("M-S-j",        windows W.swapDown)
-  , ("M-S-k",        windows W.swapUp)
+  , ("M-d", kill)
+  , ("M-<Return>", windows W.focusMaster)
+  , ("M-j", windows W.focusDown)
+  , ("M-k", windows W.focusUp)
+  , ("M-S-j", windows W.swapDown)
+  , ("M-S-k", windows W.swapUp)
   , ("M-S-<Return>", windows W.swapMaster)
-  , ("M-h",          sendMessage Shrink)
-  , ("M-l",          sendMessage Expand)
+  , ("M-h", sendMessage Shrink)
+  , ("M-l", sendMessage Expand)
 
   -- Workspaces
-  , ("M-C-<Left>",  prevWS)
-  , ("M-C-h",       prevWS)
+  , ("M-C-<Left>", prevWS)
+  , ("M-C-h", prevWS)
   , ("M-C-<Right>", nextWS)
-  , ("M-C-l",       nextWS)
-  , ("M-<Space>",   sendMessage NextLayout)
-  , ("M-f",         sendMessage $ Toggle FULL)
+  , ("M-C-l", nextWS)
+  , ("M-<Space>", sendMessage NextLayout)
+  , ("M-f", sendMessage $ Toggle FULL)
 
   -- Media keys
   , ("<XF86MonBrightnessUp>", backlightUp)
