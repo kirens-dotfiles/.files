@@ -205,8 +205,27 @@ resetScreens :: X ()
 resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --output HDMI1 --off --output DP1 --off"
 
 -----------------------------------------------------------------------}}}
+-- Status bar                                                          {{{
+--------------------------------------------------------------------------
+
+launchXmobar = spawnPipe "xmobar $HOME/.xmonad/xmobar.hs"
+
+
+xmobarTitleColor = base3
+xmobarCurrentWorkspaceColor = blue
+
+xmobarConf xmproc = dynamicLogWithPP $ xmobarPP
+  { ppOutput  = hPutStrLn xmproc
+  , ppTitle   = xmobarColor xmobarTitleColor "" . shorten 100
+  , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+  , ppSep    = "  "
+  } 
+
+
+-----------------------------------------------------------------------}}}
 -- Layouts                                                             {{{
 --------------------------------------------------------------------------
+
 myLayout = mkToggle (FULL ?? EOT)
          $ tiled ||| Mirror tiled
   where
@@ -223,23 +242,28 @@ myLayout = mkToggle (FULL ?? EOT)
     delta = 5/100
 
 
+myManageHook = composeAll
+  [ className =? "Gimp" --> doFloat
+  ]
+
+
 -----------------------------------------------------------------------}}}
 -- Startup                                                             {{{
 --------------------------------------------------------------------------
 startup = do
     setBkgrnd defaultBackground
 
-
 -----------------------------------------------------------------------}}}
 -- Main                                                                {{{
 --------------------------------------------------------------------------
 
-main = xmonad $ docks configBase
+main = xmonad.docks.configBase =<< launchXmobar
 
-configBase = defaultConfig
+--configBase :: MonadIO Handle -> XConfig l
+configBase xmproc = defaultConfig
   { manageHook  = manageDocks <+> manageHook defaultConfig
   , layoutHook  = avoidStruts $ myLayout
-  , logHook     = fadeInactiveLogHook 0.8
+  , logHook     = fadeInactiveLogHook 0.8 >> xmobarConf xmproc
   , startupHook = startup
   , borderWidth = 0
   , modMask     = mod4Mask  -- Rebind Mod to the Windows key
@@ -247,7 +271,6 @@ configBase = defaultConfig
   } 
 
 
- 
 -----------------------------------------------------------------------}}}
 -- Key bindings                                                        {{{
 --------------------------------------------------------------------------
