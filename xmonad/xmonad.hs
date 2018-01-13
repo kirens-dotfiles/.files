@@ -6,8 +6,6 @@
 --      // \\ Monad        Current as of XMonad 0.13                     --
 --       >>=                                                             --
 ---------------------------------------------------------------------------
-
-------------------------------------------------------------------------}}}
 -- Modules                                                              {{{
 ---------------------------------------------------------------------------
 import XMonad
@@ -43,7 +41,7 @@ import qualified XMonad.StackSet as W
 -- Key-binding map
 import qualified Data.Map as Map
 
--- Trancparent Inactive Windows
+-- Transparent Inactive Windows
 import XMonad.Hooks.FadeInactive
 
 
@@ -52,6 +50,7 @@ import XMonad.Hooks.FadeInactive
 --------------------------------------------------------------------------
 
 homeDir = "/home/kiren/"
+scriptsDir = homeDir++".xmonad/scripts/"
 
 
 -- Colors
@@ -96,6 +95,19 @@ unfocusColor = base02
 -----------------------------------------------------------------------}}}
 -- Helpers / System-integration                                        {{{
 --------------------------------------------------------------------------
+
+-- Monad tools
+--------------------------------------------------------------------------
+
+void :: MonadIO m => m a -> m ()
+void = (>> return ())
+
+
+-- Launching scripts
+--------------------------------------------------------------------------
+
+spawnScript = spawn.(scriptsDir++)
+
 
 -- xbacklight
 --------------------------------------------------------------------------
@@ -177,9 +189,8 @@ reloadXMonad = spawn "if type xmonad; then xmonad --recompile && xmonad --restar
 -- Screen grab
 --------------------------------------------------------------------------
 printScreen :: X ()
-printScreen = dateTimeStr >>= (\n->
-  spawn $ "import -silent -window root \"$HOME/screenshots/screenshot-"++n++".png\""
-  )
+printScreen = dateTimeStr >>=
+  spawn.("import -silent -window root \"$HOME/screenshots/screenshot-"++).(++".png\"")
 
 dateTimeStr :: (MonadIO m) => m String
 dateTimeStr = liftIO getCurrentTime >>= return.composite
@@ -192,7 +203,7 @@ dateTimeStr = liftIO getCurrentTime >>= return.composite
 -- Trackpad ctl
 --------------------------------------------------------------------------
 toggleTrackpad :: X ()
-toggleTrackpad = spawn "$HOME/.xmonad/lib/scripts/lockptr"
+toggleTrackpad = spawnScript "lockptr"
 
 
 -- Some screen stuff
@@ -250,6 +261,7 @@ myManageHook = composeAll
 -----------------------------------------------------------------------}}}
 -- Startup                                                             {{{
 --------------------------------------------------------------------------
+
 startup = do
     setBkgrnd defaultBackground
 
@@ -306,9 +318,7 @@ myKeys conf = mkKeymap conf $
   , ("M-l", sendMessage Expand)
 
   -- Workspaces
-  , ("M-C-<Left>", prevWS)
   , ("M-C-h", prevWS)
-  , ("M-C-<Right>", nextWS)
   , ("M-C-l", nextWS)
   , ("M-<Space>", sendMessage NextLayout)
   , ("M-f", sendMessage $ Toggle FULL)
