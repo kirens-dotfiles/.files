@@ -83,6 +83,7 @@
     # tools
     bind
     wget
+    wirelesstools
     unzip
     sudo
     neovim
@@ -119,6 +120,23 @@
     firefox
     chromium
   ];
+  # Fonts :D
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+
+    enableDefaultFonts = true;
+
+    fonts = with pkgs; [
+      google-fonts
+      font-awesome-ttf
+
+      # Coding
+      hack-font
+      source-code-pro
+    ];
+  };
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

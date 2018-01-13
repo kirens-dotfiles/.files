@@ -220,11 +220,13 @@ resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --o
 --------------------------------------------------------------------------
 
 launchXmobar = spawnPipe "xmobar $HOME/.xmonad/xmobar.hs"
+launchXmobar2 = spawnPipe "xmobar $HOME/.xmonad/xmobar2.hs"
 
 
 xmobarTitleColor = base3
 xmobarCurrentWorkspaceColor = blue
 
+xmobarConf :: Handle -> X ()
 xmobarConf xmproc = dynamicLogWithPP $ xmobarPP
   { ppOutput  = hPutStrLn xmproc
   , ppTitle   = xmobarColor xmobarTitleColor "" . shorten 100
@@ -269,13 +271,18 @@ startup = do
 -- Main                                                                {{{
 --------------------------------------------------------------------------
 
-main = xmonad.docks.configBase =<< launchXmobar
+--main = xmonad.docks.configBase =<< launchXmobar
+main = do
+  xmp <- launchXmobar
+  xmp2 <- launchXmobar2
+  xmonad$docks$configBase [xmp, xmp2]
+
 
 --configBase :: MonadIO Handle -> XConfig l
 configBase xmproc = defaultConfig
   { manageHook  = manageDocks <+> manageHook defaultConfig
   , layoutHook  = avoidStruts $ myLayout
-  , logHook     = fadeInactiveLogHook 0.8 >> xmobarConf xmproc
+  , logHook     = fadeInactiveLogHook 0.8 >> void (sequence (xmproc >>= return.xmobarConf))
   , startupHook = startup
   , borderWidth = 0
   , modMask     = mod4Mask  -- Rebind Mod to the Windows key

@@ -3,7 +3,7 @@ Config
   , additionalFonts = [ "xft:FontAwesome:pixelsize=14:antialias=true:hinting=true" ]
   , bgColor = "black"
   , fgColor = "grey"
-  , position = OnScreen 0 Top
+  , position = OnScreen 1 Top
   , commands = 
     [ Run StdinReader
 
