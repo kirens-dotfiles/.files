@@ -2,48 +2,69 @@
  GENERAL
 
    * look into using servo for emeded sites / webbrowser, sequrity aspects?
-   * look into neovim coloring errors
-   * nvim as standard editor
-   * fish conf dir should be a symlink so functions can be loaded ad hoc
+     Alternatively how to get Firefox to launch webiste in "kiosk-mode"
    * using `logger` in some config-scipts?
+
+ FISH
+
+   * fish conf dir should be a symlink so functions can be loaded ad hoc
+
+ VIM
+
+   * nvim as standard editor
+   * look into neovim coloring errors
+   * Code Completeion (specifically Haskell/Javascript/Python/Java)
 
  NIXOS
 
    * Separate hardware-config
    * mullvad vpn
    * acpid - lid close -> sleep-pc
+   * Is there some kind of user.nix config? Might be worth trying to migrate
+     some configs from fish / X11 stuff to it in that case.
 
  XMONAD
  
-   * Multiple screens, more info at:
-      https://hackage.haskell.org/package/xmonad-0.13/docs/XMonad-StackSet.html
-      https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Replacing_greedyView_with_view
-      https://www.reddit.com/r/xmonad/comments/ndww5/dual_screens_multi_monitors_tips_and_tricks/
    * Create typeclass for Keybinding to make script extendable
    * Custom Layout, allowing:
       On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)  
    * xscreensaver
    * editTODO shortcut should autocommit + -push
-   * prt sc -> screenshot
 
-> ACTIVE
+ KEYBOARD
+
+   * Create Prototype (Dactyl based)
+     - Install and get familiar with OpanSCAD
+     - Get familiar with printing
+     - Print keyboard parts without modification
+     - Order the needed parts
+     - Build it
+     - ...?
+
+> ACTIVE (Keep to minimum, try to complete or otherwise defer)
+
+   * Multiple screens, more info at:
+      https://hackage.haskell.org/package/xmonad-0.13/docs/XMonad-StackSet.html
+      https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Replacing_greedyView_with_view
+      https://www.reddit.com/r/xmonad/comments/ndww5/dual_screens_multi_monitors_tips_and_tricks/
+   * Ctrl+BS as kill-word in fish
+   * Keybindings for Volume/Brightness
+
+> DEFER (should do but uncertain how to solve, await more time to research)
 
  GENERAL
 
-   * Bluetooth headphones
-   * Ctrl+BS as kill-word in fish
-
- XMONAD
-
-   * Keybindings for Volume/Brightness
-
-> DEFER (should do but uncertain how to solve after initial cursory review, so will defer till have more time to research)
+   * Bluetooth headphones, low sound quality
 
  XMONAD
 
    * Only press Super to open dmenu
 
-> DONE 
+> DONE
+
+ XMONAD
+
+   * prt sc -> screenshot
 
 > TESTED/REJECTED/WONTFIX
 
