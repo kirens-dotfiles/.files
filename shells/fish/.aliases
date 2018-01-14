@@ -53,6 +53,8 @@ alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 
 # Screen
 alias brightness="xrandr --output eDP1 --brightness"
 
+alias screenshots="feh --draw-filename --thumbnails -E 200 -y 350 ~/screenshots/"
+
 # Voume
 #function vol {
 #  echo $1

@@ -30,6 +30,9 @@
       On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)  
    * xscreensaver
    * editTODO shortcut should autocommit + -push
+   * XMobar configuration file included in xmonad.hs to prevent code duplication
+   * Dynamic creation of XMobars Depending on number of attached monitiors
+   * Multiple monitors => better hotswaping
 
  KEYBOARD
 
@@ -43,10 +46,6 @@
 
 > ACTIVE (Keep to minimum, try to complete or otherwise defer)
 
-   * Multiple screens, more info at:
-      https://hackage.haskell.org/package/xmonad-0.13/docs/XMonad-StackSet.html
-      https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Replacing_greedyView_with_view
-      https://www.reddit.com/r/xmonad/comments/ndww5/dual_screens_multi_monitors_tips_and_tricks/
    * Ctrl+BS as kill-word in fish
 
 > DEFER (should do but uncertain how to solve, await more time to research)
@@ -65,6 +64,7 @@
 
    * prt sc -> screenshot
    * Keybindings for Volume/Brightness
+   * Multiple monitors, basic
 
 > TESTED/REJECTED/WONTFIX
 
