@@ -29,6 +29,10 @@ alias aliasstore="vi $DOTFILES/shells/fish/.aliases"
 
 # WiFi
 alias wifi="nmcli device wifi list"
+alias addcon_open="sudo nmcli device wifi con"
+alias addcon='sudo cat | head -1 | awk \'{print "password\n" $0}\' | xargs -d \'\n\' sudo nmcli device wifi con'
+alias cons='nmcli con'
+alias delcon='sudo nmcli con delete id'
 
 # Power mgmt
 alias hibernate-pc="systemctl hibernate"
