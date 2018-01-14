@@ -48,7 +48,7 @@ alias dodelgen="sudo nix-env -p /nix/var/nix/profiles/system --delete-generation
 alias bootentry="sudo nixos-rebuild switch -p"
 
 # Battery
-alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|to\ full|percentage'"
+alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|time\ to\ empty|percentage'"
 
 # Screen
 alias brightness="xrandr --output eDP1 --brightness"
