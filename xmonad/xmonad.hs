@@ -108,6 +108,7 @@ void = (>> return ())
 
 spawnScript = spawn.(scriptsDir++)
 
+cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 
 -- xbacklight
 --------------------------------------------------------------------------
@@ -131,38 +132,26 @@ backlight n = liftIO $ (runProcessWithInput "xbacklight" [] "")
         )
     >> return ()
 
+backlightUp = backlight 1
+backlightDn = backlight (-1)
 
 
 -- amixer
 --------------------------------------------------------------------------
 
-backlightUp = backlight 1
-backlightDn = backlight (-1)
+setVol :: Int -> X ()
+setVol n = spawn$ "amixer set Master "++ show n
 
-volume :: Int -> X ()
-volume n = liftIO $ (runProcessWithInput "amixer get Master | grep -oe \"[0-9]*%\"" [] "")
-    >>= \s -> case reads s of
-      [(v,_)] -> runProcessWithInput "amixer" ["set", "Master", show (v+n) ++ "%"] ""
-      _       -> return "" 
-    >> return ()
-volumeUp = volume 10
-volumeDn = volume (-10)
+withVol :: (Num a, Read a) => (a -> X ()) -> X ()
+withVol fn = void$ sequence.(return.fn.fst =<<).reads
+  =<< cmd "sh" ["-c", "amixer get Master | grep -oP '(?<=(?<!Limits: )Playback )[0-9]*' | head -1"]
 
-vol :: Int -> X ()
-vol 0 = liftIO $ runProcessWithInput ("amixer set Master " ++ show 0 ++ "%") [] ""
-        >> return ()
-vol n = liftIO $ (runProcessWithInput "xbacklight" [] "")
-    >>= ( read
-      >>> round
-      >>> (\n -> length (takeWhile (<n) bValues))
-      >>> (+n)
-      >>> (min $ length bValues - 1)
-      >>> (max 0)
-      >>> (bValues !!)
-      >>> show
-      >>> (\n-> runProcessWithInput "echo 'a' > /home/kiren/a" [] "")
-        )
-    >> return ()
+linVol n  = withVol (setVol.(+n))
+
+volumeUp = linVol 1000
+volumeDn = linVol (-1000)
+
+toggleMute = spawn "amixer set Master 1+ toggle"
 
 
 -- Background
@@ -333,8 +322,9 @@ myKeys conf = mkKeymap conf $
   -- Media keys
   , ("<XF86MonBrightnessUp>", backlightUp)
   , ("<XF86MonBrightnessDown>", backlightDn)
-  , ("<XF86AudioRaiseVolume>", vol 1)
-  , ("<XF86AudioLowerVolume>", vol (-1))
+  , ("<XF86AudioRaiseVolume>", volumeUp)
+  , ("<XF86AudioLowerVolume>", volumeDn)
+  , ("<XF86AudioMute>", toggleMute)
   , ("M-p", toggleTrackpad)
   , ("<Print>", printScreen)
 
