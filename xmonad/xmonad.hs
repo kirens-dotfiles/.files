@@ -35,6 +35,9 @@ import Control.Arrow hiding ((<+>), (|||))
 -- Workspace cycling
 import XMonad.Actions.CycleWS
 
+-- Xmobar generating
+import qualified Xmobar.MyConfig as MyXmobar
+
 -- Multiple monitors
 import qualified XMonad.StackSet as W
 
@@ -208,8 +211,8 @@ resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --o
 -- Status bar                                                          {{{
 --------------------------------------------------------------------------
 
-launchXmobar = spawnPipe "xmobar $HOME/.xmonad/xmobar.hs"
-launchXmobar2 = spawnPipe "xmobar $HOME/.xmonad/xmobar2.hs"
+launchXmobar :: MonadIO m => FilePath -> m Handle
+launchXmobar file = spawnPipe$ "xmobar " ++ file
 
 
 xmobarTitleColor = base3
@@ -223,6 +226,14 @@ xmobarConf xmproc = dynamicLogWithPP $ xmobarPP
   , ppSep    = "  "
   } 
 
+
+-- Bar config
+mkXmobarCfg :: IO FilePath
+mkXmobarCfg = do
+-- name <- getName
+  let name = "/tmp/xmobarCfg"
+  writeFile name $ show $ MyXmobar.myXmobar
+  return name
 
 -----------------------------------------------------------------------}}}
 -- Layouts                                                             {{{
@@ -262,9 +273,9 @@ startup = do
 
 --main = xmonad.docks.configBase =<< launchXmobar
 main = do
-  xmp <- launchXmobar
-  xmp2 <- launchXmobar2
-  xmonad$docks$configBase [xmp, xmp2]
+  bar1 <- mkXmobarCfg
+  xmp <- launchXmobar bar1
+  xmonad$docks$configBase [xmp]
 
 
 --configBase :: MonadIO Handle -> XConfig l
@@ -332,7 +343,7 @@ myKeys conf = mkKeymap conf $
   , ("M-o", resetScreens)
   , ("M-S-o", restartCompton)
   , ("M-<Esc>", reloadXMonad)
-  , ("M-S-<Esc>", io (exitWith ExitSuccess))
+  , ("M-S-<Esc>", liftIO$exitWith ExitSuccess)
   --, ("M-S-z", spawn "xscreensaver-command -lock")
   ]
   -- Switch workspace

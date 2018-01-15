@@ -1,4 +1,10 @@
-Config
+module Xmobar.MyConfig where
+
+import Xmobar.Config
+import Xmobar.Interfaces
+
+
+myXmobar = defaultXmobar
   { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
   , additionalFonts = [ "xft:FontAwesome:pixelsize=14:antialias=true:hinting=true" ]
   , bgColor = "black"
@@ -7,19 +13,19 @@ Config
   , commands = 
     [ Run StdinReader
 
-    , Run Cpu
+    , Run$ Cpu
         [ "-L", "7"
         , "-H", "50"
         , "--normal", "#9F9"
         , "--high", "#F99"
         ] 100
 
-    , Run Memory
+    , Run$ Memory
         ["-t","Mem: <usedratio>%"] 100
 
-    , Run Swap [] 100
+    , Run$ Swap [] 100
 
-    , Run Battery
+    , Run$ Battery
         [ "--template" , "<acstatus>"
         , "--"
         , "-o"  , "<fn=1>\xf242</fn> <left>% (<timeleft>)"
@@ -27,13 +33,13 @@ Config
         , "-i"  , "<fn=1>\xf0e7</fn>"
         ] 50
 
-    , Run Com "/home/kiren/.xmonad/scripts/wireless.sh" [] "wifi" 30
+    , Run$ Com "/home/kiren/.xmonad/scripts/wireless.sh" [] "wifi" 30
 
-    , Run Com "/home/kiren/.xmonad/scripts/vol_lvl.sh" [] "myvolume" 10
+    , Run$ Com "/home/kiren/.xmonad/scripts/vol_lvl.sh" [] "myvolume" 10
 
-    , Run Date "%a %-d/%-m %H:%M:%S" "date" 10
+    , Run$ Date "%a %-d/%-m %H:%M:%S" "date" 10
 
-    , Run Weather "EGPF"
+    , Run$ Weather "EGPF"
         [ "-t", " <tempC>°"
         , "-L", "8"
         , "-H", "19"
