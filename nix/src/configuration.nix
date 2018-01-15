@@ -77,10 +77,11 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    # sys
+    ## sys
     ntfs3g
 
-    # tools
+    ## tools
+    # dig (DNS)
     bind
     wget
     wirelesstools
@@ -88,7 +89,11 @@
     sudo
     neovim
     gitAndTools.gitFull
+    # pdf tools
     pdftk
+
+    # Terminal web-browser
+    elinks
 
     ghc
     haskellPackages.xmobar
@@ -97,14 +102,17 @@
     haskellPackages.xmonad-extras
     haskellPackages.X11
 
-    # X11 stuff
+    ## X11 stuff
     arandr
 
+    # Image viewer
     feh
     xclip
     xorg.xwininfo
     xlibs.xbacklight
+    # Detect keypress
     xlibs.xev
+    # Remaping keys
     xlibs.xmodmap
 
     imagemagick7
