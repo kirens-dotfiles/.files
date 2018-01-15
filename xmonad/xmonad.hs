@@ -47,6 +47,8 @@ import qualified Data.Map as Map
 -- Transparent Inactive Windows
 import XMonad.Hooks.FadeInactive
 
+-- Detecting screens
+import XMonad.Layout.IndependentScreens
 
 -----------------------------------------------------------------------}}}
 -- Constants                                                           {{{
@@ -228,11 +230,11 @@ xmobarConf xmproc = dynamicLogWithPP $ xmobarPP
 
 
 -- Bar config
-mkXmobarCfg :: IO FilePath
-mkXmobarCfg = do
+mkXmobarCfg :: Int -> IO FilePath
+mkXmobarCfg s = do
 -- name <- getName
-  let name = "/tmp/xmobarCfg"
-  writeFile name $ show $ MyXmobar.myXmobar
+  let name = "/tmp/xmobar"++show s
+  writeFile name $ show $ MyXmobar.barOnScreen s
   return name
 
 -----------------------------------------------------------------------}}}
@@ -273,9 +275,10 @@ startup = do
 
 --main = xmonad.docks.configBase =<< launchXmobar
 main = do
-  bar1 <- mkXmobarCfg
-  xmp <- launchXmobar bar1
-  xmonad$docks$configBase [xmp]
+  -- Launch apropriately many xmobars
+  nScreens <- countScreens
+  xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [1..nScreens]
+  xmonad$docks$configBase xmobars
 
 
 --configBase :: MonadIO Handle -> XConfig l
