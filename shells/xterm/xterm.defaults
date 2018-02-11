@@ -1,2 +1,2 @@
-#include "themes/solarized.dark"
+#include "themes/solarized.light"
 #include "xterm.all"
