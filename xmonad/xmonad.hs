@@ -23,6 +23,9 @@ import System.Exit
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 
+-- More Layouts
+import XMonad.Layout.Spiral
+
 -- Date (for screenshots)
 import Data.Time
 
@@ -115,6 +118,13 @@ spawnScript = spawn.(scriptsDir++)
 
 cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 
+
+-- lock
+--------------------------------------------------------------------------
+
+lock = spawn "i3lock-fancy" -- "xautolock -locknow"
+
+
 -- xbacklight
 --------------------------------------------------------------------------
 
@@ -172,7 +182,7 @@ setBkgrnd n = spawn $ "feh --bg-fill $HOME/backgrounds/" ++ n
 -- Introspective
 --------------------------------------------------------------------------
 editXmonadConfig :: X ()
-editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/xmonad.hs\""
+editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/\""
 
 editTODO :: X ()
 editTODO = spawn "xterm -e \"vi $DOTFILES/TODO\""
@@ -242,7 +252,7 @@ mkXmobarCfg s = do
 --------------------------------------------------------------------------
 
 myLayout = mkToggle (FULL ?? EOT)
-         $ tiled ||| Mirror tiled
+         $ tiled ||| Mirror tiled ||| spiral (6/7)
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled = Tall nmaster delta ratio
@@ -267,7 +277,10 @@ myManageHook = composeAll
 --------------------------------------------------------------------------
 
 startup = do
+    setVol 0
     setBkgrnd defaultBackground
+    spawn "xautolock -time 15 -locker i3lock-fancy"
+    lock
 
 -----------------------------------------------------------------------}}}
 -- Main                                                                {{{
@@ -343,8 +356,9 @@ myKeys conf = mkKeymap conf $
   , ("<Print>", printScreen)
 
   -- misc
-  , ("M-o", resetScreens)
-  , ("M-S-o", restartCompton)
+  , ("M-q", lock)
+  , ("M-M1-S-o", resetScreens)
+  , ("M-M1-o", restartCompton)
   , ("M-<Esc>", reloadXMonad)
   , ("M-S-<Esc>", liftIO$exitWith ExitSuccess)
   --, ("M-S-z", spawn "xscreensaver-command -lock")
