@@ -102,9 +102,19 @@
     haskellPackages.xmonad-extras
     haskellPackages.X11
 
+    python27Full
+    python27Packages.virtualenv
+    python3
+
+    gcc
+    libffi
+
     ## X11 stuff
+    # Graphical screen config utility
     arandr
 
+    i3lock-fancy
+    xautolock
     # Image viewer
     feh
     xclip
@@ -115,6 +125,9 @@
     # Remaping keys
     xlibs.xmodmap
 
+    # Magnifier
+    xzoom
+
     imagemagick7
     mupdf
 
@@ -123,10 +136,12 @@
     dmenu
 
     gimp
+    inkscape
     libreoffice
     thunderbird
     firefox
     chromium
+    atom
   ];
   # Fonts :D
   fonts = {
@@ -182,13 +197,22 @@
     bluetooth.enable = true;
     pulseaudio = {
       enable = true;
+#      support32Bit = true;    ## If compatibility with 32-bit applications is desired.
+      configFile = "/home/kiren/conf.pa";
       package = pkgs.pulseaudioFull;
     };
   };
 
-  environment.etc."Xmodmap".text = import ./lib/.Xmodmap.nix { };
+  environment.etc."Xmodmap".text = builtins.readFile ./lib/.Xmodmap;
 
   services.xserver = {
+    enable = true;
+    layout = "se";
+
+    desktopManager.xterm.enable = false;
+    desktopManager.default = "none";
+
+    windowManager.default = "xmonad";
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
@@ -198,24 +222,37 @@
         haskellPackages.xmonad
       ];
     };
-    windowManager.default = "xmonad";
     #videoDrivers = [ "intel" ];
 #    vaapiDrivers = [ pkgs.vaapiIntel ];
 
-    enable = true;
-    layout = "se";
-    desktopManager.xterm.enable = false;
-    desktopManager.default = "none";
+#    xautolock = {
+#        locker = "i3lock-fancy";
+#        #nowlocker = "i3lock-fancy";
+#        time = 1;
+#    };
+
+#     defaultApps = [
+#         {mimetypes = ["image/png" "image/jpeg" "image/gif" "image/x-apple-ios-png"]; exec = "${pkgs.feh}/bin/feh";}
+# #        {mimetypes = ["text/plain" "text/css"]; exec = "${pkgs.e19.ecrire}/bin/ecrire";}
+#         {mimetypes = ["text/html"]; exec = "${pkgs.firefox}/bin/firefox";}
+# #        {mimetypes = ["inode/directory"]; exec = "/run/current-system/sw/bin/spacefm";}
+#         {mimetypes = ["x-scheme-handler/http" "x-scheme-handler/https"]; exec = "${pkgs.firefox}/bin/firefox";}
+# #        {mimetypes = ["application/x-compressed-tar" "application/zip"]; exec = "/run/current-system/sw/bin/xarchiver";}
+#     ];
 
     displayManager = {
-      slim = {
-        enable = true;
-        defaultUser = "kiren";
-        theme = pkgs.fetchurl {
-          url = "https://github.com/edwtjo/nixos-black-theme/archive/v1.0.tar.gz";
-          sha256 = "13bm7k3p6k7yq47nba08bn48cfv536k4ipnwwp1q1l2ydlp85r9d";
-        };
-      };
+      auto.enable = true;
+      auto.user = "kiren";
+      
+#      slim = {
+#        enable = false;
+#        enable = true;
+#        defaultUser = "kiren";
+#        theme = pkgs.fetchurl {
+#          url = "https://github.com/edwtjo/nixos-black-theme/archive/v1.0.tar.gz";
+#          sha256 = "13bm7k3p6k7yq47nba08bn48cfv536k4ipnwwp1q1l2ydlp85r9d";
+#        };
+#      };
     };
     # Trackpad
     synaptics = {
@@ -247,6 +284,16 @@
     brightness.day = "1";
     brightness.night = "0.5";
   };
+  # acpid
+  services.acpid = {
+    enable = true;
+    # Slock & suspend on lid close
+    lidEventCommands = ''
+      i3lock-fancy& systemctl suspend
+    '';
+  };
+
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
