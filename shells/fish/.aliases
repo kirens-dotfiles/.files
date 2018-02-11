@@ -10,10 +10,13 @@ alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
 alias gd="git diff"
+alias gl="git log"
 
 # Move about and look around
 alias l="ls -lA"
 alias la="ls -A"
+alias ld="l -d"
+alias llast='sh -c \'ls -lt $0 | head -2\''
 
 # Copy paste pipe
 alias pbcopy="xclip -selection clipboard"
@@ -34,20 +37,29 @@ alias addcon='sudo cat | head -1 | awk \'{print "password\n" $0}\' | xargs -d \'
 alias cons='nmcli con'
 alias delcon='sudo nmcli con delete id'
 
-# Power mgmt
-alias hibernate-pc="systemctl hibernate"
-alias sleep-pc="systemctl suspend"
+# Sound
+alias lssound='pacmd list-sinks | grep -e device.string -e \'name:\' -e index -e sample'
+alias lsaudio='pacmd list-sources | grep -e device.string -e \'name:\' -e index'
 
-# Nixos conf shortcut
+# Power mgmt
+alias hibernate-pc="i3lock-fancy& systemctl hibernate"
+alias sleep-pc="i3lock-fancy& systemctl suspend"
+
+# Nixos shortcut
 #alias nxc="vi /etc/nixos/configuration.nix"
 #alias snxc="sudo nvim /etc/nixos/configuration.nix"
 alias nxc="vi -R $DOTFILES/nix/src"
 alias snxc="bash $DOTFILES/executables/enix"
+alias nix-pkgsearch='nix-env -qaP | grep '
 alias nix-hspackages="nix-env -f \"<nixpkgs>\" -qaP -A haskellPackages"
+alias nix-storefolders="find /nix/store -maxdepth 1 -type d -name '*' -a ! -name 'trash' -a ! -wholename '/nix/store' -a ! -name '.links'"
+alias nix-storefind='nix-storefolders | grep'
 
-alias gens="sudo nix-env -p /nix/var/nix/profiles/system --list-generations"
-alias delgen="sudo nix-env -p /nix/var/nix/profiles/system --dry-run --delete-generations"
-alias dodelgen="sudo nix-env -p /nix/var/nix/profiles/system --delete-generations"
+alias nix-garbagecollect='nix-store --gc'
+alias nix-mygens='nix-env --list-generations'
+alias nix-gens="sudo nix-env -p /nix/var/nix/profiles/system --list-generations"
+alias nix-delgen="sudo nix-env -p /nix/var/nix/profiles/system --dry-run --delete-generations"
+alias nix-dodelgen="sudo nix-env -p /nix/var/nix/profiles/system --delete-generations"
 
 alias bootentry="sudo nixos-rebuild switch -p"
 
