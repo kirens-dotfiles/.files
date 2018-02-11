@@ -1,0 +1,2 @@
+#! /usr/bin/env bash
+amixer get Master | grep -oe "[0-9]*%" -m1

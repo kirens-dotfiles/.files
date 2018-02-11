@@ -34,9 +34,9 @@ barOnScreen screenNr = defaultXmobar
         , "-i"  , "<fn=1>\xf0e7</fn>"
         ] 50
 
-    , Run$ Com "/home/kiren/.xmonad/scripts/wireless.sh" [] "wifi" 30
+    , Run$ Com "/home/kiren/.xmonad/scripts/prettyprints/wireless" [] "wifi" 30
 
-    , Run$ Com "/home/kiren/.xmonad/scripts/vol_lvl.sh" [] "myvolume" 10
+    , Run$ Com "/home/kiren/.xmonad/scripts/prettyprints/vol_lvl" [] "myvolume" 10
 
     , Run$ Date "%a %-d/%-m %H:%M:%S" "date" 10
     ]

@@ -1,0 +1,26 @@
+#! /usr/bin/env bash
+#hhp
+
+lock () {
+    synclient TouchpadOff=1
+#    ~/.xmonad/scripts/hhp
+}
+unlock () {
+    synclient TouchpadOff=0
+}
+
+if synclient | grep 'TouchpadOff.*0'; then
+    # Touchpad is off
+    lock
+else
+    # Touchpad is on
+    unlock
+fi
+
+#if [ -z $1 ]; then
+#    synclient TouchpadOff=1
+#    ~/.xmonad/lib/hhp
+#else
+    # Enable
+#    synclient TouchpadOff=0
+#fi
