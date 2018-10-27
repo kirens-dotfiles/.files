@@ -16,6 +16,12 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import XMonad.Util.Run
 
+-- Gnome support stuff (e.g. getactivewindow)
+import XMonad.Hooks.EwmhDesktops
+
+-- swingstuff
+import XMonad.Hooks.SetWMName
+
 -- For default XMonad config
 import XMonad.Config
 
@@ -66,7 +72,7 @@ import XMonad.Actions.SinkAll
 
 homeDir = "/home/kiren/"
 scriptsDir = homeDir++".xmonad/scripts/"
-terminalName = "termite"
+terminalName = "xterm" -- "termite"
 
 -- Colors
 ------------
@@ -302,6 +308,7 @@ startup = do
     setBkgrnd defaultBackground
     spawn "xautolock -time 15 -locker i3lock-fancy"
     lock
+    setWMName "LG3D"
 
 -----------------------------------------------------------------------}}}
 -- Main                                                                {{{
@@ -312,7 +319,7 @@ main = do
   -- Launch apropriately many xmobars
   nScreens <- countScreens
   xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [1..nScreens]
-  xmonad$docks$configBase xmobars
+  xmonad$ewmh$docks$configBase xmobars
 
 theLogHook xmproc =
   -- fade hook
