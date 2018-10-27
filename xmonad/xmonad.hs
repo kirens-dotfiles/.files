@@ -16,6 +16,9 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import XMonad.Util.Run
 
+-- For default XMonad config
+import XMonad.Config
+
 -- To exit XMonad
 import System.Exit
 
@@ -25,6 +28,7 @@ import XMonad.Layout.MultiToggle.Instances
 
 -- More Layouts
 import XMonad.Layout.Spiral
+import XMonad.Layout.ThreeColumns
 
 -- Date (for screenshots)
 import Data.Time
@@ -53,13 +57,16 @@ import XMonad.Hooks.FadeInactive
 -- Detecting screens
 import XMonad.Layout.IndependentScreens
 
+-- Force windows to not float
+import XMonad.Actions.SinkAll
+
 -----------------------------------------------------------------------}}}
 -- Constants                                                           {{{
 --------------------------------------------------------------------------
 
 homeDir = "/home/kiren/"
 scriptsDir = homeDir++".xmonad/scripts/"
-
+terminalName = "termite"
 
 -- Colors
 ------------
@@ -118,6 +125,13 @@ spawnScript = spawn.(scriptsDir++)
 
 cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 
+
+-- Terminal stuff
+--------------------------------------------------------------------------
+
+terminalApp = spawn terminalName
+-- TODO: escape single quotes
+terminalExec cmd = spawn (terminalName ++ " -e \"fish -c '" ++ cmd ++ "' \"")
 
 -- lock
 --------------------------------------------------------------------------
@@ -182,10 +196,10 @@ setBkgrnd n = spawn $ "feh --bg-fill $HOME/backgrounds/" ++ n
 -- Introspective
 --------------------------------------------------------------------------
 editXmonadConfig :: X ()
-editXmonadConfig = spawn "xterm -e \"vi $DOTFILES/xmonad/\""
+editXmonadConfig = terminalExec "vi $DOTFILES/xmonad/"
 
 editTODO :: X ()
-editTODO = spawn "xterm -e \"vi $DOTFILES/TODO\""
+editTODO = terminalExec "vi $DOTFILES/TODO"
 
 reloadXMonad :: X ()
 reloadXMonad = spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"
@@ -217,7 +231,7 @@ restartCompton :: X ()
 restartCompton = spawn "sh -c 'ps -e | grep compton | grep -oe \"[0-9]*\" | head -1 | xargs kill'"
 
 resetScreens :: X ()
-resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --output HDMI1 --off --output DP1 --off"
+resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --output HDMI1 --off --output DP1 --off --output HDMI2 --off"
 
 -----------------------------------------------------------------------}}}
 -- Status bar                                                          {{{
@@ -236,6 +250,13 @@ xmobarConf xmproc = dynamicLogWithPP $ xmobarPP
   , ppTitle   = xmobarColor xmobarTitleColor "" . shorten 100
   , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
   , ppSep    = "  "
+  }
+
+xmobarInactiveConf xmproc = dynamicLogWithPP $ xmobarPP
+  { ppOutput  = hPutStrLn xmproc
+  , ppTitle   = xmobarColor "green" "" . shorten 100
+  , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+  , ppSep    = "  "
   } 
 
 
@@ -252,7 +273,7 @@ mkXmobarCfg s = do
 --------------------------------------------------------------------------
 
 myLayout = mkToggle (FULL ?? EOT)
-         $ tiled ||| Mirror tiled ||| spiral (6/7)
+         $ tiled ||| Mirror tiled ||| ThreeCol 1 (3/100) (1/2) ||| ThreeColMid 1 (3/100) (1/2) ||| spiral (6/7)
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled = Tall nmaster delta ratio
@@ -293,12 +314,23 @@ main = do
   xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [1..nScreens]
   xmonad$docks$configBase xmobars
 
+theLogHook xmproc =
+  -- fade hook
+  fadeInactiveLogHook 0.9
+  >> xmprocing xmproc
+
+-- xmprocing (p:r) = sequence (xmobarInactiveConf p :(map xmobarConf r))
+-- xmprocing []    = return []
+
+xmprocing = sequence.(zipWith (\n p -> if n==1 then xmobarInactiveConf p else xmobarConf p) [1..])
+
 
 --configBase :: MonadIO Handle -> XConfig l
-configBase xmproc = defaultConfig
-  { manageHook  = manageDocks <+> manageHook defaultConfig
+configBase xmproc = def
+  { manageHook  = manageDocks <+> manageHook def
   , layoutHook  = avoidStruts $ myLayout
-  , logHook     = fadeInactiveLogHook 0.8 >> void (sequence (xmproc >>= return.xmobarConf))
+  -- void the log hook to have a X ()
+  , logHook     = void (theLogHook xmproc)
   , startupHook = startup
   , borderWidth = 0
   , modMask     = mod4Mask  -- Rebind Mod to the Windows key
@@ -325,7 +357,7 @@ numsWith k = map ((k++).show) [1..9]
 myKeys conf = mkKeymap conf $
   -- Quick launches
   [ ("M-a", spawn "dmenu_run")
-  , ("M-s", spawn "xterm")
+  , ("M-s", terminalApp)
   , ("M-e", editXmonadConfig)
   , ("M-t", editTODO)
 
@@ -339,6 +371,7 @@ myKeys conf = mkKeymap conf $
   , ("M-S-<Return>", windows W.swapMaster)
   , ("M-h", sendMessage Shrink)
   , ("M-l", sendMessage Expand)
+  , ("M-S-<Space>", sinkAll)
 
   -- Workspaces
   , ("M-C-h", prevWS)

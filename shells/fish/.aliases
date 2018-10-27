@@ -1,22 +1,52 @@
+# tmp
+alias dst='java -jar _FILES/courses/dst/MARS44_PET11d.jar'
+
+# Lampa
+alias lampa='bash -c \'curl "https://lampa.click/lampa?mode=rgb&time=1000&hex=$0"\''
+
+# Fish helper
+alias prefixTime='while read pong; echo [(date +%H:%M:%S)] $pong; end'
+alias prefixDatetime='while read pong; echo [(date +"%d/%m %H:%M:%S")] $pong; end'
+alias trackCon='ping -i 20 1.1.1.1 | prefixTime'
+
 # I'm lazy and like vim
 alias vim=nvim
 alias vi=vim
 alias r="vi -R"
+
+# Memory aliases
+alias explore=krusader
+
+# Node things
+alias jsdocs='jsdoc -c /home/kiren/.npm/global/jsdoc.global.conf.json'
+
+# ELM
+alias elm-env="nix-shell -I nixpkgs='https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz' -p elmPackages.elm"
 
 # Git shorthands
 alias gs="git status"
 alias gsu="gs -uno"
 alias ga="git add"
 alias gc="git commit"
+alias gcm="gc -m"
+alias gcam="gc -am"
+alias gf="git fetch"
+alias gm="git merge"
 alias gp="git push"
 alias gd="git diff"
 alias gl="git log"
+alias gl1="gl -n 1"
+alias gprune="gf --prune"
+
+# LaTeX stuff
+alias mkxe='sh -c \'xelatex -halt-on-error -output-directory=./out $0 > ./out/std_out\''
 
 # Move about and look around
-alias l="ls -lA"
+alias l="ls -lAh"
 alias la="ls -A"
 alias ld="l -d"
-alias llast='sh -c \'ls -lt $0 | head -2\''
+alias llast='sh -c \'ls -hlt $0 | head -2\''
+alias llasts='sh -c \'ls -hlt $1 | head -$(( 1 + $0 ))\''
 
 # Copy paste pipe
 alias pbcopy="xclip -selection clipboard"
@@ -68,6 +98,13 @@ alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 
 
 # Screen
 alias brightness="xrandr --output eDP1 --brightness"
+
+# Screenshots
+alias screenshot-last='ls -t ~/screenshots/ | head -1 | awk \'{print "/home/kiren/screenshots/" $1}\''
+alias screenshot-view-last='screenshot-last | xargs feh'
+alias screenshot-edit-last='screenshot-last | xargs gimp'
+alias screenshot-remove-last='screenshot-last  | xargs rm'
+alias screenshot-edit-remove-last='screenshot-edit-last; screenshot-remove-last'
 
 alias screenshots="feh --draw-filename --thumbnails -E 200 -y 350 ~/screenshots/"
 

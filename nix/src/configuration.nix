@@ -15,11 +15,11 @@
   fileSystems."/media/windows" = {
     device = "/dev/sda3";
   };
-  fileSystems."/media/e" = {
-    device = "/dev/sda5";
-#    fsType = "auto";
-#    options = [ "remount" "rw" "gid=1000" ];
-  };
+#  fileSystems."/media/e" = {
+#    device = "/dev/sda5";
+##    fsType = "auto";
+##    options = [ "remount" "rw" "gid=1000" ];
+#  };
 
 
 #  fileSystems = [
@@ -61,6 +61,7 @@
   powerManagement.enable = true; 
 
   networking.hostName = "nixpix"; # Define your hostname.
+  networking.nameservers = [ "1.1.1.1" "2606:4700:4700::1111,2606:4700:4700::1001" ];
 #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
@@ -82,6 +83,7 @@
 
     ## tools
     # dig (DNS)
+    htop
     bind
     wget
     wirelesstools
@@ -89,6 +91,7 @@
     sudo
     neovim
     gitAndTools.gitFull
+    gnupg
     # pdf tools
     pdftk
 
@@ -97,10 +100,10 @@
 
     ghc
     haskellPackages.xmobar
-    haskellPackages.xmonad
-    haskellPackages.xmonad-contrib
-    haskellPackages.xmonad-extras
-    haskellPackages.X11
+   # haskellPackages.xmonad
+   # haskellPackages.xmonad-contrib
+   # haskellPackages.xmonad-extras
+   ## haskellPackages.X11
 
     python27Full
     python27Packages.virtualenv
@@ -135,6 +138,9 @@
 
     dmenu
 
+    # Explorer
+    krusader
+
     gimp
     inkscape
     libreoffice
@@ -157,6 +163,7 @@
       # Coding
       hack-font
       source-code-pro
+      unifont
     ];
   };
 
@@ -176,7 +183,7 @@
     createHome = true;
     home = "/home/kiren";
     description = "Erik Nygren";
-    extraGroups = [ "wheel" "kiren" ];
+    extraGroups = [ "wheel" "kiren" "docker" ];
     shell = pkgs.fish;
   };
   users.extraGroups.kiren = {
@@ -208,6 +215,11 @@
   services.xserver = {
     enable = true;
     layout = "se";
+
+#    desktopManager = {
+#      gnome3.enable = true;
+#      default = "gnome3";
+#    };
 
     desktopManager.xterm.enable = false;
     desktopManager.default = "none";
@@ -280,9 +292,9 @@
     latitude = "57.687574";
     longitude = "11.979733";
     temperature.day = 6500;
-    temperature.night = 3500;
+    temperature.night = 6500; #3500;
     brightness.day = "1";
-    brightness.night = "0.5";
+    brightness.night = "5"; #"0.5";
   };
   # acpid
   services.acpid = {
@@ -293,10 +305,43 @@
     '';
   };
 
+#  services.openvpn.servers = {
+#    testVPN  = { config = '' config vpn/mullvad_se.conf ''; };
+#  };
+
+  virtualisation.docker.enable = true;
+
+  # PostgreSQL
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql100;
+    enableTCPIP = true;
+    port = 5432;
+
+    authentication = pkgs.lib.mkOverride 10 ''
+      local all all              trust
+      host  all all 127.0.0.1/32 trust
+      host  all all 0.0.0.0/0    trust
+      host  all all ::1/128      trust
+    '';
+    extraConfig = ''
+      listen_addresses = '*'
+    '';
+
+    initialScript = pkgs.writeText "backend-initScript" ''
+      CREATE ROLE nixcloud WITH LOGIN PASSWORD 'nixcloud' CREATEDB;
+      CREATE DATABASE nixcloud;
+      GRANT ALL PRIVILEGES ON DATABASE nixcloud TO nixcloud;
+
+      CREATE ROLE lemmingpants WITH LOGIN PASSWORD 'lemmingpants' CREATEDB;
+      ALTER USER lemmingpant CREATEDB;
+    '';
+  };
+
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "17.09"; # Did you read the comment?
+  system.stateVersion = "18.03"; # Did you read the comment?
 }

@@ -1,7 +1,10 @@
 ! clear all CapsLock modifiers
 clear Lock
 ! Set CapsLock to BackSpace
-keycode 66 = BackSpace Delete Caps_Lock
+! keycode 66 = BackSpace BackSpace Caps_Lock Caps_Lock Delete Delete
+keycode 66 = BackSpace BackSpace Delete Delete a a
+! Add capsLock on orig BackSpace key
+keycode 22 = Caps_Lock
 ! Add CapsLock modifier again
 !add Lock = Caps_Lock
 
@@ -29,3 +32,6 @@ keycode 44 Mod5 = j J Next Next Down Down
 keycode 45 Mod5 = k K Prior Prior Up Up
 ! l: 46 -> Right
 keycode 46 Mod5 = l L End End Right Right
+
+! Paragraph point: mod? + p
+keycode 33 Mod5 = p P enfilledcircbullet enopencircbullet section paragraph

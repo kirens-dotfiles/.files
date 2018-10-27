@@ -19,7 +19,7 @@ barOnScreen screenNr = defaultXmobar
         , "-H", "50"
         , "--normal", "#9F9"
         , "--high", "#F99"
-        ] 100
+        ] 50
 
     , Run$ Memory
         ["-t","<usedratio>"] 100 -- Look into coloring percentages
@@ -32,7 +32,7 @@ barOnScreen screenNr = defaultXmobar
         , "-o"  , "<fn=1>\xf242</fn> <left>% (<timeleft>)"
         , "-O"  , "<fn=1>\xf0e7</fn> <left>%"
         , "-i"  , "<fn=1>\xf0e7</fn>"
-        ] 50
+        ] 10
 
     , Run$ Com "/home/kiren/.xmonad/scripts/prettyprints/wireless" [] "wifi" 30
 
