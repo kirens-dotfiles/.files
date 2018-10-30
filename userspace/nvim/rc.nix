@@ -13,4 +13,7 @@ set clipboard=unnamedplus
 
 " No trailing spaces pls
 autocmd BufWritePre * %s/\s\+$//e
+
+" map mouse activity
+:set mouse=a
 ''

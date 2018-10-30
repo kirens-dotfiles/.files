@@ -4,13 +4,14 @@
   * look into using servo for emeded sites / webbrowser, sequrity aspects?
     Alternatively how to get Firefox to launch webiste in "kiosk-mode"
   * Figure out good note-takeing system for future events (i.e. FuM)
+  * Instructions on how I write SMART todos (Herrrm... previous self)
 
 ## FISH
 
+  * Turn aliases into functions. (I seem to be sticking to fish after all)
 
 ## VIM
 
-  * Map mouse to visual mode
   * look into neovim coloring errors
   * Code Completeion (specifically Haskell/Javascript/Python/Java)
   * Folding colors, the current gray is horrendous
@@ -87,6 +88,7 @@
 
 ## NVIM
 
+  * Map mouse to visual mode
   * nvim as standard editor in git
 
 ## XMONAD
