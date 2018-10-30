@@ -105,20 +105,7 @@ in
       enable = true;
       viAlias = true;
 
-      configure = {
-        customRC = ''
-          set number
-          set relativenumber
-          set shiftwidth=2
-          set expandtab
-        '';
-        packages.myVimPackage = with pkgs.vimPlugins; {
-          # loaded on launch
-          start = [ vim-closetag ];
-          # manually loadable by calling `:packadd $plugin-name`
-          opt = [ ];
-        };
-      };
+      configure = import ./nvim/config.nix { pkgs = pkgs; };
     };
 
     fish = {
