@@ -24,6 +24,11 @@
 
 ## XMONAD
 
+  * Special workspaces dedicated to a program
+    - Some allways active like copyq
+    - Others started when workspace is visited and keept alive till' user kills it
+    - Third version closes when workspace is left.
+    Should be developed in with respect to on-top custom layout suggestion
   * Make different Xmobars show different content
       Highlight what workspace is on the specific screen
       The title should be the active window on the specific screen
