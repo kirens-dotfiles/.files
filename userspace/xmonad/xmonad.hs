@@ -51,6 +51,9 @@ import XMonad.Actions.CycleWS
 -- Xmobar generating
 import qualified Xmobar.MyConfig as MyXmobar
 
+-- Nix store binaries
+import qualified Nix.Pkgs as Pkgs
+
 -- Multiple monitors
 import qualified XMonad.StackSet as W
 
@@ -142,7 +145,13 @@ terminalExec cmd = spawn (terminalName ++ " -e \"fish -c '" ++ cmd ++ "' \"")
 -- lock
 --------------------------------------------------------------------------
 
-lock = spawn "i3lock-fancy" -- "xautolock -locknow"
+lock = spawn Pkgs.i3Lock -- "xautolock -locknow"
+
+
+-- CopyQ
+--------------------------------------------------------------------------
+
+copyQ = spawn Pkgs.copyQ
 
 
 -- xbacklight
@@ -175,18 +184,18 @@ backlightDn = backlight (-1)
 --------------------------------------------------------------------------
 
 setVol :: Int -> X ()
-setVol n = spawn$ "amixer set Master "++ show n
+setVol n = spawn$ Pkgs.amixer ++ " set Master "++ show n
 
 withVol :: (Num a, Read a) => (a -> X ()) -> X ()
 withVol fn = void$ sequence.(return.fn.fst =<<).reads
-  =<< cmd "sh" ["-c", "amixer get Master | grep -oP '(?<=(?<!Limits: )Playback )[0-9]*' | head -1"]
+  =<< cmd "sh" ["-c", Pkgs.amixer ++ " get Master | grep -oP '(?<=(?<!Limits: )Playback )[0-9]*' | head -1"]
 
 linVol n  = withVol (setVol.(+n))
 
-volumeUp = linVol 1000
-volumeDn = linVol (-1000)
+volumeUp = linVol 1
+volumeDn = linVol (-1)
 
-toggleMute = spawn "amixer set Master 1+ toggle"
+toggleMute = spawn$ Pkgs.amixer ++ " set Master 1+ toggle"
 
 
 -- Background
@@ -308,6 +317,7 @@ startup = do
     setBkgrnd defaultBackground
     spawn "xautolock -time 15 -locker i3lock-fancy"
     lock
+    copyQ
     setWMName "LG3D"
 
 -----------------------------------------------------------------------}}}
@@ -391,11 +401,14 @@ myKeys conf = mkKeymap conf $
   , ("<XF86MonBrightnessDown>", backlightDn)
   , ("<XF86AudioRaiseVolume>", volumeUp)
   , ("<XF86AudioLowerVolume>", volumeDn)
+ -- , ("<XF86AudioRaiseVolume>", backlightUp)
+ -- , ("<XF86AudioLowerVolume>", backlightDn)
   , ("<XF86AudioMute>", toggleMute)
   , ("M-p", toggleTrackpad)
   , ("<Print>", printScreen)
 
   -- misc
+  , ("M-c", copyQ)
   , ("M-q", lock)
   , ("M-M1-S-o", resetScreens)
   , ("M-M1-o", restartCompton)

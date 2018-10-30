@@ -1,8 +1,10 @@
+{ }:
+''
 # tmp
 alias dst='java -jar _FILES/courses/dst/MARS44_PET11d.jar'
 
 # Lampa
-alias lampa='bash -c \'curl "https://lampa.click/lampa?mode=rgb&time=1000&hex=$0"\''
+alias lampa='bash -c \'curl "https://lampa.click/lampa?mode=rgb&time=1000&hex=$0"\' '
 
 # Fish helper
 alias prefixTime='while read pong; echo [(date +%H:%M:%S)] $pong; end'
@@ -39,14 +41,14 @@ alias gl1="gl -n 1"
 alias gprune="gf --prune"
 
 # LaTeX stuff
-alias mkxe='sh -c \'xelatex -halt-on-error -output-directory=./out $0 > ./out/std_out\''
+alias mkxe='sh -c \'xelatex -halt-on-error -output-directory=./out $0 > ./out/std_out\' '
 
 # Move about and look around
 alias l="ls -lAh"
 alias la="ls -A"
 alias ld="l -d"
-alias llast='sh -c \'ls -hlt $0 | head -2\''
-alias llasts='sh -c \'ls -hlt $1 | head -$(( 1 + $0 ))\''
+alias llast='sh -c \'ls -hlt $0 | head -2\' '
+alias llasts='sh -c \'ls -hlt $1 | head -$(( 1 + $0 ))\' '
 
 # Copy paste pipe
 alias pbcopy="xclip -selection clipboard"
@@ -100,7 +102,7 @@ alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 
 alias brightness="xrandr --output eDP1 --brightness"
 
 # Screenshots
-alias screenshot-last='ls -t ~/screenshots/ | head -1 | awk \'{print "/home/kiren/screenshots/" $1}\''
+alias screenshot-last='ls -t ~/screenshots/ | head -1 | awk \'{print "/home/kiren/screenshots/" $1}\' '
 alias screenshot-view-last='screenshot-last | xargs feh'
 alias screenshot-edit-last='screenshot-last | xargs gimp'
 alias screenshot-remove-last='screenshot-last  | xargs rm'
@@ -117,4 +119,4 @@ alias screenshots="feh --draw-filename --thumbnails -E 200 -y 350 ~/screenshots/
 # xterm-color
 alias dark="xrdb -merge ~/.config/..dotfiles/shells/xterm/themes/solarized.dark"
 alias light="xrdb -merge ~/.config/..dotfiles/shells/xterm/themes/solarized.light"
-
+''

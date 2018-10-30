@@ -28,10 +28,11 @@ barOnScreen screenNr = defaultXmobar
 
     , Run$ Battery
         [ "--template" , "<acstatus>"
+        , "--low", "darkred"
         , "--"
-        , "-o"  , "<fn=1>\xf242</fn> <left>% (<timeleft>)"
-        , "-O"  , "<fn=1>\xf0e7</fn> <left>%"
-        , "-i"  , "<fn=1>\xf0e7</fn>"
+          , "-o"  , "<fn=1>\xf242</fn> <left>% (<timeleft>)"
+          , "-O"  , "<fn=1>\xf0e7</fn> <left>%"
+          , "-i"  , "<fn=1>\xf0e7</fn>"
         ] 10
 
     , Run$ Com "/home/kiren/.xmonad/scripts/prettyprints/wireless" [] "wifi" 30

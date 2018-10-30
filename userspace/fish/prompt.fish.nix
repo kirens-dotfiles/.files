@@ -1,3 +1,5 @@
+{ }:
+''
 ### Set optinos ###
 # Print full names
 set -x fish_prompt_pwd_dir_length 0
@@ -26,7 +28,7 @@ function fish_prompt
     set last_status $status
 
   # Keep margin at bottom 1/3
-    set -l cRow (bash -c 'IFS=\';\' read -sdR -p $\'\E[6n\' ROW COL;echo "${ROW#*[}"')
+    set -l cRow (bash -c 'IFS=\';\' read -sdR -p $\'\E[6n\' ROW COL;echo "''${ROW#*[}"')
     set -l lines (tput lines)
     set -l ROWS (expr "$lines" / 3)
     set -l ROW (expr "$lines" - "$ROWS" - 1)
@@ -43,3 +45,4 @@ function fish_prompt
          (__fish_git_prompt)
     echo -n -s "> "
 end
+''
