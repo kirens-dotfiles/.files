@@ -1,93 +1,106 @@
-> TODOS
- GENERAL
+# BACKLOG
+## GENERAL
 
-   * look into using servo for emeded sites / webbrowser, sequrity aspects?
-     Alternatively how to get Firefox to launch webiste in "kiosk-mode"
-   * using `logger` in some config-scipts?
-   * Figure out good note-takeing system for future events (i.e. FuM)
+  * look into using servo for emeded sites / webbrowser, sequrity aspects?
+    Alternatively how to get Firefox to launch webiste in "kiosk-mode"
+  * Figure out good note-takeing system for future events (i.e. FuM)
 
- FISH
+## FISH
 
-   * fish conf dir should be a symlink so functions can be loaded ad hoc
 
- VIM
+## VIM
 
-   * Map mouse to visual mode
-   * nvim as standard editor
-   * look into neovim coloring errors
-   * Code Completeion (specifically Haskell/Javascript/Python/Java)
-   * Folding colors, the current gray is horrendous
+  * Map mouse to visual mode
+  * look into neovim coloring errors
+  * Code Completeion (specifically Haskell/Javascript/Python/Java)
+  * Folding colors, the current gray is horrendous
 
- NIXOS
+## NIXOS
 
-   * Move aliases to `environment.interactiveShellInit`
-   * Separate hardware-config
-   * Modularize config
-   * mullvad vpn
-   * Is there some kind of user.nix config? Might be worth trying to migrate
-     some configs from fish / X11 stuff to it in that case.
-   * Add i3lock-fancy-multimonitor to nixpkgs and install it
+  * Modularize config
+  * mullvad vpn
+  * Add i3lock-fancy-multimonitor to nixpkgs and install it
 
- XMONAD
+## XMONAD
 
-   * Make different Xmobars show different content
+  * Make different Xmobars show different content
       Highlight what workspace is on the specific screen
       The title should be the active window on the specific screen
-   * Don't fade "focused" window on each screen
-   * Change Xmobar background color on the active screen
-   * Quick access template workspaces
+  * Don't fade "focused" window on each screen
+  * Change Xmobar background color on the active screen
+  * Quick access template workspaces
       (e.g. Test an idea ws for Haskell where two terminals launch,
       1 vim in /tmp/haskellTst/Tst.hs, one ghci with the file loaded)
-   * Do not loose focus when background tasks such as volume is changed.
-     (i.e. make / use a `spawnBackground`)
-   * Log program / workspace swiches with timestamps to calculate time spent
-     with certain activites
-   * Create typeclass for Keybinding to make script extendable
-   * Custom Layout, allowing:
-      On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)  
-   * xscreensaver
-   * editTODO shortcut should autocommit + -push
-   * Dynamic creation of XMobars Depending on number of attached monitiors
-   * Multiple monitors => better hotswaping
-   * Investigate xmobar coloring of mem% not working
+  * Do not loose focus when background tasks such as volume is changed.
+    (i.e. make / use a `spawnBackground`)
+  * Log program / workspace swiches with timestamps to calculate time spent
+    with certain activites
+  * Create typeclass for Keybinding to make script (? what did I mean) extendable
+  * Custom Layout, allowing:
+      On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)
+  * xscreensaver
+  * editTODO shortcut should autocommit + -push
+  * Multiple monitors => better hotswaping
+  * Investigate xmobar coloring of mem% not working
 
  KEYBOARD
 
-   * Create Prototype (Dactyl based)
-     - Install and get familiar with OpanSCAD
-     - Get familiar with printing
-     - Print keyboard parts without modification
-     - Order the needed parts
-     - Build it
-     - ...?
-
-> ACTIVE (Keep to minimum, try to complete or otherwise defer)
+  * Create Prototype (Dactyl based)
+    - Install and get familiar with OpanSCAD
+    - Get familiar with printing
+    - Print keyboard parts without modification
+    - Order the needed parts
+    - Build it
+    - ...?
 
 
-> DEFER (should do but uncertain how to solve, await more time to research)
-
- FISH
-
-   * Ctrl+BS as kill-word in fish
-
- GENERAL
-
-   * Bluetooth headphones, low sound quality
-
- XMONAD
-
-   * Only press Super to open dmenu
-
-> DONE
-
- XMONAD
-
-   * acpid - lid close -> sleep-pc
-   * prt sc -> screenshot
-   * Keybindings for Volume/Brightness
-   * Multiple monitors, basic
-   * Xmobar configuration file included in xmonad.hs to prevent code duplication
-
-> TESTED/REJECTED/WONTFIX
+# ONGOING (Keep to minimum, try to complete or otherwise defer)
 
 
+# DEFERED (should do but uncertain how to solve, await more time to research)
+
+## FISH
+
+  * Ctrl+BS as kill-word in fish
+
+## GENERAL
+
+  * Bluetooth headphones, low sound quality
+
+## XMONAD
+
+  * Only press Super to open dmenu
+
+
+# DONE
+
+## FISH
+
+  * fish conf dir should be a symlink so functions can be loaded ad hoc
+
+## NIXOS
+
+  * Is there some kind of user.nix config? Might be worth trying to migrate
+    some configs from fish / X11 stuff to it in that case.
+  * Move aliases to `environment.interactiveShellInit`
+  * Separate hardware-config
+
+## NVIM
+
+  * nvim as standard editor in git
+
+## XMONAD
+
+  * Dynamic creation of XMobars Depending on number of attached monitiors
+  * acpid - lid close -> sleep-pc
+  * prt sc -> screenshot
+  * Keybindings for Volume/Brightness
+  * Multiple monitors, basic
+  * Xmobar configuration file included in xmonad.hs to prevent code duplication
+
+
+# TESTED/REJECTED/WONTFIX
+
+  * using `logger` in some config-scipts?
+
+END OF TODO
