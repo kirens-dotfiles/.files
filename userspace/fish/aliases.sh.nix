@@ -1,8 +1,5 @@
 { }:
 ''
-# tmp
-alias dst='java -jar _FILES/courses/dst/MARS44_PET11d.jar'
-
 # Lampa
 alias lampa='bash -c \'curl "https://lampa.click/lampa?mode=rgb&time=1000&hex=$0"\' '
 
@@ -11,16 +8,7 @@ alias prefixTime='while read pong; echo [(date +%H:%M:%S)] $pong; end'
 alias prefixDatetime='while read pong; echo [(date +"%d/%m %H:%M:%S")] $pong; end'
 alias trackCon='ping -i 20 1.1.1.1 | prefixTime'
 
-# I'm lazy and like vim
-alias vim=nvim
-alias vi=vim
 alias r="vi -R"
-
-# Memory aliases
-alias explore=krusader
-
-# Node things
-alias jsdocs='jsdoc -c /home/kiren/.npm/global/jsdoc.global.conf.json'
 
 # ELM
 alias elm-env="nix-shell -I nixpkgs='https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz' -p elmPackages.elm"
@@ -60,7 +48,7 @@ alias pst=pbpaste
 alias cls=clear
 
 # Edit aliases
-alias aliasstore="vi $DOTFILES/shells/fish/.aliases"
+alias aliasstore="vi $DOTFILES/userspace/fish/aliases.sh.nix"
 
 # WiFi
 alias wifi="nmcli device wifi list"
@@ -109,12 +97,6 @@ alias screenshot-remove-last='screenshot-last  | xargs rm'
 alias screenshot-edit-remove-last='screenshot-edit-last; screenshot-remove-last'
 
 alias screenshots="feh --draw-filename --thumbnails -E 200 -y 350 ~/screenshots/"
-
-# Voume
-#function vol {
-#  echo $1
-#}
-
 
 # xterm-color
 alias dark="xrdb -merge ~/.config/..dotfiles/shells/xterm/themes/solarized.dark"
