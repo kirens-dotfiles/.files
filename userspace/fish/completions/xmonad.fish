@@ -1,0 +1,5 @@
+complete -c xmonad -l help -d "Print help message"
+complete -c xmonad -l version -d "Print the version number"
+complete -c xmonad -l recompile -d "Recompile your ~/.xmonad/xmonad.hs"
+complete -c xmonad -l replace -d "Replace the running window manager with xmonad"
+complete -c xmonad -l restart -d "Request a running xmonad process to restart"
