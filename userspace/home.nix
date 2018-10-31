@@ -42,9 +42,9 @@ in
       source = ./xmonad/lib;
     };
     ".xmonad/lib/Nix/Pkgs.hs" = with pkgs; import ./xmonad/lib/Nix/Pkgs.hs.nix {
-      alsaUtils = alsaUtils;
-      copyq = copyq;
-      i3lock-fancy = i3lock-fancy;
+      inherit
+        dotfilesLoc
+        alsaUtils copyq i3lock-fancy;
     };
     ".xmonad/scripts/lockptr" = import ./scripts/lockptr.nix { pkgs = pkgs; };
     ".xmonad/scripts/prettyprints/vol" = import ./scripts/prettyprints/vol.nix { alsaUtils = pkgs.alsaUtils; };

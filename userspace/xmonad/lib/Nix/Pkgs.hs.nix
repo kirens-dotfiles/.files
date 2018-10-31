@@ -1,8 +1,10 @@
-{ alsaUtils, copyq, i3lock-fancy }:
+{ dotfilesLoc, alsaUtils, copyq, i3lock-fancy }:
 {
   executable = true;
   text = ''
     module Nix.Pkgs where
+
+    dotfilesLocation = "${dotfilesLoc}"
 
     amixer = "${alsaUtils}/bin/amixer"
     copyQ = "${copyq}/bin/copyq"

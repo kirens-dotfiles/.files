@@ -35,6 +35,7 @@ import XMonad.Layout.MultiToggle.Instances
 -- More Layouts
 import XMonad.Layout.Spiral
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.BinarySpacePartition
 
 -- Date (for screenshots)
 import Data.Time
@@ -140,7 +141,10 @@ cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 
 terminalApp = spawn terminalName
 -- TODO: escape single quotes
-terminalExec cmd = spawn (terminalName ++ " -e \"fish -c '" ++ cmd ++ "' \"")
+terminalExec cmd = spawn (terminalName ++ " -e \"" ++ cmd ++ "\"")
+
+vim = terminalExec.("vi " ++)
+
 
 -- lock
 --------------------------------------------------------------------------
@@ -210,11 +214,12 @@ setBkgrnd n = spawn $ "feh --bg-fill $HOME/backgrounds/" ++ n
 
 -- Introspective
 --------------------------------------------------------------------------
+--TODO: Temporarily hard-coded .files location
 editXmonadConfig :: X ()
-editXmonadConfig = terminalExec "vi $DOTFILES/xmonad/"
+editXmonadConfig = vim $ Pkgs.dotfilesLocation ++ "/userspace/xmonad"
 
 editTODO :: X ()
-editTODO = terminalExec "vi $DOTFILES/TODO"
+editTODO = vim $ Pkgs.dotfilesLocation ++ "/TODO"
 
 reloadXMonad :: X ()
 reloadXMonad = spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"
@@ -272,7 +277,7 @@ xmobarInactiveConf xmproc = dynamicLogWithPP $ xmobarPP
   , ppTitle   = xmobarColor "green" "" . shorten 100
   , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
   , ppSep    = "  "
-  } 
+  }
 
 
 -- Bar config
@@ -288,20 +293,9 @@ mkXmobarCfg s = do
 --------------------------------------------------------------------------
 
 myLayout = mkToggle (FULL ?? EOT)
-         $ tiled ||| Mirror tiled ||| ThreeCol 1 (3/100) (1/2) ||| ThreeColMid 1 (3/100) (1/2) ||| spiral (6/7)
-  where
-    -- default tiling algorithm partitions the screen into two panes
-    tiled = Tall nmaster delta ratio
-
-    -- The default number of windows in the master pane
-    nmaster = 1
-
-    -- Default proportion of screen occupied by master pane
-    ratio = 2/3
-
-    -- Percent of screen to increment by when resizing panes
-    delta = 5/100
-
+         $ ThreeColMid 1 (3/100) (1/2)
+         ||| spiral (6/7)
+         ||| emptyBSP
 
 myManageHook = composeAll
   [ className =? "Gimp" --> doFloat
@@ -352,7 +346,7 @@ configBase xmproc = def
   , borderWidth = 0
   , modMask     = mod4Mask  -- Rebind Mod to the Windows key
   , keys        = myKeys
-  } 
+  }
 
 
 -----------------------------------------------------------------------}}}
@@ -389,6 +383,17 @@ myKeys conf = mkKeymap conf $
   , ("M-h", sendMessage Shrink)
   , ("M-l", sendMessage Expand)
   , ("M-S-<Space>", sinkAll)
+  -- For BSP Layout
+  , ("M-<Up>", sendMessage $ ExpandTowards U)
+  , ("M-<Down>", sendMessage $ ExpandTowards D)
+  , ("M-<Left>", sendMessage $ ExpandTowards L)
+  , ("M-<Right>", sendMessage $ ExpandTowards R)
+  , ("M-S-<Up>", sendMessage $ ShrinkFrom U)
+  , ("M-S-<Down>", sendMessage $ ShrinkFrom D)
+  , ("M-S-<Left>", sendMessage $ ShrinkFrom L)
+  , ("M-S-<Right>", sendMessage $ ShrinkFrom R)
+  , ("M-<Prior>", sendMessage $ Rotate)
+  , ("M-<Next>", sendMessage $ Swap)
 
   -- Workspaces
   , ("M-C-h", prevWS)
@@ -417,12 +422,12 @@ myKeys conf = mkKeymap conf $
   --, ("M-S-z", spawn "xscreensaver-command -lock")
   ]
   -- Switch workspace
-  ++ keysWithPar 
+  ++ keysWithPar
        (\bind i -> (bind, windows $ W.greedyView i))
        (numsWith "M-")
        (XMonad.workspaces conf)
   -- Move window to workspace
-  ++ keysWithPar 
+  ++ keysWithPar
        (\bind i -> (bind, windows $ W.shift i))
        (numsWith "M-S-")
        (XMonad.workspaces conf)
