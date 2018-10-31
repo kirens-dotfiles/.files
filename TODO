@@ -6,6 +6,10 @@
   * Figure out good note-takeing system for future events (i.e. FuM)
   * Instructions on how I write SMART todos (Herrrm... previous self)
 
+## HOME MANAGER
+
+  * Compile xmonad as part of `home manager build`
+
 ## FISH
 
   * Turn aliases into functions. (I seem to be sticking to fish after all)
