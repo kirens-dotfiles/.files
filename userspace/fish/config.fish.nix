@@ -1,11 +1,14 @@
 { dotfilesLoc }:
-builtins.concatStringsSep "\n"
-[
-''
-set -g -x DOTFILES "${dotfilesLoc}"
-''
+{
+  interactiveShellInit =
+    builtins.concatStringsSep "\n"
+    [
+      ''
+      set -g -x DOTFILES "${dotfilesLoc}"
+      ''
 
-(import ./prompt.fish.nix {})
+      (import ./prompt.fish.nix {})
 
-(import ./aliases.sh.nix {})
-]
+      (import ./aliases.sh.nix {})
+    ];
+}

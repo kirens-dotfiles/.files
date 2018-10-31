@@ -111,7 +111,8 @@ in
     fish = {
       enable = true;
 
-      interactiveShellInit = import ./fish/config.fish.nix { dotfilesLoc = dotfilesLoc; };
+      inherit (import ./fish/config.fish.nix { dotfilesLoc = dotfilesLoc; })
+        interactiveShellInit;
     };
   };
 
