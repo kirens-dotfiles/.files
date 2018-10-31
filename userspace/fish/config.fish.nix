@@ -1,14 +1,11 @@
 { dotfilesLoc }:
 {
-  interactiveShellInit =
-    builtins.concatStringsSep "\n"
-    [
-      ''
-      set -g -x DOTFILES "${dotfilesLoc}"
-      ''
+  shellInit = ''
+    set -g -x DOTFILES "${dotfilesLoc}"
+  '';
 
-      (import ./prompt.fish.nix {})
+  # TODO: move to shellAliases and Functions
+  interactiveShellInit = import ./aliases.sh.nix {};
 
-      (import ./aliases.sh.nix {})
-    ];
+  promptInit = import ./prompt.fish.nix {};
 }

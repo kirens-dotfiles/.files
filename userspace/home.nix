@@ -112,7 +112,7 @@ in
       enable = true;
 
       inherit (import ./fish/config.fish.nix { dotfilesLoc = dotfilesLoc; })
-        interactiveShellInit;
+        shellInit promptInit interactiveShellInit;
     };
   };
 
