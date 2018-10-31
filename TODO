@@ -8,7 +8,7 @@
 
 ## HOME MANAGER
 
-  * Compile xmonad as part of `home manager build`
+  * Fix reloading uppon compile so that xmonad doesn't need to pollute userspace.
 
 ## FISH
 
@@ -102,6 +102,7 @@
 
 ## XMONAD
 
+  * Compile xmonad as part of `home manager build`
   * Dynamic creation of XMobars Depending on number of attached monitiors
   * acpid - lid close -> sleep-pc
   * prt sc -> screenshot

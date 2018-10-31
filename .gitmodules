@@ -1,0 +1,3 @@
+[submodule "userspace/home-manager"]
+	path = userspace/home-manager
+	url = git@github.com:Kirens/home-manager.git

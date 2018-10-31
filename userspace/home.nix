@@ -36,16 +36,6 @@ in
   home.file = {
     ".config/nixpkgs/config.nix".source = ./config.nix;
     ".config/fish/functions".source = ./fish/functions;
-    ".xmonad/xmonad.hs".source = ./xmonad/xmonad.hs;
-    ".xmonad/lib" = {
-      recursive = true;
-      source = ./xmonad/lib;
-    };
-    ".xmonad/lib/Nix/Pkgs.hs" = with pkgs; import ./xmonad/lib/Nix/Pkgs.hs.nix {
-      inherit
-        dotfilesLoc
-        alsaUtils copyq i3lock-fancy;
-    };
     ".xmonad/scripts/lockptr" = import ./scripts/lockptr.nix { pkgs = pkgs; };
     ".xmonad/scripts/prettyprints/vol" = import ./scripts/prettyprints/vol.nix { alsaUtils = pkgs.alsaUtils; };
     ".xmonad/scripts/prettyprints/vol_lvl" = import ./scripts/prettyprints/vol_lvl.nix { alsaUtils = pkgs.alsaUtils; };
@@ -84,7 +74,7 @@ in
   programs = {
     home-manager = {
       enable = true;
-      path = "https://github.com/rycee/home-manager/archive/release-18.03.tar.gz";
+      path = "home-manager";
     };
 
     command-not-found.enable = true;
@@ -140,6 +130,14 @@ in
     enable = true;
     windowManager.xmonad = {
       enable = true;
+
+      configDir = ./xmonad;
+      configData = with pkgs; xmonad: {
+        inherit
+          dotfilesLoc xmonad
+          alsaUtils copyq i3lock-fancy;
+      };
+
 
       enableContribAndExtras = true;
       extraPackages = self: [

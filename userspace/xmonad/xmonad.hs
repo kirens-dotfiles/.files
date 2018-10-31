@@ -53,7 +53,7 @@ import XMonad.Actions.CycleWS
 import qualified Xmobar.MyConfig as MyXmobar
 
 -- Nix store binaries
-import qualified Nix.Pkgs as Pkgs
+import qualified Nix.Vars as Pkgs
 
 -- Multiple monitors
 import qualified XMonad.StackSet as W
@@ -222,7 +222,8 @@ editTODO :: X ()
 editTODO = vim $ Pkgs.dotfilesLocation ++ "/TODO"
 
 reloadXMonad :: X ()
-reloadXMonad = spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"
+reloadXMonad = restart Pkgs.xmonad True
+-- spawn $ Pkgs.xmonad ++ " --restart;"
 
 -- Screen grab
 --------------------------------------------------------------------------
