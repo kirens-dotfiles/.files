@@ -12,6 +12,7 @@
 
 ## FISH
 
+  * Complete nix-shell in a smart manner with pkgs lookup
   * Turn aliases into functions. (I seem to be sticking to fish after all)
 
 ## VIM
