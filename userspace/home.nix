@@ -53,10 +53,22 @@ in
   home.packages = with pkgs; [
     htop
     spotify
+    # Visually manage monitors
     arandr
+    # Image viewer
     feh
+    # Clipboard interaction CLI
     xclip
+    # Detect keypress
     xlibs.xev
+    # Adjust buildin display brightness
+    xlibs.xbacklight
+    # Seems to be needed for some fish completion
+    xorg.xwininfo
+
+    # For ghci
+    ghc
+
     libreoffice
     atom
     inkscape
@@ -64,11 +76,25 @@ in
     vlc
     mupdf
     imagemagick7
+    chromium
+
+    # Magnifier
     xzoom
+    # Terminal file explorer
     ranger
+    # Node without npm
     nodejs-slim
     # Gitkraken only serves latest, so we need newer version
     pkg1809.gitkraken
+
+    # Packages from system that are needed
+    bash
+    ncurses
+    coreutils
+    nix
+    nettools
+    gawk
+    procps
   ];
 
   programs = {
