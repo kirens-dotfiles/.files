@@ -76,27 +76,10 @@
     enable = true;
     layout = "se";
 
-    desktopManager.xterm.enable = false;
-    desktopManager.default = "none";
-
-    windowManager.default = "xmonad";
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      extraPackages = haskellPackages: [
-        haskellPackages.xmonad-contrib
-        haskellPackages.xmonad-extras
-        haskellPackages.xmonad
-      ];
-    };
-
     displayManager = {
       auto.enable = true;
       auto.user = "kiren";
-      sessionCommands = ''
-      	${pkgs.xlibs.xmodmap}/bin/xmodmap /etc/nixos/lib/.Xmodmap
-      '';
-    };
+   };
 
     # Trackpad
     synaptics = {
@@ -122,16 +105,6 @@
     lidEventCommands = ''
       i3lock-fancy& systemctl suspend
     '';
-  };
-
-  services.redshift = {
-    enable = true;
-    latitude = "40.642292";
-    longitude = "22.879766";
-    temperature.day = 6500;
-    temperature.night = 3500;
-    brightness.day = "1";
-    brightness.night = "0.5";
   };
 
   # Open ports in the firewall.
