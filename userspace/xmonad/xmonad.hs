@@ -150,6 +150,7 @@ vim = terminalExec.("vi " ++)
 --------------------------------------------------------------------------
 
 lock = spawn Pkgs.i3Lock -- "xautolock -locknow"
+autolockInit = spawn $ Pkgs.xautolock ++ " -time 15 -locker " ++ Pkgs.i3Lock
 
 
 -- CopyQ
@@ -259,7 +260,7 @@ resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --o
 --------------------------------------------------------------------------
 
 launchXmobar :: MonadIO m => FilePath -> m Handle
-launchXmobar file = spawnPipe$ "xmobar " ++ file
+launchXmobar file = spawnPipe$ Pkgs.xmobar ++ " " ++ file
 
 
 xmobarTitleColor = base3
@@ -310,7 +311,7 @@ myManageHook = composeAll
 startup = do
     setVol 0
     setBkgrnd defaultBackground
-    spawn "xautolock -time 15 -locker i3lock-fancy"
+    autolockInit
     lock
     copyQ
     setWMName "LG3D"

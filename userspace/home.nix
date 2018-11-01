@@ -135,7 +135,8 @@ in
       configData = with pkgs; xmonad: {
         inherit
           dotfilesLoc xmonad
-          alsaUtils copyq i3lock-fancy;
+          alsaUtils copyq i3lock-fancy xautolock;
+        xmobar = haskellPackages.xmobar;
       };
 
 
