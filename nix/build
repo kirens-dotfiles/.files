@@ -1,0 +1,56 @@
+#! /usr/bin/env bash
+prompt_yn () {
+    MSG=${1:-'Proceed?'}
+    read -p "$MSG [y/N] " -n 1 -r
+    echo ""
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then return 1; fi
+}
+unlink_res() {
+  if [ -L ./result ]; then
+    echo "Build is in:"
+    readlink result
+    unlink result
+  fi
+}
+
+# Move to the nix-system-cfg-directory
+cd $DOTFILES/nix/
+# Add system packages such as `nixos-rebuild`
+PATH="$PATH:/run/current-system/sw/bin"
+
+# Confirm with the user
+if ! prompt_yn 'Build changes?'; then exit 3; fi
+
+echo "-- Storing current config"
+rm -rf /tmp/nixconf-restorept/
+cp -r /etc/nixos/ /tmp/nixconf-restorept/
+
+echo "-- Writing new config"
+sudo rm -rf /etc/nixos/
+sudo cp -r src/ /etc/nixos/
+
+echo "------------------------------"
+echo "-- Testing config ------------"
+echo "------------------------------"
+
+if sudo nixos-rebuild test && prompt_yn 'Switch build?'; then
+    # Safe to switch
+    echo "------------------------------"
+    echo "-- Building config -----------"
+    echo "------------------------------"
+    sudo nixos-rebuild switch
+
+    unlink_res
+else
+    # Revert
+    echo "------------------------------"
+    echo "-- Reverting changes ---------"
+    echo "------------------------------"
+    sudo rm -rf /etc/nixos/
+    sudo cp -r /tmp/nixconf-restorept/ /etc/nixos/
+
+    # The compilation must have failed
+    if [ ! -L result ]; then exit 2; fi
+    unlink_res
+fi
+

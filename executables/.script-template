@@ -1,8 +1,0 @@
-#! /usr/bin/env bash
-
-# Make certain launched from loader
-if [ -z "$LOADER" ]; then
-    echo "Script must be launched throug loader";
-    exit 2;
-fi
-

@@ -51,7 +51,14 @@ in
   };
 
   home.packages = with pkgs; [
+    dmenu
+    btrfsProgs
+
+    curl
+    wget
     htop
+    # Virtual terminals
+    tmux
     spotify
     # Visually manage monitors
     arandr
@@ -65,6 +72,9 @@ in
     xlibs.xbacklight
     # Seems to be needed for some fish completion
     xorg.xwininfo
+    # DNS (contains DIG)
+    bind
+
 
     # For ghci
     ghc
@@ -77,6 +87,8 @@ in
     mupdf
     imagemagick7
     chromium
+    firefox
+    thunderbird
 
     # Magnifier
     xzoom
@@ -95,6 +107,8 @@ in
     nettools
     gawk
     procps
+    networkmanager
+    less
   ];
 
   programs = {
@@ -172,9 +186,9 @@ in
     };
     initExtra = ''
       # Turn off beeps.
-      xset -b
+      ${pkgs.xorg.xset}/bin/xset -b
       ${pkgs.xorg.xkbcomp}/bin/xkbcomp /e/_FILES/.files/userspace/keyboard/custom-xkb-keymap :0
-      xrdb -merge /home/kiren/.config/..dotfiles/shells/xterm/xterm.defaults
+      ${pkgs.xorg.xrdb}/bin/xrdb -merge /home/kiren/.config/..dotfiles/shells/xterm/xterm.defaults
     '';
   };
 

@@ -1,8 +1,0 @@
-script="$1"
-if [ ! -f ./"$script" ]; then
-    echo "$script - no such script exists";
-    exit 2;
-fi
- 
-source ./"$script"
-
