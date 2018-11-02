@@ -1,3 +1,3 @@
 function prgm -d lookingFor
-  readlink (whereis $argv[1] | grep -Po '/.*?((?!\\\\\\\\) |$)')
+  readlink (which $argv[1])
 end

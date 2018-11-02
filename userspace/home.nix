@@ -111,12 +111,14 @@ in
     bash
     ncurses
     coreutils
+    findutils
     nix
     nettools
     gawk
     procps
     networkmanager
     less
+    gnused
   ];
 
   programs = {

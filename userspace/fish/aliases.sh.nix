@@ -1,5 +1,8 @@
 { }:
 ''
+# TMux
+alias tmux-end-inactive="tmux ls | grep --invert-match attached | grep -oP '^[^:]+' | xargs -L 1 tmux kill-session -t"
+
 # Lampa
 alias lampa='bash -c \'curl "https://lampa.click/lampa?mode=rgb&time=1000&hex=$0"\' '
 

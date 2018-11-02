@@ -300,9 +300,9 @@ mkXmobarCfg s = do
 --------------------------------------------------------------------------
 
 myLayout = mkToggle (FULL ?? EOT)
-         $ ThreeColMid 1 (3/100) (1/2)
+         $ emptyBSP
          ||| spiral (6/7)
-         ||| emptyBSP
+         ||| ThreeColMid 1 (3/100) (1/2)
 
 myManageHook = composeAll
   [ className =? "Gimp" --> doFloat
