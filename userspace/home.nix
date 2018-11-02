@@ -34,17 +34,25 @@ let
 in
 {
   home.file = {
+    ".tmux.conf".source = ./tmux/conf;
     ".config/nixpkgs/config.nix".source = ./config.nix;
     ".config/fish/functions".source = ./fish/functions;
-    ".xmonad/scripts/lockptr" = import ./scripts/lockptr.nix { pkgs = pkgs; };
-    ".xmonad/scripts/prettyprints/vol" = import ./scripts/prettyprints/vol.nix { alsaUtils = pkgs.alsaUtils; };
-    ".xmonad/scripts/prettyprints/vol_lvl" = import ./scripts/prettyprints/vol_lvl.nix { alsaUtils = pkgs.alsaUtils; };
-    ".xmonad/scripts/prettyprints/wireless" = with pkgs; import ./scripts/prettyprints/wireless.nix {
-      wirelesstools = wirelesstools;
-      grep = gnugrep;
-      awk = gawk;
-      coreutils = coreutils;
-    };
+    ".xmonad/scripts/lockptr" =
+      import ./scripts/lockptr.nix
+        { pkgs = pkgs; };
+    ".xmonad/scripts/prettyprints/vol" =
+      import ./scripts/prettyprints/vol.nix
+        { alsaUtils = pkgs.alsaUtils; };
+    ".xmonad/scripts/prettyprints/vol_lvl" =
+      import ./scripts/prettyprints/vol_lvl.nix
+        { alsaUtils = pkgs.alsaUtils; };
+    ".xmonad/scripts/prettyprints/wireless" =
+      with pkgs; import ./scripts/prettyprints/wireless.nix {
+        wirelesstools = wirelesstools;
+        grep = gnugrep;
+        awk = gawk;
+        coreutils = coreutils;
+      };
     ".ghci".text = ''
       :set prompt "λ> "
     '';

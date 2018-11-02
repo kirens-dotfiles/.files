@@ -139,9 +139,9 @@ cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 -- Terminal stuff
 --------------------------------------------------------------------------
 
-terminalApp = spawn terminalName
+terminalApp = spawn$ terminalName ++ " -e tmux"
 -- TODO: escape single quotes
-terminalExec cmd = spawn (terminalName ++ " -e \"" ++ cmd ++ "\"")
+terminalExec cmd = spawn$ terminalName ++ " -e \"" ++ cmd ++ "\""
 
 vim = terminalExec.("vi " ++)
 
