@@ -1,0 +1,52 @@
+* {
+  backgroundcolor: #002B35;
+  backgroundcoloralternate: 0;
+  foregroundcolor: #657B83;
+  foregroundcolorinverse: #073642;
+  scrollbarcolor: @foregroundcolor;
+  selectioncolor: @foregroundcolor;
+  separatorcolor: #073642;
+
+  border-color: @separatorcolor;
+  background-color: @backgroundcolor;
+  text-color: @foregroundcolor;
+}
+
+#window {
+  background-color: @backgroundcolor;
+  border-radius: 5px;
+}
+
+#mainbox {}
+
+/* Bar at top */
+#inputbar {
+  border: 0 0 4 0;
+  border-color: @separatorcolor;
+}
+
+/* Selection name, Input box */
+#prompt { padding: 16; }
+#entry { padding: 16; }
+
+#listview {
+  scrollbar: true;
+}
+
+#element {
+  padding: 16px;
+  border: 0 0 2px 0;
+}
+
+#element.selected.normal {
+  background-color: @selectioncolor;
+  text-color: @foregroundcolorinverse;
+}
+
+#element.alternate.normal {}
+
+#scrollbar {
+  width: 8px;
+  handle-color: @scrollbarcolor;
+  handle-width: 8px;
+}

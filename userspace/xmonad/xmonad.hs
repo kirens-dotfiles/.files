@@ -202,6 +202,11 @@ volumeDn = linVol (-1)
 
 toggleMute = spawn$ Pkgs.amixer ++ " set Master 1+ toggle"
 
+-- Menu
+--------------------------------------------------------------------------
+
+--menu = spawn$ Pkgs.rofi ++ " -matching fuzzy -modi combi -show combi -combi-modi drun"
+menu = spawn$ Pkgs.rofi ++ " -modi \"drun,scripts:$HOME/.config/rofi/scripts.select,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies\" -show drun"
 
 -- Background
 --------------------------------------------------------------------------
@@ -369,7 +374,7 @@ numsWith k = map ((k++).show) [1..9]
 
 myKeys conf = mkKeymap conf $
   -- Quick launches
-  [ ("M-a", spawn "dmenu_run")
+  [ ("M-a", menu)
   , ("M-s", terminalApp)
   , ("M-e", editXmonadConfig)
   , ("M-t", editTODO)

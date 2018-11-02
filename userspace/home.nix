@@ -35,6 +35,7 @@ in
 {
   home.file = {
     ".tmux.conf".source = ./tmux/conf;
+    ".config/rofi".source = ./rofi;
     ".config/nixpkgs/config.nix".source = ./config.nix;
     ".config/fish/functions".source = ./fish/functions;
     ".xmonad/scripts/lockptr" =
@@ -59,7 +60,6 @@ in
   };
 
   home.packages = with pkgs; [
-    dmenu
     btrfsProgs
 
     curl
@@ -183,7 +183,7 @@ in
       configData = with pkgs; xmonad: {
         inherit
           dotfilesLoc xmonad
-          alsaUtils copyq i3lock-fancy xautolock;
+          alsaUtils copyq i3lock-fancy xautolock rofi libqalculate;
         xmobar = haskellPackages.xmobar;
       };
 

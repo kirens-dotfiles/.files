@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+if [[ -z "$@" ]]; then
+  ls $HOME/.config/rofi/scripts
+else
+  bash "$HOME/.config/rofi/scripts/$1" > /dev/null &
+fi
