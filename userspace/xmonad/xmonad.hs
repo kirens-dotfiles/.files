@@ -76,7 +76,8 @@ import XMonad.Actions.SinkAll
 
 homeDir = "/home/kiren/"
 scriptsDir = homeDir++".xmonad/scripts/"
-terminalBin = Pkgs.xterm
+terminalBin = Pkgs.st
+terminalCmd = terminalBin ++ " -f 'Hack:size=12'"
 
 -- Colors
 ------------
@@ -139,11 +140,11 @@ cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 -- Terminal stuff
 --------------------------------------------------------------------------
 
-terminalApp = spawn$ terminalBin ++ " -e tmux"
+terminalApp = terminalExec "tmux"
 -- TODO: escape single quotes
-terminalExec cmd = spawn$ terminalBin ++ " -e \"" ++ cmd ++ "\""
+terminalExec cmd = spawn$ terminalCmd ++ " -e \"" ++ cmd ++ "\""
 
-vim = terminalExec.("vi " ++)
+vim = terminalExec.("vi\" \"" ++)
 
 
 -- lock

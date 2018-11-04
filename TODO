@@ -6,6 +6,11 @@
   * Figure out good note-takeing system for future events (i.e. FuM)
   * Instructions on how I write SMART todos (Herrrm... previous self)
   * Set up and start using task warrior
+  * Organize userspace directory
+
+## Terminal emulator
+
+  * Make a home-manager extension that allows styling of ST
 
 ## ROFI
 
@@ -14,6 +19,7 @@
 ## HOME MANAGER
 
   * Fix reloading uppon compile so that xmonad doesn't need to pollute userspace.
+  * Investigate if firefox extensions can be added through home-manager
 
 ## FISH
 
@@ -105,6 +111,10 @@
 
   * Map mouse to visual mode
   * nvim as standard editor in git
+
+## TERMINAL EMULATOR
+
+  * Switch from xterm to ST
 
 ## XMONAD
 

@@ -1,10 +1,10 @@
-{ dotfilesLoc, alsaUtils, copyq, i3lock-fancy, xmonad, xautolock, xmobar, rofi, libqalculate, xterm }:
+{ dotfilesLoc, alsaUtils, copyq, i3lock-fancy, xmonad, xautolock, xmobar, rofi, libqalculate, st }:
 ''
 module Nix.Vars where
 
 dotfilesLocation = "${dotfilesLoc}"
 
-xterm = "${xterm}/bin/xterm"
+st = "${st}/bin/st"
 xmonad = "${xmonad}/bin/xmonad"
 amixer = "${alsaUtils}/bin/amixer"
 copyQ = "${copyq}/bin/copyq"
