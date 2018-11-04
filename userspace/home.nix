@@ -187,7 +187,7 @@ in
           dotfilesLoc xmonad
           alsaUtils copyq i3lock-fancy xautolock rofi libqalculate;
         xmobar = haskellPackages.xmobar;
-        st = xst;
+        st = pkgs.callPackage ./st/build.nix { };
       };
 
 
@@ -198,8 +198,8 @@ in
     initExtra = ''
       # Turn off beeps.
       ${pkgs.xorg.xset}/bin/xset -b
-      ${pkgs.xorg.xkbcomp}/bin/xkbcomp /e/_FILES/.files/userspace/keyboard/custom-xkb-keymap :0
-      ${pkgs.xorg.xrdb}/bin/xrdb -merge /home/kiren/.config/..dotfiles/shells/xterm/xterm.defaults
+      # Switch keyboard layout
+      ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${dotfilesLoc}/userspace/keyboard/custom-xkb-keymap :0
     '';
   };
 

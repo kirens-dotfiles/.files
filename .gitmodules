@@ -1,3 +1,6 @@
 [submodule "userspace/home-manager"]
 	path = userspace/home-manager
 	url = git@github.com:Kirens/home-manager.git
+[submodule "userspace/st/src"]
+	path = userspace/st/src
+	url = git://git.suckless.org/st

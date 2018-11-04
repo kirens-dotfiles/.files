@@ -1,3 +1,0 @@
-#include "lib/xterm.style"
-#include "lib/xterm.font"
-#include "lib/xterm.ctl"
