@@ -76,7 +76,7 @@ import XMonad.Actions.SinkAll
 
 homeDir = "/home/kiren/"
 scriptsDir = homeDir++".xmonad/scripts/"
-terminalName = "xterm" -- "termite"
+terminalBin = Pkgs.xterm
 
 -- Colors
 ------------
@@ -139,9 +139,9 @@ cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 -- Terminal stuff
 --------------------------------------------------------------------------
 
-terminalApp = spawn$ terminalName ++ " -e tmux"
+terminalApp = spawn$ terminalBin ++ " -e tmux"
 -- TODO: escape single quotes
-terminalExec cmd = spawn$ terminalName ++ " -e \"" ++ cmd ++ "\""
+terminalExec cmd = spawn$ terminalBin ++ " -e \"" ++ cmd ++ "\""
 
 vim = terminalExec.("vi " ++)
 
@@ -206,7 +206,7 @@ toggleMute = spawn$ Pkgs.amixer ++ " set Master 1+ toggle"
 --------------------------------------------------------------------------
 
 --menu = spawn$ Pkgs.rofi ++ " -matching fuzzy -modi combi -show combi -combi-modi drun"
-menu = spawn$ Pkgs.rofi ++ " -modi \"drun,scripts:$HOME/.config/rofi/scripts.select,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies\" -show drun"
+menu = spawn$ Pkgs.rofi ++ " -terminal " ++ terminalBin ++ " -modi \"drun,scripts:$HOME/.config/rofi/scripts.select,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies\" -show drun"
 
 -- Background
 --------------------------------------------------------------------------
