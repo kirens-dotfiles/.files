@@ -3,4 +3,4 @@
 	url = git@github.com:Kirens/home-manager.git
 [submodule "userspace/st/src"]
 	path = userspace/st/src
-	url = git://git.suckless.org/st
+	url = git@github.com:Kirens/st.git
