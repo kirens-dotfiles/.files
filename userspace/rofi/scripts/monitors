@@ -4,7 +4,8 @@ print_menu() {
   printf "Standard\nOnly internal monitor\0"
   printf "External\nOnly HDMI monitor\0"
   printf "Stacked\nExternal monitor above internal\0"
-  printf  "Mirrored\nExternal monitor mirroring internal\0"
+  printf "Mirrored\nExternal monitor mirroring internal\0"
+  printf "Current\nOnly perform post remap hook\0"
 }
 option_count=4
 
@@ -30,3 +31,7 @@ case "$res" in
     *)
         ;;
 esac
+
+# Rempa touchscreen properly
+xinput map-to-output $(xinput list --id-only "ELAN Touchscreen") eDP1
+xinput map-to-output $(xinput list --id-only "ELAN Touchscreen Pen") eDP1
