@@ -10,7 +10,7 @@
 
 ## Terminal emulator
 
-  * Make a home-manager extension that allows styling of ST
+  * Debug st tmux vim crach
 
 ## ROFI
 
@@ -115,6 +115,7 @@
 ## TERMINAL EMULATOR
 
   * Switch from xterm to ST
+  * Custom ST build
 
 ## XMONAD
 
@@ -130,5 +131,6 @@
 # TESTED/REJECTED/WONTFIX
 
   * using `logger` in some config-scipts?
+  * Make a home-manager extension that allows styling of ST
 
 END OF TODO
