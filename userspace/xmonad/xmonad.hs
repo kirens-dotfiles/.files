@@ -16,6 +16,9 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import XMonad.Util.Run
 
+-- My Config files
+import XMonad.Config.Kirens.Keys as MyKeys
+
 -- Gnome support stuff (e.g. getactivewindow)
 import XMonad.Hooks.EwmhDesktops
 
@@ -40,9 +43,6 @@ import XMonad.Layout.BinarySpacePartition
 -- Date (for screenshots)
 import Data.Time
 
--- Modifiy keybindings and use EMACS spec style bindings
-import XMonad.Util.EZConfig
-
 -- Arrow composition
 import Control.Arrow hiding ((<+>), (|||))
 
@@ -54,9 +54,6 @@ import qualified Xmobar.MyConfig as MyXmobar
 
 -- Nix store binaries
 import qualified Nix.Vars as Pkgs
-
--- Multiple monitors
-import qualified XMonad.StackSet as W
 
 -- Key-binding map
 import qualified Data.Map as Map
@@ -345,111 +342,83 @@ xmprocing = sequence.(zipWith (\n p -> if n==1 then xmobarInactiveConf p else xm
 
 
 --configBase :: MonadIO Handle -> XConfig l
-configBase xmproc = def
-  { manageHook  = manageDocks <+> manageHook def
-  , layoutHook  = avoidStruts $ myLayout
-  -- void the log hook to have a X ()
-  , logHook     = void (theLogHook xmproc)
-  , startupHook = startup
-  , borderWidth = 0
-  , modMask     = mod4Mask  -- Rebind Mod to the Windows key
-  , keys        = myKeys
+configBase xmproc =
+  XConfig
+  { XMonad.borderWidth =
+      0
+  , XMonad.workspaces =
+      XMonad.workspaces def
+  , XMonad.layoutHook =
+      avoidStruts $ myLayout
+  , XMonad.terminal =
+      XMonad.terminal def
+  , XMonad.normalBorderColor =
+      XMonad.normalBorderColor def
+  , XMonad.focusedBorderColor =
+      XMonad.focusedBorderColor def
+  , XMonad.modMask =
+      mod4Mask
+  , XMonad.keys =
+      myKeys
+  , XMonad.logHook =
+      void (theLogHook xmproc)
+  , XMonad.startupHook =
+      startup
+  , XMonad.mouseBindings =
+      XMonad.mouseBindings def
+  , XMonad.manageHook =
+      manageDocks <+> manageHook def
+  , XMonad.handleEventHook =
+      XMonad.handleEventHook def
+  , XMonad.focusFollowsMouse =
+      XMonad.focusFollowsMouse def
+  , XMonad.clickJustFocuses =
+      XMonad.clickJustFocuses def
+  , XMonad.clientMask =
+      XMonad.clientMask def
+  , XMonad.rootMask =
+      XMonad.rootMask def
+  , XMonad.handleExtraArgs =
+      \ xs theConf ->
+        case xs of
+          [] -> return theConf
+          _ -> fail ("unrecognized flags:" ++ show xs)
   }
 
 
 -----------------------------------------------------------------------}}}
 -- Key bindings                                                        {{{
 --------------------------------------------------------------------------
-
-type KeyBnd = String
-
-modNone :: KeyMask
-modNone = 0
-
--- This should be made a better generalization (KeyBnd strings error prone) TODO
-keysWithPar :: (KeyBnd -> a -> (KeyBnd, X ())) -> [KeyBnd] -> [a] -> [(KeyBnd, X ())]
-keysWithPar fn ks as = [ fn k a | (k, a) <- zip ks as ]
-
-numsWith :: KeyBnd -> [KeyBnd]
-numsWith k = map ((k++).show) [1..9]
-
-myKeys conf = mkKeymap conf $
-  -- Quick launches
-  [ ("M-a", menu)
-  , ("M-s", terminalApp)
-  , ("M-e", editXmonadConfig)
-  , ("M-t", editTODO)
-
-  -- Window mgmt
-  , ("M-d", kill)
-  , ("M-<Return>", windows W.focusMaster)
-  , ("M-j", windows W.focusDown)
-  , ("M-k", windows W.focusUp)
-  , ("M-S-j", windows W.swapDown)
-  , ("M-S-k", windows W.swapUp)
-  , ("M-S-<Return>", windows W.swapMaster)
-  , ("M-h", sendMessage Shrink)
-  , ("M-l", sendMessage Expand)
-  , ("M-S-<Space>", sinkAll)
-  -- For BSP Layout
-  , ("M-<Up>", sendMessage $ ExpandTowards U)
-  , ("M-<Down>", sendMessage $ ExpandTowards D)
-  , ("M-<Left>", sendMessage $ ExpandTowards L)
-  , ("M-<Right>", sendMessage $ ExpandTowards R)
-  , ("M-S-<Up>", sendMessage $ ShrinkFrom U)
-  , ("M-S-<Down>", sendMessage $ ShrinkFrom D)
-  , ("M-S-<Left>", sendMessage $ ShrinkFrom L)
-  , ("M-S-<Right>", sendMessage $ ShrinkFrom R)
-  , ("M-<Prior>", sendMessage $ Rotate)
-  , ("M-<Next>", sendMessage $ Swap)
-
-  -- Workspaces
-  , ("M-C-h", prevWS)
-  , ("M-C-l", nextWS)
-  , ("M-<Space>", sendMessage NextLayout)
-  , ("M-f", sendMessage $ Toggle FULL)
-
-  -- Media keys
-  , ("<XF86MonBrightnessUp>", backlightUp)
-  , ("<XF86MonBrightnessDown>", backlightDn)
-  , ("<XF86AudioRaiseVolume>", volumeUp)
-  , ("<XF86AudioLowerVolume>", volumeDn)
- -- , ("<XF86AudioRaiseVolume>", backlightUp)
- -- , ("<XF86AudioLowerVolume>", backlightDn)
-  , ("<XF86AudioMute>", toggleMute)
-  , ("M-p", toggleTrackpad)
-  , ("<Print>", printScreen)
-
-  -- misc
-  , ("M-c", copyQ)
-  , ("M-q", lock)
-  , ("M-M1-S-o", resetScreens)
-  , ("M-M1-o", restartCompton)
-  , ("M-<Esc>", reloadXMonad)
-  , ("M-S-<Esc>", liftIO$exitWith ExitSuccess)
-  --, ("M-S-z", spawn "xscreensaver-command -lock")
-  ]
-  -- Switch workspace
-  ++ keysWithPar
-       (\bind i -> (bind, windows $ W.greedyView i))
-       (numsWith "M-")
-       (XMonad.workspaces conf)
-  -- Move window to workspace
-  ++ keysWithPar
-       (\bind i -> (bind, windows $ W.shift i))
-       (numsWith "M-S-")
-       (XMonad.workspaces conf)
-
-  -- Switch monitor
-  ++ keysWithPar
-       (\bind i -> (bind, screenWorkspace i >>= flip whenJust (windows . (W.view))))
-       (numsWith "M-M1-")
-       [0..2]
-  -- Move window to monitors
-  ++ keysWithPar
-       (\bind i -> (bind, screenWorkspace i >>= flip whenJust (windows . (W.shift))))
-       (numsWith "M-M1-S-")
-       [0..2]
-
-  -- `Start` is enough to open dmenu
-  --`additionalKeys` [ ((modNone, xK_Super_L), (spawn "dmenu_run")) ]
+myKeys =
+  keyConfig$ def
+  { MyKeys.menu =
+      Main.menu
+  , MyKeys.terminalPlain =
+      terminalApp
+  , MyKeys.editDotfiles =
+      editXmonadConfig
+  , MyKeys.editTODO =
+      Main.editTODO
+  , MyKeys.screenBrightnessInc =
+      backlightUp
+  , MyKeys.screenBrightnessDec =
+      backlightDn
+  , MyKeys.volumeInc =
+      volumeUp
+  , MyKeys.volumeDec =
+      volumeDn
+  , MyKeys.volumeToggleMute =
+      toggleMute
+  , MyKeys.trackpadEnabledToggle =
+      toggleTrackpad
+  , MyKeys.printScreen =
+      Main.printScreen
+  , MyKeys.clipboardManager =
+      copyQ
+  , MyKeys.lockscreen =
+      lock
+  , MyKeys.resetScreens =
+      Main.resetScreens
+  , MyKeys.restartXMonad =
+      reloadXMonad
+  }

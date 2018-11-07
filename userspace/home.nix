@@ -186,6 +186,7 @@ in
         inherit
           dotfilesLoc xmonad
           alsaUtils copyq i3lock-fancy xautolock rofi libqalculate;
+        xmessage = xorg.xmessage;
         xmobar = haskellPackages.xmobar;
         st = pkgs.callPackage ./st/build.nix { };
       };

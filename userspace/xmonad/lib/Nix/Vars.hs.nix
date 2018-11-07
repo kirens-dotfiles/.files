@@ -1,4 +1,4 @@
-{ dotfilesLoc, alsaUtils, copyq, i3lock-fancy, xmonad, xautolock, xmobar, rofi, libqalculate, st }:
+{ dotfilesLoc, alsaUtils, copyq, i3lock-fancy, xmonad, xautolock, xmobar, rofi, libqalculate, st, xmessage }:
 ''
 module Nix.Vars where
 
@@ -13,4 +13,5 @@ xautolock = "${xautolock}/bin/xautolock"
 xmobar = "${xmobar}/bin/xmobar"
 rofi = "${rofi}/bin/rofi"
 qalc = "${libqalculate}/bin/qalc"
+xmessage = "${xmessage}/bin/xmessage"
 ''
