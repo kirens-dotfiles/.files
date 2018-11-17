@@ -5,7 +5,6 @@
       [
         "spotify"
         "gitkraken"
-        "test1"
       ]
   );
 }
