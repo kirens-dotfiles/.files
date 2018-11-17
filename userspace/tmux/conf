@@ -1,0 +1,23 @@
+# Temporary fix for invalid ncurses ST-description
+set -as terminal-overrides ',st*:Ss@'
+
+# Quicker escape
+set -sg escape-time 0
+# Enable mouse interactions
+setw -g mouse on
+# Full color terminal
+set -g default-terminal "tmux-256color"
+
+# Keybindings
+setw -g mode-keys vi
+bind-key : command-prompt
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'V' send -X select-line
+bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
+bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+
+# Status Bar
+set-option -g status-left ''
+set-window-option -g window-status-current-fg colour7
+set-option -g status-bg colour0
