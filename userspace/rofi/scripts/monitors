@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 print_menu() {
-  printf "Standard\nOnly internal monitor\0"
+  printf "Normal\nOnly internal monitor\0"
   printf "External\nOnly HDMI monitor\0"
   printf "Stacked\nExternal monitor above internal\0"
   printf "Mirrored\nExternal monitor mirroring internal\0"
