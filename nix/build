@@ -13,7 +13,16 @@ unlink_res() {
   fi
 }
 
+if [ "$EUID" -ne 0 ]; then
+  echo 'Must be run as SUDO'
+  exit 5
+fi
+
 # Move to the nix-system-cfg-directory
+if [ -z ${DOTFILES+x} ]; then
+  echo 'Variable $DOTFILES must be set to run this script'
+  exit 4
+fi
 cd $DOTFILES/nix/
 # Add system packages such as `nixos-rebuild`
 PATH="$PATH:/run/current-system/sw/bin"
@@ -26,19 +35,19 @@ rm -rf /tmp/nixconf-restorept/
 cp -r /etc/nixos/ /tmp/nixconf-restorept/
 
 echo "-- Writing new config"
-sudo rm -rf /etc/nixos/
-sudo cp -r src/ /etc/nixos/
+rm -rf /etc/nixos/
+cp -r src/ /etc/nixos/
 
 echo "------------------------------"
 echo "-- Testing config ------------"
 echo "------------------------------"
 
-if sudo nixos-rebuild test && prompt_yn 'Switch build?'; then
+if nixos-rebuild test && prompt_yn 'Switch build?'; then
     # Safe to switch
     echo "------------------------------"
     echo "-- Building config -----------"
     echo "------------------------------"
-    sudo nixos-rebuild switch
+    nixos-rebuild switch
 
     unlink_res
 else
@@ -46,8 +55,8 @@ else
     echo "------------------------------"
     echo "-- Reverting changes ---------"
     echo "------------------------------"
-    sudo rm -rf /etc/nixos/
-    sudo cp -r /tmp/nixconf-restorept/ /etc/nixos/
+    rm -rf /etc/nixos/
+    cp -r /tmp/nixconf-restorept/ /etc/nixos/
 
     # The compilation must have failed
     if [ ! -L result ]; then exit 2; fi
