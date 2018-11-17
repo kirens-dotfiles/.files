@@ -88,6 +88,8 @@ alias bootentry="sudo nixos-rebuild switch -p"
 
 alias unlinkResults='find -name result | xargs -t -L 1 unlink'
 
+alias nx-shell='nix-shell --command fish'
+
 # Battery
 alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|time\ to\ empty|percentage'"
 
