@@ -8,7 +8,6 @@ import XMonad ( X, liftIO, workspaces, Resize (Expand, Shrink), screenWorkspace,
 import XMonad.Operations ( windows, kill, sendMessage )
 import Graphics.X11.Types ( KeyMask )
 import Data.Default ( Default (def) )
-import System.Posix.Process ( executeFile, forkProcess )
 import XMonad.Layout.BinarySpacePartition ( ResizeDirectional (ExpandTowards, ShrinkFrom), Direction2D (U, D, L, R), Rotate (Rotate), Swap (Swap) )
 import System.Exit ( exitWith, ExitCode (ExitSuccess) )
 import XMonad.Actions.SinkAll ( sinkAll )
@@ -16,7 +15,9 @@ import XMonad.Actions.CycleWS ( prevWS, nextWS )
 import XMonad.Layout.MultiToggle ( Toggle (Toggle) )
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers (FULL) )
 import XMonad.Util.EZConfig ( mkKeymap )
-import Nix.Vars ( xmessage )
+import qualified Prgms.ClipboardManager as CM
+import Prgms.ErrorPrompt ( noAction )
+
 
 type KeyBnd = String
 
@@ -37,7 +38,7 @@ data Actions =
   , volumeToggleMute :: X ()
   , trackpadEnabledToggle :: X ()
   , printScreen :: X ()
-  , clipboardManager :: X ()
+  , clipboardManager :: CM.ClipboardManager
   , lockscreen :: X ()
   , resetScreens :: X ()
   , restartXMonad :: X ()
@@ -69,7 +70,7 @@ instance Default Actions where
     , printScreen =
         noAction "taking screenshots"
     , clipboardManager =
-        noAction "clipboard manager"
+        def
     , lockscreen =
         noAction "locking the screen"
     , resetScreens =
@@ -77,13 +78,6 @@ instance Default Actions where
     , restartXMonad =
         noAction "restarting XMonad"
     }
-
--- A default binding when no program action is available
-noAction actionName =
-  liftIO $ do
-    forkProcess
-      $ executeFile xmessage True ["-default", "okay", "Action missing for " ++ actionName] Nothing
-    return ()
 
 -- This should be made a better generalization (KeyBnd strings error prone) TODO
 keysWithPar :: (KeyBnd -> a -> (KeyBnd, X ())) -> [KeyBnd] -> [a] -> [(KeyBnd, X ())]
@@ -119,8 +113,8 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-S-<Down>", sendMessage $ ShrinkFrom D)
   , ("M-S-<Left>", sendMessage $ ShrinkFrom L)
   , ("M-S-<Right>", sendMessage $ ShrinkFrom R)
-  , ("M-<Prior>", sendMessage $ Rotate)
-  , ("M-<Next>", sendMessage $ Swap)
+  , ("M-M1-<Left>", sendMessage $ Rotate)
+  , ("M-M1-<Right>", sendMessage $ Swap)
 
   -- Workspaces
   , ("M-C-h", prevWS)
@@ -138,7 +132,9 @@ keyConfig actions conf = mkKeymap conf $
   , ("<Print>", printScreen actions)
 
   -- misc
-  , ("M-c", clipboardManager actions)
+  , ("M-c", CM.toggleShow $ clipboardManager actions)
+  , ("M-M1-c", CM.next $ clipboardManager actions)
+  , ("M-M1-S-c", CM.prev $ clipboardManager actions)
   , ("M-q", lockscreen actions)
   , ("M-M1-S-o", resetScreens actions)
   , ("M-<Esc>", restartXMonad actions)

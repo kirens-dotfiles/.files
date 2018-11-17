@@ -19,6 +19,9 @@ import XMonad.Util.Run
 -- My Config files
 import XMonad.Config.Kirens.Keys as MyKeys
 
+import qualified Prgms.ClipboardManager as CM
+
+
 -- Gnome support stuff (e.g. getactivewindow)
 import XMonad.Hooks.EwmhDesktops
 
@@ -154,8 +157,15 @@ autolockInit = spawn $ Pkgs.xautolock ++ " -time 15 -locker " ++ Pkgs.i3Lock
 -- CopyQ
 --------------------------------------------------------------------------
 
-copyQ = spawn Pkgs.copyQ
-
+copyQ =
+  def
+    { CM.init = gen ""
+    , CM.toggleShow = gen " -e 'if (visible()) hide(); else showAt(0, 0)'"
+    , CM.next = gen " next"
+    , CM.prev = gen " previous"
+    }
+  where
+    gen c = spawn $ Pkgs.copyQ ++ c
 
 -- xbacklight
 --------------------------------------------------------------------------
@@ -316,7 +326,7 @@ startup = do
     setBkgrnd defaultBackground
     autolockInit
     lock
-    copyQ
+    CM.init copyQ
     setWMName "LG3D"
 
 -----------------------------------------------------------------------}}}
