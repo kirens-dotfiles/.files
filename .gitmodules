@@ -4,3 +4,6 @@
 [submodule "userspace/st/src"]
 	path = userspace/st/src
 	url = git@github.com:Kirens/st.git
+[submodule "nix/src/nixpkgs"]
+	path = nix/src/nixpkgs
+	url = git@github.com:Kirens/nixpkgs.git

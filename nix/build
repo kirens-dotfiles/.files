@@ -21,22 +21,21 @@ fi
 # Move to the nix-system-cfg-directory
 if [ -z ${DOTFILES+x} ]; then
   echo 'Variable $DOTFILES must be set to run this script'
+  echo 'Run sudo -E to keep user environment'
   exit 4
 fi
 cd $DOTFILES/nix/
+
+# Remove config-path
+NIX_PATH="$(echo $NIX_PATH | sed 's/:nixos-config=[^:]*//')"
+# Add new config-path
+NIX_PATH="$NIX_PATH:nixos-config=$(pwd)/src/configuration.nix"
+
 # Add system packages such as `nixos-rebuild`
 PATH="$PATH:/run/current-system/sw/bin"
 
 # Confirm with the user
 if ! prompt_yn 'Build changes?'; then exit 3; fi
-
-echo "-- Storing current config"
-rm -rf /tmp/nixconf-restorept/
-cp -r /etc/nixos/ /tmp/nixconf-restorept/
-
-echo "-- Writing new config"
-rm -rf /etc/nixos/
-cp -r src/ /etc/nixos/
 
 echo "------------------------------"
 echo "-- Testing config ------------"
@@ -51,13 +50,6 @@ if nixos-rebuild test && prompt_yn 'Switch build?'; then
 
     unlink_res
 else
-    # Revert
-    echo "------------------------------"
-    echo "-- Reverting changes ---------"
-    echo "------------------------------"
-    rm -rf /etc/nixos/
-    cp -r /tmp/nixconf-restorept/ /etc/nixos/
-
     # The compilation must have failed
     if [ ! -L result ]; then exit 2; fi
     unlink_res
