@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 if [[ -z "$@" ]]; then
-  ls $HOME/.config/rofi/scripts
+  find $HOME/.config/rofi/scripts -maxdepth 1 -and -type l -or -type f -printf '%f\n'
 else
   bash "$HOME/.config/rofi/scripts/$1" > /dev/null &
 fi
