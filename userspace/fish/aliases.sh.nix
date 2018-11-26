@@ -80,6 +80,8 @@ alias nix-storefind='nix-storefolders | grep'
 
 alias nix-garbagecollect='nix-store --gc'
 alias nix-mygens='nix-env --list-generations'
+alias nix-mygendel="nix-env --dry-run --delete-generations"
+alias nix-mygendodel="nix-env --delete-generations"
 alias nix-gens="sudo nix-env -p /nix/var/nix/profiles/system --list-generations"
 alias nix-delgen="sudo nix-env -p /nix/var/nix/profiles/system --dry-run --delete-generations"
 alias nix-dodelgen="sudo nix-env -p /nix/var/nix/profiles/system --delete-generations"
@@ -87,8 +89,6 @@ alias nix-dodelgen="sudo nix-env -p /nix/var/nix/profiles/system --delete-genera
 alias bootentry="sudo nixos-rebuild switch -p"
 
 alias unlinkResults='find -name result | xargs -t -L 1 unlink'
-
-alias nx-shell='nix-shell --command fish'
 
 # Battery
 alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E 'state|time\ to\ full|time\ to\ empty|percentage'"
