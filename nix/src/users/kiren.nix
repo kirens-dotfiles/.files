@@ -7,13 +7,14 @@
     createHome = true;
     home = "/home/kiren";
     description = "Erik Nygren";
-    extraGroups = [ "wheel" "kiren" "docker" "audio" ];
+    extraGroups = [ "wheel" "kiren" "docker" "audio" "adbuser" ];
     shell = pkgs.fish;
   };
 
   # Some stuff I require
   security.sudo.enable = true;
   programs.fish.enable = true;
+  programs.adb.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
