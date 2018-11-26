@@ -29,7 +29,7 @@ let
   # For packages that need a more up to date channel.
   pkg1809 = import (fetchTarball {
     url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-18.09.tar.gz";
-    sha256 = "0hszcsvgcphjny8j0p5inhl45ja61vjiz0csb0kx0b9lzmrafr7b";
+    sha256 = "16xmd9zlbiyqd90y5a2jqwvkmbn95wcxqk0qnxlf2lkryg8cvc89";
   }) {};
 in
 {
@@ -109,7 +109,7 @@ in
 
     # Packages from system that are needed
     bash
-    ncurses
+    pkg1809.ncurses # Contains st+tmux+nvim patch
     coreutils
     findutils
     nix
@@ -141,9 +141,11 @@ in
       };
     };
 
-    neovim = {
+    neovim  = {
       enable = true;
+      package = pkg1809.neovim;
       viAlias = true;
+      vimAlias = true;
 
       configure = import ./nvim/config.nix { pkgs = pkgs; };
     };
@@ -157,15 +159,19 @@ in
   };
 
   services = {
+    #safeeyes = {
+    #  enable = true;
+    #  package = pkg1809.safeeyes;
+    #};
     redshift = {
       enable = true;
       latitude = "40.642292";
       longitude = "22.879766";
 
       temperature.day = 6500;
-      temperature.night = 3500;
+      temperature.night = 6500; #3500;
       brightness.day = "1";
-      brightness.night = "0.5";
+      brightness.night = "1"; #"0.5";
 
       # For version 1.12 where custom times are enabled
       package = pkg1809.redshift;
@@ -185,7 +191,7 @@ in
       configData = with pkgs; xmonad: {
         inherit
           dotfilesLoc xmonad
-          alsaUtils copyq i3lock-fancy xautolock rofi libqalculate;
+          alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus;
         xmessage = xorg.xmessage;
         xmobar = haskellPackages.xmobar;
         st = pkgs.callPackage ./st/build.nix { };
