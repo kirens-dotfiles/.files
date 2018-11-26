@@ -3,7 +3,18 @@ My Linux dotfiles.
 The goal is to have the complete source code for my workstation stack,
 ensuring reproducible builds.
 
-## Principles
+### Table of contents
+  * [Principles](#principles)
+    * [Reproducible](#reproducible)
+    * [Automated](#automated)
+    * [Secure](#secure)
+  * [Installation](#installation)
+    * [Setup disks](#setup-disks)
+      * [Initiate the encryption](#initiate-the-encryption)
+      * [Open existing disks](#open-existing-disks)
+     * [Install NixOS](#install-nixos)
+
+# Principles
 ### Reproducible
 As previously mentioned the aim is to contain the source for all software I use in this repo.
 This will ensure that I have access to the software even if it goes unmaintained and disappears.
@@ -27,13 +38,13 @@ This however requires balancing with using old software that is exposing me to v
 Part of this implies exposing few programs and services.
 I will aim to create nix-style dependencies and never assume packages exist.
 
-## Installation
+# Installation
 TODO: Will be updated on next install to reflect changes in nix-setup.
 
 This is the steps I used last time I installed NixOS on my laptop,
 heavily inspired by [this](https://gist.github.com/martijnvermaat/76f2e24d0239470dd71050358b4d5134) guide.
 
-### Setup disks
+## Setup disks
 For the install I want an encrypted partition for the OS,
 and another one for a data-partition that can be shared between OSs.
 The boot partition cannot be encrypted.
@@ -43,7 +54,7 @@ First the boot partition (/boot) 500MiB FAT16,
 followed by the root partition (/) >40GiB,
 and lastly a data partition (/e) >25GiB
 
-#### Initiate the encryption
+### Initiate the encryption
 Find the partitions to work with
 
     lsblk -o name,partlabel
@@ -73,7 +84,7 @@ Format the encrypted volumes
     mkfs.ext4 -L root /dev/sysg/root
     mkswap -L swap /dev/sysg/swap
 
-#### Open existing disks
+### Open existing disks
 
 Decrypt the disks
 
@@ -89,7 +100,7 @@ Activate the volumes and make sure they appear in the listing
     lvchange -ay sysg
     lvs
 
-### Install NixOS
+## Install NixOS
 
 Mount newly created partitions so the OS can be installed on them
 
