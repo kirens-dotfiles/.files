@@ -7,9 +7,12 @@
   * Instructions on how I write SMART todos (Herrrm... previous self)
   * Set up and start using task warrior
   * Organize userspace directory
+  * Make nix-shell launch fish
+  * Make custom SUDO prompt to remind not to fall victim to phising
 
 ## Terminal emulator
 
+  * Move tmux into home-manager config
   * Debug st tmux vim crach
 
 ## ROFI
@@ -25,6 +28,7 @@
 
   * Complete nix-shell in a smart manner with pkgs lookup
   * Turn aliases into functions. (I seem to be sticking to fish after all)
+  * Use powerline-rs in a custom builder, similar to ST
 
 ## VIM
 
