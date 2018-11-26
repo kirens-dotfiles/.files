@@ -103,7 +103,7 @@ in
     # Terminal file explorer
     ranger
     # Node without npm
-    nodejs-slim
+    nodejs-slim-9_x
     # Gitkraken only serves latest, so we need newer version
     pkg1809.gitkraken
 

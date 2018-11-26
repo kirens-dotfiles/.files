@@ -10,3 +10,6 @@
 [submodule "userspace/rofi/scripts/rofi-fontawesome"]
 	path = userspace/rofi/scripts/rofi-fontawesome
 	url = https://github.com/wstam88/rofi-fontawesome
+[submodule "userspace/rofi/scripts/toggl.source"]
+	path = userspace/rofi/scripts/toggl.source
+	url = git@github.com:Kirens/rofi-toggl.git

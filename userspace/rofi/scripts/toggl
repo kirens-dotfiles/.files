@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+cd toggl.source
+node index.js
