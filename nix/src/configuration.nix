@@ -71,10 +71,10 @@ in
     };
   };
 
-    # acpid
+  # acpid
   services.acpid = {
     enable = true;
-    # Slock & suspend on lid close
+    # Lock & suspend on lid close
     lidEventCommands = ''
       i3lock-fancy& systemctl suspend
     '';
