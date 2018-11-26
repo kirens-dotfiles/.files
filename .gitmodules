@@ -1,15 +1,15 @@
 [submodule "userspace/home-manager"]
 	path = userspace/home-manager
-	url = git@github.com:Kirens/home-manager.git
+	url = git@github.com:kirens-dotfiles/home-manager.git
 [submodule "userspace/st/src"]
 	path = userspace/st/src
-	url = git@github.com:Kirens/st.git
+	url = git@github.com:kirens-dotfiles/st.git
 [submodule "nix/src/nixpkgs"]
 	path = nix/src/nixpkgs
-	url = git@github.com:Kirens/nixpkgs.git
+	url = git@github.com:kirens-dotfiles/nixpkgs.git
 [submodule "userspace/rofi/scripts/rofi-fontawesome"]
 	path = userspace/rofi/scripts/rofi-fontawesome
 	url = https://github.com/wstam88/rofi-fontawesome
 [submodule "userspace/rofi/scripts/toggl.source"]
 	path = userspace/rofi/scripts/toggl.source
-	url = git@github.com:Kirens/rofi-toggl.git
+	url = git@github.com:kirens-dotfiles/rofi-toggl.git
