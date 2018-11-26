@@ -9,7 +9,7 @@ print_menu() {
 }
 option_count=4
 
-res=$(print_menu | rofi -dmenu -i -sep '\0' -lines "$option_count" -eh 2 -p '' -no-custom -format i)
+res=$(print_menu | rofi -dmenu -i -sep '\0' -lines "$option_count" -eh 2 -p 'Monitor Layout' -no-custom -format i)
 
 if [ -z "$res" ] ; then
     exit
