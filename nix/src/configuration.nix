@@ -22,7 +22,15 @@ in
   services.upower.enable = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      myPkgs.cloud-print-connector
+      gutenprint
+      hplip
+      splix
+    ];
+  };
 
   fonts = {
     enableFontDir = true;
