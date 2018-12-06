@@ -62,6 +62,8 @@ in
   home.packages = with pkgs; [
     btrfsProgs
 
+    (pkgs.callPackage ./powerline/build.nix { powerline-go = pkg1809.powerline-go; })
+
     curl
     wget
     htop

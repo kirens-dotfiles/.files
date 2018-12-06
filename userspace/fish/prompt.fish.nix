@@ -61,10 +61,15 @@ function fish_prompt
 
   __fish_prompt_fixMargin
 
-  # Print everything
-  echo -s (__fish_prompt_status "$last_status") "$USER" @ (prompt_hostname) \
-    ' ' (set_color $fish_color_cwd) (prompt_pwd) \
-    (__fish_git_prompt)
-  echo -n -s "> "
+  if type -q powerline-go
+    powerline-go --shell bare --error $last_status -max-width (tput cols)
+    printf '\n> '
+  else
+    # Print everything
+    echo -s (__fish_prompt_status "$last_status") "$USER" @ (prompt_hostname) \
+      ' ' (set_color $fish_color_cwd) (prompt_pwd) \
+      (__fish_git_prompt)
+    echo -n -s "> "
+  end
 end
 ''

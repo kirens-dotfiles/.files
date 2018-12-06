@@ -13,3 +13,6 @@
 [submodule "userspace/rofi/scripts/toggl.source"]
 	path = userspace/rofi/scripts/toggl.source
 	url = git@github.com:kirens-dotfiles/rofi-toggl.git
+[submodule "userspace/powerline/src"]
+	path = userspace/powerline/src
+	url = git@github.com:kirens-dotfiles/powerline-go.git
