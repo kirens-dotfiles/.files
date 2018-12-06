@@ -3,7 +3,7 @@
 # Greeting prompt
 function fish_greeting
   echo "Welcome to fish, the friendly interactive shell"
-  echo Current shell depth is "$SHLVL"
+  echo Current shell depth is (shell-lvl)
 end
 
 
