@@ -17,6 +17,11 @@ bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
 bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -in -selection clipboard"
 bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
 
+# Clear screen
+bind -n C-k send-keys -R \
+# Clear scrollback
+bind -n C-l clear-history
+
 # Status Bar
 set-option -g status-left ''
 set-window-option -g window-status-current-fg colour7
