@@ -34,10 +34,10 @@ let
 in
 {
   home.file = {
-    ".tmux.conf".source = ./tmux/conf;
+    ".tmux.conf".source = ./shell/tmux/conf;
     ".config/rofi".source = ./rofi;
     ".config/nixpkgs/config.nix".source = ./config.nix;
-    ".config/fish/functions".source = ./fish/functions;
+    ".config/fish/functions".source = ./shell/fish/functions;
     ".xmonad/scripts/lockptr" =
       import ./scripts/lockptr.nix
         { pkgs = pkgs; };
@@ -62,7 +62,7 @@ in
   home.packages = with pkgs; [
     btrfsProgs
 
-    (pkgs.callPackage ./powerline/build.nix { powerline-go = pkg1809.powerline-go; })
+    (pkgs.callPackage ./shell/powerline/build.nix { powerline-go = pkg1809.powerline-go; })
 
     curl
     wget
@@ -155,7 +155,7 @@ in
     fish = {
       enable = true;
 
-      inherit (import ./fish/config.fish.nix { dotfilesLoc = dotfilesLoc; })
+      inherit (import ./shell/fish/config.fish.nix { dotfilesLoc = dotfilesLoc; })
         shellInit promptInit interactiveShellInit;
     };
   };
@@ -196,7 +196,7 @@ in
           alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus;
         xmessage = xorg.xmessage;
         xmobar = haskellPackages.xmobar;
-        st = pkgs.callPackage ./st/build.nix { };
+        st = pkgs.callPackage ./shell/st/build.nix { };
       };
 
 

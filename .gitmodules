@@ -2,7 +2,7 @@
 	path = userspace/home-manager
 	url = git@github.com:kirens-dotfiles/home-manager.git
 [submodule "userspace/st/src"]
-	path = userspace/st/src
+	path = userspace/shell/st/src
 	url = git@github.com:kirens-dotfiles/st.git
 [submodule "nix/src/nixpkgs"]
 	path = nix/src/nixpkgs
@@ -14,5 +14,5 @@
 	path = userspace/rofi/scripts/toggl.source
 	url = git@github.com:kirens-dotfiles/rofi-toggl.git
 [submodule "userspace/powerline/src"]
-	path = userspace/powerline/src
+	path = userspace/shell/powerline/src
 	url = git@github.com:kirens-dotfiles/powerline-go.git
