@@ -42,6 +42,9 @@ data Actions =
   , lockscreen :: X ()
   , resetScreens :: X ()
   , restartXMonad :: X ()
+  , musicPlayPause :: X ()
+  , musicNext :: X ()
+  , musicPrev :: X ()
   }
 
 instance Default Actions where
@@ -77,6 +80,12 @@ instance Default Actions where
         noAction "reseting the screens"
     , restartXMonad =
         noAction "restarting XMonad"
+    , musicPlayPause =
+        noAction "playing music"
+    , musicNext =
+        noAction "skipping music"
+    , musicPrev =
+        noAction "reverse skipping music"
     }
 
 -- This should be made a better generalization (KeyBnd strings error prone) TODO
@@ -128,6 +137,9 @@ keyConfig actions conf = mkKeymap conf $
   , ("<XF86AudioRaiseVolume>", volumeInc actions)
   , ("<XF86AudioLowerVolume>", volumeDec actions)
   , ("<XF86AudioMute>", volumeToggleMute actions)
+  , ("<XF86AudioPlay>", musicPlayPause actions)
+  , ("<XF86AudioNext>", musicNext actions)
+  , ("<XF86AudioPrev>", musicPrev actions)
   , ("M-p", trackpadEnabledToggle actions)
   , ("<Print>", printScreen actions)
 

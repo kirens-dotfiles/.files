@@ -122,6 +122,16 @@ unfocusColor = base02
 -- Helpers / System-integration                                        {{{
 --------------------------------------------------------------------------
 
+-- Spotify Ctl
+
+spotifySend cmd =
+  spawn
+    ( Pkgs.dbusSend
+    ++ " --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player"
+    ++ cmd
+    )
+  >> return ()
+
 -- Monad tools
 --------------------------------------------------------------------------
 
@@ -160,7 +170,7 @@ autolockInit = spawn $ Pkgs.xautolock ++ " -time 15 -locker " ++ Pkgs.i3Lock
 copyQ =
   def
     { CM.init = gen ""
-    , CM.toggleShow = gen " -e 'if (visible()) hide(); else showAt(0, 0)'"
+    , CM.toggleShow = gen " -e 'if (visible()) hide(); else show()'"
     , CM.next = gen " next"
     , CM.prev = gen " previous"
     }
@@ -431,4 +441,10 @@ myKeys =
       Main.resetScreens
   , MyKeys.restartXMonad =
       reloadXMonad
+  , MyKeys.musicPlayPause =
+      spotifySend "PlayPause"
+  , MyKeys.musicNext =
+      spotifySend "Next"
+  , MyKeys.musicPrev =
+      spotifySend "Prev"
   }
