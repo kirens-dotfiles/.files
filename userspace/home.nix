@@ -27,10 +27,7 @@ let
     substring
   ;
   # For packages that need a more up to date channel.
-  pkg1809 = import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-18.09.tar.gz";
-    sha256 = "16xmd9zlbiyqd90y5a2jqwvkmbn95wcxqk0qnxlf2lkryg8cvc89";
-  }) {};
+  myPkgs = import ../nix/src/nixpkgs { };
 in
 {
   home.file = {
@@ -62,7 +59,7 @@ in
   home.packages = with pkgs; [
     btrfsProgs
 
-    (pkgs.callPackage ./shell/powerline/build.nix { powerline-go = pkg1809.powerline-go; })
+    (pkgs.callPackage ./shell/powerline/build.nix { powerline-go = myPkgs.powerline-go; })
 
     curl
     wget
@@ -107,11 +104,11 @@ in
     # Node without npm
     nodejs-slim-9_x
     # Gitkraken only serves latest, so we need newer version
-    pkg1809.gitkraken
+    myPkgs.gitkraken
 
     # Packages from system that are needed
     bash
-    pkg1809.ncurses # Contains st+tmux+nvim patch
+    myPkgs.ncurses # Contains st+tmux+nvim patch
     coreutils
     findutils
     nix
@@ -145,7 +142,7 @@ in
 
     neovim  = {
       enable = true;
-      package = pkg1809.neovim;
+      package = myPkgs.neovim;
       viAlias = true;
       vimAlias = true;
 
@@ -163,7 +160,7 @@ in
   services = {
     #safeeyes = {
     #  enable = true;
-    #  package = pkg1809.safeeyes;
+    #  package = myPkgs.safeeyes;
     #};
     redshift = {
       enable = true;
@@ -176,7 +173,7 @@ in
       brightness.night = "1"; #"0.5";
 
       # For version 1.12 where custom times are enabled
-      package = pkg1809.redshift;
+      package = myPkgs.redshift;
 
       extraOptions = [
         "-c /home/kiren/.config/redshift/redshift.conf"
