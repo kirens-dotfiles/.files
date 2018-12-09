@@ -1,11 +1,16 @@
 { pkgs }:
 {
   customRC = import ./rc.nix { };
-  packages.myVimPackage = with pkgs.vimPlugins; {
-    # loaded on launch
-    start = [ vim-closetag ];
-    # manually loadable by calling `:packadd $plugin-name`
-    opt = [ ];
+  vam = {
+    knownPlugins = pkgs.vimPlugins;
+    pluginDictionaries = [
+      {
+        names = [
+          "vim-javascript"
+          "vim-colors-solarized"
+        ];
+      }
+    ];
   };
 }
 

@@ -146,7 +146,7 @@ in
       viAlias = true;
       vimAlias = true;
 
-      configure = import ./nvim/config.nix { pkgs = pkgs; };
+      configure = import ./nvim/config.nix { pkgs = myPkgs; };
     };
 
     fish = {
