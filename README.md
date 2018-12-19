@@ -41,7 +41,7 @@ I will aim to create nix-style dependencies and never assume packages exist.
 # Installation
 TODO: Will be updated on next install to reflect changes in nix-setup.
 
-This is the steps I used last time I installed NixOS on my laptop,
+These are the steps I used last time I installed NixOS on my laptop,
 heavily inspired by [this](https://gist.github.com/martijnvermaat/76f2e24d0239470dd71050358b4d5134) guide.
 
 ## Setup disks
