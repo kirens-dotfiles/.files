@@ -17,6 +17,9 @@ set clipboard=unnamedplus
 " No trailing spaces pls
 autocmd BufWritePre * %s/\s\+$//e
 
+" Break lines at cursor (oposite of J; J∘K == id)
+nnoremap K i<CR><ESC>
+
 " Don't stay in insert mode
 autocmd FocusLost * stopinsert | wall!
 
