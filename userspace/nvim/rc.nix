@@ -17,6 +17,9 @@ set clipboard=unnamedplus
 " No trailing spaces pls
 autocmd BufWritePre * %s/\s\+$//e
 
+" Don't stay in insert mode
+autocmd FocusLost * stopinsert | wall!
+
 " map mouse activity
 :set mouse=a
 

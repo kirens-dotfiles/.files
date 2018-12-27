@@ -2,6 +2,9 @@
 ''
 run-shell ${sensible}
 
+# Propagate Focus events
+set -g focus-events on
+
 # Temporary fix for invalid ncurses ST-description
 set -as terminal-overrides ',st*:Ss@'
 
