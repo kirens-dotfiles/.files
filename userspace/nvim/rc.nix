@@ -5,7 +5,7 @@ set number
 set relativenumber
 
 " Margin
-:set colorcolumn=79
+set colorcolumn=79
 
 " Spaces > Tabs
 set shiftwidth=2
@@ -21,7 +21,7 @@ autocmd BufWritePre * %s/\s\+$//e
 autocmd FocusLost * stopinsert | wall!
 
 " map mouse activity
-:set mouse=a
+set mouse=a
 
 
 let g:javascript_conceal_function = "ƒ"
