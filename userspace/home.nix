@@ -31,7 +31,9 @@ let
 in
 {
   home.file = {
-    ".tmux.conf".source = ./shell/tmux/conf;
+    ".tmux.conf".text =
+      import ./shell/tmux/conf
+        { sensible = myPkgs.tmuxPlugins.sensible; };
     ".config/rofi".source = ./rofi;
     ".config/nixpkgs/config.nix".source = ./config.nix;
     ".config/fish/functions".source = ./shell/fish/functions;
