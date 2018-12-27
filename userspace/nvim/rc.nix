@@ -20,6 +20,20 @@ autocmd BufWritePre * %s/\s\+$//e
 " Break lines at cursor (oposite of J; J∘K == id)
 nnoremap K i<CR><ESC>
 
+" I need to forget arrows
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+vnoremap <Up> <NOP>
+vnoremap <Down> <NOP>
+vnoremap <Left> <NOP>
+vnoremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+
 " Don't stay in insert mode
 autocmd FocusLost * stopinsert | wall!
 
