@@ -224,7 +224,13 @@ toggleMute = spawn$ Pkgs.amixer ++ " set Master 1+ toggle"
 --------------------------------------------------------------------------
 
 --menu = spawn$ Pkgs.rofi ++ " -matching fuzzy -modi combi -show combi -combi-modi drun"
-menu = spawn$ Pkgs.rofi ++ " -terminal " ++ terminalBin ++ " -modi \"drun,scripts:$HOME/.config/rofi/scripts.select,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies\" -show drun"
+menu = spawn $ unwords
+  [ Pkgs.rofi
+  , "-terminal " ++  terminalBin
+  , "-modi \"combi,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies\""
+  , "-show combi"
+  , "-combi-modi \"drun,scripts:$HOME/.config/rofi/scripts.select\""
+  ]
 
 -- Background
 --------------------------------------------------------------------------
