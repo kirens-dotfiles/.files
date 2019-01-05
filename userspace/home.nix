@@ -59,7 +59,11 @@ in
   };
 
   home.packages = with pkgs; [
+    gnome3.nautilus
     btrfsProgs
+
+    myPkgs.franz
+    myPkgs.signal-desktop
 
     (pkgs.callPackage ./shell/powerline/build.nix { powerline-go = myPkgs.powerline-go; })
 
@@ -120,6 +124,7 @@ in
     networkmanager
     less
     gnused
+    pdftk
   ];
 
   programs = {
