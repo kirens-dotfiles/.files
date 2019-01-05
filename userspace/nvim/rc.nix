@@ -5,7 +5,11 @@ set number
 set relativenumber
 
 " Margin
-set colorcolumn=79
+set colorcolumn=80
+
+" Autobreak
+set textwidth=79
+set wrap
 
 " Spaces > Tabs
 set shiftwidth=2
