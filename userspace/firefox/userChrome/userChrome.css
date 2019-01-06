@@ -1,0 +1,31 @@
+@namespace xul url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+/* Loads custom JS, as discovered by Haggai Nuchi */
+/* https://github.com/nuchi/firefox-quantum-userchromejs */
+toolbarbutton#alltabs-button {
+    -moz-binding: url("userChrome.xml#js");
+}
+
+#back-button, #forward-button, /*#TabsToolbar,*/ #PanelUI-button {
+    display: none;
+}
+#urlbar, #sidebar-splitter {
+    border: none !important;
+}
+#sidebar-header, .tabbrowser-tabs, #tabbrowser-tabs {
+    background-color: #000;
+    color: #FFF;
+}
+.urlbar-textbox-container, .tab-background[selected="true"] {
+    background-color: #222 !important;
+    color: #FFF !important;
+}
+.tab-content {
+    color: #FFF;
+}
+#nav-bar-customization-target {
+    background-color: #000;
+}
+#sidebar-splitter {
+    color: #000;
+}

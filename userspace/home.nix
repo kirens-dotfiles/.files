@@ -28,9 +28,14 @@ let
   ;
   # For packages that need a more up to date channel.
   myPkgs = import ../nix/src/nixpkgs { };
+
+  firefoxProfile = "x25cwq9m.default";
 in
 {
   home.file = {
+    ".mozilla/firefox/${firefoxProfile}/chrome" = {
+      source = ./firefox/userChrome;
+    };
     ".tmux.conf".text =
       import ./shell/tmux/conf
         { sensible = myPkgs.tmuxPlugins.sensible; };
