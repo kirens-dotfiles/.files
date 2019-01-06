@@ -1,5 +1,7 @@
 { }:
 ''
+${import ./dissableArrows.nix.vim { }}
+${import ./leaveInsertMode.nix.vim { }}
 
 " Line numbering
 set number
