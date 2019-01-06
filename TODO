@@ -48,7 +48,7 @@
   * Quick access template workspaces
       (e.g. Test an idea ws for Haskell where two terminals launch,
       1 vim in /tmp/haskellTst/Tst.hs, one ghci with the file loaded)
-  * Do not loose focus when background tasks such as volume is changed.
+  * Find a general solution to not loosing focus
     (i.e. make / use a `spawnBackground`)
   * Log program / workspace swiches with timestamps to calculate time spent
     with certain activites
@@ -128,6 +128,7 @@
   * Keybindings for Volume/Brightness
   * Multiple monitors, basic
   * Xmobar configuration file included in xmonad.hs to prevent code duplication
+  * Do not loose focus when background tasks such as volume is changed.
 
 
 # TESTED/REJECTED/WONTFIX

@@ -21,6 +21,8 @@ import XMonad.Config.Kirens.Keys as MyKeys
 
 import qualified Prgms.ClipboardManager as CM
 
+-- Volume stuff
+import XMonad.Actions.Volume (getVolume, setVolume)
 
 -- Gnome support stuff (e.g. getactivewindow)
 import XMonad.Hooks.EwmhDesktops
@@ -206,17 +208,11 @@ backlightDn = backlight (-1)
 -- amixer
 --------------------------------------------------------------------------
 
-setVol :: Int -> X ()
-setVol n = spawn$ Pkgs.amixer ++ " set Master "++ show n
+linVol n = getVolume >>= setVolume . (+n)
 
-withVol :: (Num a, Read a) => (a -> X ()) -> X ()
-withVol fn = void$ sequence.(return.fn.fst =<<).reads
-  =<< cmd "sh" ["-c", Pkgs.amixer ++ " get Master | grep -oP '(?<=(?<!Limits: )Playback )[0-9]*' | head -1"]
-
-linVol n  = withVol (setVol.(+n))
-
-volumeUp = linVol 1
-volumeDn = linVol (-1)
+-- Apparently increasing 1 is to small to propagate
+volumeUp = linVol 2
+volumeDn = linVol (-2)
 
 toggleMute = spawn$ Pkgs.amixer ++ " set Master 1+ toggle"
 
@@ -338,7 +334,7 @@ myManageHook = composeAll
 --------------------------------------------------------------------------
 
 startup = do
-    setVol 0
+    setVolume 0
     setBkgrnd defaultBackground
     autolockInit
     lock
