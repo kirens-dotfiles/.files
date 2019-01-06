@@ -6,14 +6,7 @@
   * Figure out good note-takeing system for future events (i.e. FuM)
   * Instructions on how I write SMART todos (Herrrm... previous self)
   * Set up and start using task warrior
-  * Organize userspace directory
-  * Make nix-shell launch fish
   * Make custom SUDO prompt to remind not to fall victim to phising
-
-## Terminal emulator
-
-  * Move tmux into home-manager config
-  * Debug st tmux vim crach
 
 ## ROFI
 
@@ -28,7 +21,6 @@
 
   * Complete nix-shell in a smart manner with pkgs lookup
   * Turn aliases into functions. (I seem to be sticking to fish after all)
-  * Use powerline-rs in a custom builder, similar to ST
 
 ## VIM
 
@@ -38,7 +30,6 @@
 
 ## NIXOS
 
-  * Modularize config
   * mullvad vpn
   * Add i3lock-fancy-multimonitor to nixpkgs and install it
 
@@ -66,7 +57,6 @@
       On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)
   * xscreensaver
   * editTODO shortcut should autocommit + -push
-  * Multiple monitors => better hotswaping
   * Investigate xmobar coloring of mem% not working
 
  KEYBOARD
@@ -103,9 +93,11 @@
 ## FISH
 
   * fish conf dir should be a symlink so functions can be loaded ad hoc
+  * Use powerline-go in a custom builder, similar to ST
 
 ## NIXOS
 
+  * Modularize config
   * Is there some kind of user.nix config? Might be worth trying to migrate
     some configs from fish / X11 stuff to it in that case.
   * Move aliases to `environment.interactiveShellInit`
@@ -116,8 +108,14 @@
   * Map mouse to visual mode
   * nvim as standard editor in git
 
+## ROFI
+
+  * Multiple monitors => better hotswaping
+
 ## TERMINAL EMULATOR
 
+  * Move tmux into home-manager config
+  * Debug st tmux vim crach
   * Switch from xterm to ST
   * Custom ST build
 
@@ -134,6 +132,7 @@
 
 # TESTED/REJECTED/WONTFIX
 
+  * Make nix-shell launch fish
   * using `logger` in some config-scipts?
   * Make a home-manager extension that allows styling of ST
 
