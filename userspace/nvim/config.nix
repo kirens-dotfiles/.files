@@ -1,6 +1,6 @@
 { pkgs }:
 {
-  customRC = import ./rc.nix { };
+  customRC = import ./rc.nix.vim { };
   vam = {
     knownPlugins = pkgs.vimPlugins;
     pluginDictionaries = [
