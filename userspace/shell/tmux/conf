@@ -8,6 +8,9 @@ set -g focus-events on
 # Temporary fix for invalid ncurses ST-description
 set -as terminal-overrides ',st*:Ss@'
 
+# Neovim insert cursor
+set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+
 # Quicker escape
 set -sg escape-time 0
 # Enable mouse interactions
