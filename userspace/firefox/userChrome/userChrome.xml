@@ -18,7 +18,7 @@ https://opensource.org/licenses/MIT
             }
             // The following code executes in the browser context,
             // i.e. chrome://browser/content/browser.xul
-            Services.scriptloader.loadSubScript(makeRelativePathURI("userChrome.js"), window);
+            Services.scriptloader.loadSubScript(makeRelativePathURI("userChrome.js#v0.1.2"), window);
         ]]></constructor>
     </implementation>
   </binding>
