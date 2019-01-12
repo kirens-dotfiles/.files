@@ -1,5 +1,9 @@
 { }:
 ''
+# Prevent unintentional overwrites
+alias mv='mv -i'
+alias cp='cp -i'
+
 # TMux
 alias tmux-end-inactive="tmux ls | grep --invert-match attached | grep -oP '^[^:]+' | xargs -L 1 tmux kill-session -t"
 
