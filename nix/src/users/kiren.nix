@@ -7,7 +7,7 @@
     createHome = true;
     home = "/home/kiren";
     description = "Erik Nygren";
-    extraGroups = [ "wheel" "kiren" "docker" "audio" "adbuser" ];
+    extraGroups = [ "wheel" "kiren" "docker" "audio" "adbuser" "vboxusers" ];
     shell = pkgs.fish;
   };
 

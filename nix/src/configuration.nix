@@ -14,6 +14,7 @@ in
       ./hardware/nixpix.x360.3.nix
       ./net/nixpix.nix
       ./users/kiren.nix
+      ./virtualization/virtualBox.nix
     ];
 
   # Suspend to ram and nice stuff
