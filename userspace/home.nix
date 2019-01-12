@@ -21,15 +21,67 @@ let
   # Imports
   inherit (builtins)
     concatStringsSep
+    concatLists
   ;
   inherit (lib)
     toLower
     substring
+    mapAttrsToList
   ;
   # For packages that need a more up to date channel.
   myPkgs = import ../nix/src/nixpkgs { };
 
   firefoxProfile = "x25cwq9m.default";
+
+  minimalExposure = import ./remapNS.nix { inherit (pkgs) stdenv; };
+  specificBins = bins:
+    minimalExposure (concatLists [
+      (map (n: "bin/${n}") bins)
+      (concatLists
+        (map (pageNum:
+          map (n: {
+            from = "share/man/man${pageNum}/${n}.${pageNum}.gz";
+            canThrow = false;
+          }) bins)
+          ["1" "2" "3" "4" "5" "6" "7" "8" "9"]
+        )
+      )
+    ]);
+  app = name:
+    minimalExposure [
+      "share/applications/${name}.desktop"
+      { from = "share/${name}"; canThrow = false; }
+    ];
+
+
+  apps = with pkgs; mapAttrsToList app {
+    Franz = myPkgs.franz;
+    signal-desktop = myPkgs.signal-desktop;
+    spotify = spotify;
+    # Visually manage monitors
+    arandr = arandr;
+    atom = atom;
+    # Gitkraken only serves latest, so we need newer version
+    gitkraken = myPkgs.gitkraken;
+  };
+  packagesWithSpecificBins = with pkgs;
+    map ({ pkg, bins }: specificBins bins pkg) [
+      # Image viewer
+      { pkg = feh; bins = ["feh"]; }
+      # Clipboard interaction CLI
+      { pkg = xclip; bins = ["xclip"]; }
+      # DNS lookups
+      { pkg = { name = "dig-restricted"; outPath = bind.dnsutils.outPath; };
+        bins = ["dig"];
+      }
+      { pkg = ghc; bins = ["ghci"]; }
+      { pkg = coreutils; bins = ["cp" "mv" "ls" "rm"]; }
+      { pkg = man-db; bins = ["man"]; }
+      { pkg = findutils; bins = ["find" "xargs"]; }
+      { pkg = nix; bins = ["nix" "nix-shell" "nix-build"]; }
+      { pkg = nettools; bins = ["netstat"]; }
+      { pkg = networkmanager; bins = ["nmcli"]; }
+    ];
 in
 {
   home.file = {
@@ -63,73 +115,31 @@ in
     '';
   };
 
-  home.packages = with pkgs; [
-    gnome3.nautilus
-    btrfsProgs
-
-    myPkgs.franz
-    myPkgs.signal-desktop
-
-    (pkgs.callPackage ./shell/powerline/build.nix { powerline-go = myPkgs.powerline-go; })
-
-    curl
-    wget
-    htop
-    # Virtual terminals
-    tmux
-    spotify
-    # Visually manage monitors
-    arandr
-    # Image viewer
-    feh
-    # Clipboard interaction CLI
-    xclip
-    # Detect keypress
-    xlibs.xev
-    # Adjust buildin display brightness
-    xlibs.xbacklight
-    # Seems to be needed for some fish completion
-    xorg.xwininfo
-    # DNS (contains DIG)
-    bind
 
 
-    # For ghci
-    ghc
+  home.packages = concatLists [
+    apps
+    packagesWithSpecificBins
+    (with pkgs; [
+      curl
+      wget
+      htop
 
-    libreoffice
-    atom
-    inkscape
-    gimp
-    vlc
-    mupdf
-    imagemagick7
-    chromium
-    firefox
-    thunderbird
+      libreoffice
+      inkscape
+      gimp
+      vlc
+      (minimalExposure [{ from = "bin/mupdf-x11"; to = "bin/mupdf"; }] mupdf)
+      imagemagick7
+      chromium
+      firefox
+      thunderbird
 
-    # Magnifier
-    xzoom
-    # Terminal file explorer
-    ranger
-    # Node without npm
-    nodejs-slim-9_x
-    # Gitkraken only serves latest, so we need newer version
-    myPkgs.gitkraken
-
-    # Packages from system that are needed
-    bash
-    myPkgs.ncurses # Contains st+tmux+nvim patch
-    coreutils
-    findutils
-    nix
-    nettools
-    gawk
-    procps
-    networkmanager
-    less
-    gnused
-    pdftk
+      # Terminal file explorer
+      ranger
+      # Node without npm
+      nodejs-slim-9_x
+    ])
   ];
 
   programs = {
@@ -142,6 +152,7 @@ in
 
     git = {
       enable = true;
+      package = specificBins ["git"] pkgs.git;
       userName = name.userAltUpper;
       userEmail = email.dev;
 
@@ -154,9 +165,8 @@ in
 
     neovim  = {
       enable = true;
-      package = myPkgs.neovim;
+      package = specificBins ["vi"] myPkgs.neovim;
       viAlias = true;
-      vimAlias = true;
 
       configure = import ./nvim/config.nix { pkgs = myPkgs; };
     };
@@ -164,7 +174,14 @@ in
     fish = {
       enable = true;
 
-      inherit (import ./shell/fish/config.fish.nix { dotfilesLoc = dotfilesLoc; })
+      inherit
+        (import ./shell/fish/config.fish.nix {
+          dotfilesLoc = dotfilesLoc;
+          powerline = (pkgs.callPackage ./shell/powerline/build.nix {
+            powerline-go = myPkgs.powerline-go;
+          });
+          inherit (pkgs) bash coreutils ncurses;
+        })
         shellInit promptInit interactiveShellInit;
     };
   };
@@ -202,7 +219,7 @@ in
       configData = with pkgs; xmonad: {
         inherit
           dotfilesLoc xmonad
-          alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus;
+          alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus tmux;
         xmessage = xorg.xmessage;
         xmobar = haskellPackages.xmobar;
         st = pkgs.callPackage ./shell/st/build.nix { };

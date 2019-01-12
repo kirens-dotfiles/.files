@@ -1,4 +1,4 @@
-{ }:
+{ expr, powerline, bash, tput }:
 ''
 # Greeting prompt
 function fish_greeting
@@ -32,15 +32,15 @@ set __fish_git_prompt_char_upstream_behind '-'
 
 function __fish_prompt_fixMargin
   # Keep margin at bottom 1/3
-  set -l cRow (bash -c 'IFS=\';\' read -sdR -p $\'\E[6n\' ROW COL;echo "''${ROW#*[}"')
-  set -l lines (tput lines)
-  set -l ROWS (expr "$lines" / 3)
-  set -l ROW (expr "$lines" - "$ROWS" - 1)
+  set -l cRow (${bash} -c 'IFS=\';\' read -sdR -p $\'\E[6n\' ROW COL;echo "''${ROW#*[}"')
+  set -l lines (${tput} lines)
+  set -l ROWS (${expr} "$lines" / 3)
+  set -l ROW (${expr} "$lines" - "$ROWS" - 1)
   if test "$cRow" -ge "$ROW"
     for CHAR in (seq "$ROWS")
         printf "\n"
     end
-    tput cup "$ROW"
+    ${tput} cup "$ROW"
   end
 end
 
@@ -61,8 +61,8 @@ function fish_prompt
 
   __fish_prompt_fixMargin
 
-  if type -q powerline-go
-    powerline-go --shell bare --error $last_status -max-width (tput cols)
+  if type -q ${powerline}
+    ${powerline} --shell bare --error $last_status -max-width (${tput} cols)
     printf '\n> '
   else
     # Print everything

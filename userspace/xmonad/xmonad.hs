@@ -152,7 +152,7 @@ cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 -- Terminal stuff
 --------------------------------------------------------------------------
 
-terminalApp = terminalExec "tmux"
+terminalApp = terminalExec Pkgs.tmux
 -- TODO: escape single quotes
 terminalExec cmd = spawn$ terminalCmd ++ " -e \"" ++ cmd ++ "\""
 
