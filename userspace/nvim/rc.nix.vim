@@ -25,7 +25,7 @@ set clipboard=unnamedplus
 autocmd BufWritePre * %s/\s\+$//e
 
 " Break lines at cursor (oposite of J; J∘K == id)
-nnoremap K i<CR><ESC>
+nnoremap K i<CR><ESC>l
 
 " map mouse activity
 set mouse=a
