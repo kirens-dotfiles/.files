@@ -2,6 +2,9 @@
 ''
 run-shell ${sensible}
 
+# Propagate window title
+set-option -g set-titles on
+
 # Propagate Focus events
 set -g focus-events on
 
