@@ -33,6 +33,7 @@
   * Use `--pure-eval` (https://github.com/NixOS/nix/commit/d4dcffd64349bb52ad5f1b184bee5cc7c2be73b4) to install system and then unpure while developing features.
   * mullvad vpn
   * Add i3lock-fancy-multimonitor to nixpkgs and install it
+  * Generalize adding entry to extraGroups
 
 ## XMONAD
 
