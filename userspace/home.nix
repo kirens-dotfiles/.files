@@ -34,7 +34,7 @@ let
 
   firefoxProfile = "x25cwq9m.default";
 
-  minimalExposure = import ./remapNS.nix { inherit (pkgs) stdenv; };
+  minimalExposure = pkgs.callPackage ./remapNS.nix { };
   specificBins = bins:
     minimalExposure (concatLists [
       (map (n: "bin/${n}") bins)
