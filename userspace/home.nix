@@ -90,9 +90,15 @@ let
       { pkg = nettools; bins = ["netstat"]; }
       { pkg = networkmanager; bins = ["nmcli"]; }
     ];
+
+  fishFunctions = import ./shell/fish/functions {
+    inherit lib pkgs;
+    inherit (pkgs)
+      coreutils;
+  };
 in
 {
-  home.file = {
+  home.file = fishFunctions // {
     ".mozilla/firefox/${firefoxProfile}/chrome" = {
       source = ./firefox/userChrome;
     };
@@ -101,7 +107,6 @@ in
         { sensible = myPkgs.tmuxPlugins.sensible; };
     ".config/rofi/config".text = pkgs.callPackage ./rofi/config.nix { };
     ".config/nixpkgs/config.nix".source = ./config.nix;
-    ".config/fish/functions".source = ./shell/fish/functions;
     ".xmonad/scripts/lockptr" =
       import ./scripts/lockptr.nix
         { pkgs = pkgs; };
