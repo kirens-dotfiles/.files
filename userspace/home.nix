@@ -1,5 +1,6 @@
 { lib, pkgs, ... }:
 let
+  env = import ./env.nix;
   dotfilesLoc = "/e/_FILES/.files";
   name = rec {
     first = "Erik";
@@ -223,6 +224,11 @@ in
         xmessage = xorg.xmessage;
         xmobar = haskellPackages.xmobar;
         st = pkgs.callPackage ./shell/st/build.nix { };
+        rofi-scripts = pkgs.callPackage ./rofi/scripts.nix {
+          rofi-toggl = pkgs.callPackage ./rofi/scripts/toggl
+            { nodejs = myPkgs.nodejs-slim-10_x; };
+          inherit (env) togglAccessToken;
+        };
       };
 
 

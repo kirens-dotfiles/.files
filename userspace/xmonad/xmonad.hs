@@ -225,7 +225,7 @@ menu = spawn $ unwords
   , "-terminal " ++  terminalBin
   , "-modi \"combi,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies\""
   , "-show combi"
-  , "-combi-modi \"drun,scripts:$HOME/.config/rofi/scripts.select\""
+  , "-combi-modi \"drun,scripts:" ++ Pkgs.rofiScripts ++ "\""
   ]
 
 -- Background

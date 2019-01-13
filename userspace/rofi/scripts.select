@@ -1,9 +1,0 @@
-#! /usr/bin/env bash
-
-cd $HOME/.config/rofi/scripts
-
-if [[ -z "$@" ]]; then
-  find ./ -maxdepth 1 -and -type l -or -type f -printf '%f\n'
-else
-  bash "./$1" > /dev/null &
-fi
