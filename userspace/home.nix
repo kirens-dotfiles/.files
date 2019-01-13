@@ -51,6 +51,7 @@ let
   app = name:
     minimalExposure [
       "share/applications/${name}.desktop"
+      { from = "bin/${name}"; canThrow = false; }
       { from = "share/${name}"; canThrow = false; }
     ];
 
@@ -76,10 +77,16 @@ let
         bins = ["dig"];
       }
       { pkg = ghc; bins = ["ghci"]; }
-      { pkg = coreutils; bins = ["cp" "mv" "ls" "rm"]; }
+      { pkg = coreutils; bins = [
+        "cat" "chmod" "chown" "cp" "date" "df" "dirname" "du" "echo" "env"
+        "expr" "false" "fmt" "groups" "head" "kill" "ln" "ls" "md5sum" "mkdir"
+        "mktemp" "mv" "nohup" "printf" "pwd" "readlink" "rmdir" "seq" "sha1sum"
+        "sha256sum" "sha512sum" "sleep" "sort" "tail" "tee" "test" "timeout"
+        "touch" "true" "unlink" "uptime" "wc" "yes"
+      ]; }
       { pkg = man-db; bins = ["man"]; }
       { pkg = findutils; bins = ["find" "xargs"]; }
-      { pkg = nix; bins = ["nix" "nix-shell" "nix-build"]; }
+      { pkg = nix; bins = ["nix" "nix-shell" "nix-build" "nix-env"]; }
       { pkg = nettools; bins = ["netstat"]; }
       { pkg = networkmanager; bins = ["nmcli"]; }
     ];
