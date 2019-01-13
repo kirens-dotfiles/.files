@@ -6,7 +6,7 @@
   '';
 
   # TODO: move to shellAliases and Functions
-  interactiveShellInit = import ./aliases.sh.nix {};
+  interactiveShellInit = import ./aliases.nix.sh {};
 
   promptInit = import ./prompt.fish.nix {
     expr = "${coreutils}/bin/expr";

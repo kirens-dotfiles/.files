@@ -35,5 +35,10 @@ in lib.mapAttrs'
     nx-shell = ./nx-shell.nix.fish;
     shell-lvl = ./shell-lvl.nix.fish;
     vol = ./vol.nix.fish;
+    lampa = ./lampa.nix.fish;
+    pbpaste = ./pbpaste.nix.fish;
+    pbcopy = ./pbcopy.nix.fish;
+    wifi = ./wifi.nix.fish;
+    brightness = ./brightness.nix.fish;
   }
 
