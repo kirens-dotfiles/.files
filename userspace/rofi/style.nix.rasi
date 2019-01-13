@@ -1,3 +1,5 @@
+{ }:
+''
 * {
   backgroundcolor: #002B35;
   backgroundcoloralternate: 0;
@@ -50,3 +52,4 @@
   handle-color: @scrollbarcolor;
   handle-width: 8px;
 }
+''

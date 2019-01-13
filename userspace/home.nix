@@ -99,7 +99,7 @@ in
     ".tmux.conf".text =
       import ./shell/tmux/conf
         { sensible = myPkgs.tmuxPlugins.sensible; };
-    ".config/rofi".source = ./rofi;
+    ".config/rofi/config".text = pkgs.callPackage ./rofi/config.nix { };
     ".config/nixpkgs/config.nix".source = ./config.nix;
     ".config/fish/functions".source = ./shell/fish/functions;
     ".xmonad/scripts/lockptr" =
