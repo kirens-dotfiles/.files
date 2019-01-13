@@ -1,7 +1,7 @@
 { }:
 ''
 " Don't stay in insert mode if focus is lost
-autocmd FocusLost * stopinsert | wall!
+autocmd FocusLost * stopinsert
 
 " Specify `updatetime` upon entering insert mode
 autocmd InsertEnter * let updatetimePreInsert = &updatetime | set updatetime=30000
