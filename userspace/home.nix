@@ -86,9 +86,8 @@ let
       ]; }
       { pkg = man-db; bins = ["man"]; }
       { pkg = findutils; bins = ["find" "xargs"]; }
-      { pkg = nix; bins = ["nix" "nix-shell" "nix-build" "nix-env"]; }
+      { pkg = nix; bins = ["nix" "nix-shell" "nix-build" "nix-env" "nix-store"]; }
       { pkg = nettools; bins = ["netstat"]; }
-      { pkg = networkmanager; bins = ["nmcli"]; }
     ];
 
   fishFunctions = import ./shell/fish/functions {
@@ -137,6 +136,7 @@ in
       curl
       wget
       htop
+      less
 
       libreoffice
       inkscape
@@ -151,7 +151,7 @@ in
       # Terminal file explorer
       ranger
       # Node without npm
-      nodejs-slim-9_x
+      myPkgs.nodejs-slim-10_x
     ])
   ];
 
