@@ -218,7 +218,7 @@ in
         inherit
           dotfilesLoc xmonad
           alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus tmux;
-        xmessage = xorg.xmessage;
+        inherit (xorg) xmessage xbacklight;
         xmobar = haskellPackages.xmobar;
         st = pkgs.callPackage ./shell/st/build.nix { };
         rofi-scripts = pkgs.callPackage ./rofi/scripts.nix {

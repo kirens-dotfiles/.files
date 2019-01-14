@@ -184,7 +184,7 @@ bValues = let l n = n : l (floor.(max 2).exp.(+0.5).log.fromIntegral $ n)
 
 -- | Compute current backlight-step and switch n steps
 backlight :: Int -> X ()
-backlight n = liftIO $ (runProcessWithInput "xbacklight" [] "")
+backlight n = cmd Pkgs.xbacklight []
     >>= ( read
       >>> round
       >>> (\n -> length (takeWhile (<n) bValues))
@@ -193,7 +193,7 @@ backlight n = liftIO $ (runProcessWithInput "xbacklight" [] "")
       >>> (max 0)
       >>> (bValues !!)
       >>> show
-      >>> (\n-> runProcessWithInput "xbacklight" ["-set", n] "")
+      >>> \n-> cmd Pkgs.xbacklight ["-set", n]
         )
     >> return ()
 
