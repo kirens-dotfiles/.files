@@ -1,5 +1,6 @@
-{ dotfilesLoc, alsaUtils, copyq, i3lock-fancy, xmonad, xautolock, xmobar, rofi,
-libqalculate, st, xmessage, dbus, tmux, rofi-scripts }:
+{ scripts, dotfilesLoc, alsaUtils, copyq, i3lock-fancy, xmonad, xautolock
+, xmobar, rofi, libqalculate, st, xmessage, dbus, tmux, rofi-scripts, xbacklight
+}:
 ''
 module Nix.Vars where
 
@@ -18,4 +19,10 @@ rofiScripts = "${rofi-scripts}/bin/scripts"
 qalc = "${libqalculate}/bin/qalc"
 xmessage = "${xmessage}/bin/xmessage"
 tmux = "${tmux}/bin/tmux"
+xbacklight = "${xbacklight}/bin/xbacklight"
+
+lockptrScript = "${scripts.lockptr}"
+printVolScript = "${scripts.printVol}"
+printVolLvlScript = "${scripts.printVolLvl}"
+wirelessScript = "${scripts.wireless}"
 ''

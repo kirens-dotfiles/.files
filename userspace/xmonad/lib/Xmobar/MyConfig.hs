@@ -2,6 +2,7 @@ module Xmobar.MyConfig where
 
 import Xmobar.Config
 import Xmobar.Interfaces
+import qualified Nix.Vars as Pkgs
 
 
 barOnScreen screenNr = defaultXmobar
@@ -10,7 +11,7 @@ barOnScreen screenNr = defaultXmobar
   , bgColor = "black"
   , fgColor = "grey"
   , position = OnScreen screenNr Top
-  , commands = 
+  , commands =
     [ Run StdinReader
 
     , Run$ Cpu
@@ -35,9 +36,9 @@ barOnScreen screenNr = defaultXmobar
           , "-i"  , "<fn=1>\xf0e7</fn>"
         ] 10
 
-    , Run$ Com "/home/kiren/.xmonad/scripts/prettyprints/wireless" [] "wifi" 30
+    , Run$ Com Pkgs.wirelessScript [] "wifi" 30
 
-    , Run$ Com "/home/kiren/.xmonad/scripts/prettyprints/vol_lvl" [] "myvolume" 10
+    , Run$ Com Pkgs.printVolLvlScript [] "myvolume" 10
 
     , Run$ Date "%a %-d/%-m %H:%M:%S" "date" 10
     ]

@@ -76,8 +76,6 @@ import XMonad.Actions.SinkAll
 -- Constants                                                           {{{
 --------------------------------------------------------------------------
 
-homeDir = "/home/kiren/"
-scriptsDir = homeDir++".xmonad/scripts/"
 terminalBin = Pkgs.st
 terminalCmd = terminalBin ++ " -f 'Hack:size=12'"
 
@@ -143,8 +141,6 @@ void = (>> return ())
 
 -- Launching scripts
 --------------------------------------------------------------------------
-
-spawnScript = spawn.(scriptsDir++)
 
 cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
 
@@ -268,7 +264,7 @@ dateTimeStr = liftIO getCurrentTime >>= return.composite
 -- Trackpad ctl
 --------------------------------------------------------------------------
 toggleTrackpad :: X ()
-toggleTrackpad = spawnScript "lockptr"
+toggleTrackpad = void $ cmd Pkgs.lockptrScript []
 
 
 -- Some screen stuff

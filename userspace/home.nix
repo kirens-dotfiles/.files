@@ -27,6 +27,7 @@ let
   inherit (lib)
     toLower
     substring
+    mapAttrs
     mapAttrsToList
   ;
   # For packages that need a more up to date channel.
@@ -106,22 +107,6 @@ in
         { sensible = myPkgs.tmuxPlugins.sensible; };
     ".config/rofi/config".text = pkgs.callPackage ./rofi/config.nix { };
     ".config/nixpkgs/config.nix".source = ./config.nix;
-    ".xmonad/scripts/lockptr" =
-      import ./scripts/lockptr.nix
-        { pkgs = pkgs; };
-    ".xmonad/scripts/prettyprints/vol" =
-      import ./scripts/prettyprints/vol.nix
-        { alsaUtils = pkgs.alsaUtils; };
-    ".xmonad/scripts/prettyprints/vol_lvl" =
-      import ./scripts/prettyprints/vol_lvl.nix
-        { alsaUtils = pkgs.alsaUtils; };
-    ".xmonad/scripts/prettyprints/wireless" =
-      with pkgs; import ./scripts/prettyprints/wireless.nix {
-        wirelesstools = wirelesstools;
-        grep = gnugrep;
-        awk = gawk;
-        coreutils = coreutils;
-      };
     ".ghci".text = ''
       :set prompt "λ> "
     '';
@@ -241,6 +226,14 @@ in
             { nodejs = myPkgs.nodejs-slim-10_x; };
           inherit (env) togglAccessToken;
         };
+
+        scripts = with pkgs;
+          mapAttrs (name: pac: writeScript name (callPackage pac { })) {
+            lockptr = ./scripts/lockptr.nix;
+            printVol = ./scripts/prettyprints/vol.nix;
+            printVolLvl = ./scripts/prettyprints/vol_lvl.nix;
+            wireless = ./scripts/prettyprints/wireless.nix;
+          };
       };
 
 
