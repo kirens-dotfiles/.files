@@ -8,6 +8,11 @@
   * Set up and start using task warrior
   * Make custom SUDO prompt to remind not to fall victim to phising
 
+## TERMINAL EMULATOR
+
+  * Enable opening an unbound tmux instance
+  * Som way to force close a locked up script in tmux
+
 ## ROFI
 
   * Integrate with task warrior
