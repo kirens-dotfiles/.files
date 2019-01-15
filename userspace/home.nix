@@ -158,7 +158,7 @@ in
 
       extraConfig = {
         core = {
-          editor = "nvim";
+          editor = "vi";
         };
       };
     };
