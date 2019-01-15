@@ -133,6 +133,8 @@ in
       firefox
       thunderbird
 
+      (callPackage ./devtools/environments { })
+
       # Terminal file explorer
       ranger
       # Node without npm

@@ -16,3 +16,6 @@
 [submodule "userspace/powerline/src"]
 	path = userspace/shell/powerline/src
 	url = git@github.com:kirens-dotfiles/powerline-go.git
+[submodule "userspace/devtools/environments"]
+	path = userspace/devtools/environments
+	url = git@github.com:kirens-dotfiles/nix-env-templates.git
