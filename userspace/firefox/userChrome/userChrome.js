@@ -1,4 +1,4 @@
-console.log('Running custom userChrome script, V 0.1.2')
+console.log('Running custom userChrome script, V 0.2.1')
 
 ;
 [ { selector: '#key_quitApplication'
@@ -9,16 +9,18 @@ console.log('Running custom userChrome script, V 0.1.2')
   }
 , { selector: '*[key="W"][command="cmd_close"]'
   , msg: 'Will remap Ctrl+W close tab shortcut to Ctrl+D'
-  , remap: 'D'
+  , remap: { modifiers: 'accel,shift', key: 'D' }
   }
 , { selector: '*[key="W"][command="cmd_closeWindow"]'
   , msg: 'Will remove Ctrl+Shift+W close tab shortcut'
   }
 ].map(({ selector, msg, remap }) => {
   console.info(msg)
+  const keyBind = document.querySelector(selector);
   if (remap) {
-    document.querySelector(selector).setAttribute('key', remap)
+    keyBind.setAttribute('key', remap.key)
+    keyBind.setAttribute('modifiers', remap.modifiers)
   } else {
-    document.querySelector(selector).remove()
+    keyBind.remove()
   }
 })
