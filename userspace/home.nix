@@ -256,7 +256,7 @@ in
       # Turn off beeps.
       ${pkgs.xorg.xset}/bin/xset -b
       # Switch keyboard layout
-      ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${dotfilesLoc}/userspace/keyboard/custom-xkb-keymap :0
+      ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${./keyboard/custom-xkb-keymap} :0
     '';
   };
 
