@@ -127,6 +127,10 @@ in
       htop
       less
 
+      # Fish completions really needs this
+      gawk
+      gnused
+
       libreoffice
       inkscape
       gimp
@@ -153,6 +157,11 @@ in
     };
 
     command-not-found.enable = true;
+
+    taskwarrior = {
+      enable = true;
+      # dataLocation = TODO
+    };
 
     git = {
       enable = true;
