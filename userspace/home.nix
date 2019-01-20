@@ -171,19 +171,15 @@ in
       configure = import ./nvim/config.nix { pkgs = myPkgs; };
     };
 
-    fish = {
-      enable = true;
-
-      inherit
-        (import ./shell/fish/config.fish.nix {
-          dotfilesLoc = dotfilesLoc;
-          powerline = (pkgs.callPackage ./shell/powerline/build.nix {
-            powerline-go = myPkgs.powerline-go;
-          });
-          inherit (pkgs) bash ncurses;
-        })
-        shellInit promptInit interactiveShellInit;
-    };
+    fish =
+      { enable = true; }
+      // import ./shell/fish/config.fish.nix {
+        dotfilesLoc = dotfilesLoc;
+        powerline = (pkgs.callPackage ./shell/powerline/build.nix {
+          powerline-go = myPkgs.powerline-go;
+        });
+        inherit (pkgs) bash ncurses;
+      };
   };
 
   services = {
