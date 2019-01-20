@@ -192,7 +192,7 @@ in
         powerline = (pkgs.callPackage ./shell/powerline/build.nix {
           powerline-go = myPkgs.powerline-go;
         });
-        inherit (pkgs) bash ncurses;
+        inherit (pkgs) bash ncurses coreutils;
       };
   };
 

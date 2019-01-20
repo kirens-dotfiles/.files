@@ -1,4 +1,4 @@
-{ dotfilesLoc, powerline, bash, ncurses }:
+{ dotfilesLoc, powerline, bash, ncurses, coreutils }:
 {
   shellAbbrs= {
     # Prevent unintentional overwrites
