@@ -1,8 +1,8 @@
-{ pkgs }:
+{ vimPlugins }:
 {
   customRC = import ./rc.nix.vim { };
   vam = {
-    knownPlugins = pkgs.vimPlugins;
+    knownPlugins = vimPlugins;
     pluginDictionaries = [
       {
         names = [

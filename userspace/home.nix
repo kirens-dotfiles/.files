@@ -17,8 +17,6 @@ let
     dev = "dev@erik.work";
   };
 
-  # Helpers
-
   # Imports
   inherit (builtins)
     concatStringsSep
@@ -29,6 +27,12 @@ let
     substring
     mapAttrs
     mapAttrsToList
+  ;
+  inherit (pkgs)
+    callPackage
+  ;
+  inherit (callPackage ./lib.nix { })
+    importWith
   ;
   # For packages that need a more up to date channel.
   myPkgs = import ../nix/src/nixpkgs { };
@@ -168,7 +172,7 @@ in
       package = specificBins ["vi"] myPkgs.neovim;
       viAlias = true;
 
-      configure = import ./nvim/config.nix { pkgs = myPkgs; };
+      configure = importWith ./nvim/config.nix myPkgs;
     };
 
     fish =
