@@ -1,4 +1,4 @@
-{ expr, powerline, bash, tput }:
+{ powerline, bash, tput }:
 ''
 # Greeting prompt
 function fish_greeting
@@ -29,18 +29,47 @@ set __fish_git_prompt_char_stashstate '↩'
 set __fish_git_prompt_char_upstream_ahead '+'
 set __fish_git_prompt_char_upstream_behind '-'
 
+set -g __fish_prompt_last_lines 0
+set -g __fish_prompt_last_cols 0
+set -g __fish_prompt_last_scroll 0
 
 function __fish_prompt_fixMargin
-  # Keep margin at bottom 1/3
-  set -l cRow (${bash} -c 'IFS=\';\' read -sdR -p $\'\E[6n\' ROW COL;echo "''${ROW#*[}"')
   set -l lines (${tput} lines)
-  set -l ROWS (${expr} "$lines" / 3)
-  set -l ROW (${expr} "$lines" - "$ROWS" - 1)
-  if test "$cRow" -ge "$ROW"
-    for CHAR in (seq "$ROWS")
-        printf "\n"
+  set -l cols (${tput} cols)
+
+  test $lines != $__fish_prompt_last_lines -o $cols != $__fish_prompt_last_cols
+  set -l hasScaled $status
+
+  set -g __fish_prompt_last_lines $lines
+  set -g __fish_prompt_last_cols $cols
+
+  if test $hasScaled = 0
+    # Fish automatically removes last prompt when scaling; we need to readd it
+    for CHAR in (seq $__fish_prompt_last_scroll)
+      ${tput} ind
     end
-    ${tput} cup "$ROW"
+    # Clear any leftovers from last prompt
+    ${tput} ed
+    return 0
+  end
+
+  # Clear any leftovers from last prompt
+  ${tput} ed
+  set -l pos (${bash} -c \
+    'read -sdR -p $\'\E[6n\' POS; echo "''${POS#*[}" | sed -e "s/;/\n/"')
+  set -l ROWS (math $lines / 3)
+  set -l ROW (math $lines - $ROWS - 1)
+  if test $pos[1] -ge $ROW
+    set -g __fish_prompt_last_scroll $ROWS
+    # Scroll down
+    for CHAR in (seq $ROWS)
+      ${tput} ind
+    end
+    # Jump back up
+    ${tput} cup $ROW
+  else
+    # If no scrolling occured reset last scroll
+    set -g __fish_prompt_last_scroll 0
   end
 end
 

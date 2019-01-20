@@ -1,4 +1,4 @@
-{ dotfilesLoc, powerline, bash, coreutils, ncurses }:
+{ dotfilesLoc, powerline, bash, ncurses }:
 {
   shellInit = ''
     set -g -x DOTFILES "${dotfilesLoc}"
@@ -9,7 +9,6 @@
   interactiveShellInit = import ./aliases.nix.sh {};
 
   promptInit = import ./prompt.fish.nix {
-    expr = "${coreutils}/bin/expr";
     powerline = "${powerline}/bin/powerline-go";
     bash = "${bash}/bin/bash";
     tput = "${ncurses}/bin/tput";
