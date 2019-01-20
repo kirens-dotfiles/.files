@@ -93,6 +93,7 @@ let
       { pkg = findutils; bins = ["find" "xargs"]; }
       { pkg = nix; bins = ["nix" "nix-shell" "nix-build" "nix-env" "nix-store"]; }
       { pkg = nettools; bins = ["netstat"]; }
+      { pkg = myPkgs.signal-cli; bins = ["signal-cli"]; }
     ];
 
   fishFunctions = import ./shell/fish/functions {
