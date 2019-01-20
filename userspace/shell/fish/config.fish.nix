@@ -43,6 +43,12 @@
     set PATH (string match -v "/run/current-system/sw/bin" $PATH)
   '';
 
+  interactiveShellInit =
+    import ./editCmd.nix.fish {
+      inherit coreutils;
+      vim = "vi"; # TODO: should be an absolute reference
+    };
+
   promptInit = import ./prompt.fish.nix {
     powerline = "${powerline}/bin/powerline-go";
     bash = "${bash}/bin/bash";
