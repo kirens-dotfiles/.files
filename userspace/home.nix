@@ -64,7 +64,6 @@ let
   apps = with pkgs; mapAttrsToList app {
     Franz = myPkgs.franz;
     signal-desktop = myPkgs.signal-desktop;
-    spotify = spotify;
     # Visually manage monitors
     arandr = arandr;
     atom = atom;
@@ -127,6 +126,25 @@ in
       wget
       htop
       less
+
+      (minimalExposure [
+        "share/applications/spotify.desktop"
+        {
+          from = "bin/spotify";
+          canThrow = false;
+          map = spotify:
+            writeScript "Spotify-wrapper" ''
+              #! ${bash}/bin/bash
+              win=`${xdotool}/bin/xdotool search --class "spotify" | ${coreutils}/bin/tail -n 1`
+              if ${coreutils}/bin/test "$win" != ""
+              then
+                ${xdotool}/bin/xdotool windowactivate "$win"
+              else
+                ${spotify}
+              fi
+            '';
+        }
+      ] spotify)
 
       # Fish completions really needs this
       gawk

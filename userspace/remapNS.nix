@@ -1,4 +1,4 @@
-{ stdenv, writeTextFile }: commands:
+{ stdenv, lib, writeTextFile }: commands:
 let
   installScript = package:
     writeTextFile {
@@ -12,12 +12,14 @@ let
             let
               from = mapping.from or mapping;
               to = mapping.to or from;
+              bin = map "${package.outPath}/${from}";
+              map = mapping.map or lib.id;
               canThrow = mapping.canThrow or true;
             in ''
               if [ -e "${from}" ]; then
-                mkdir -p ''$(dirname $out/${to})
-                ln -s ${package.outPath}/${from} $out/${to}
-                echo "[Linked file] \"${to}\" from \"''$(ls -ld ${from})\""
+                mkdir -p $(dirname $out/${to})
+                ln -s ${bin} $out/${to}
+                echo "[Linked file] \"${to}\" from \"$(ls -ld ${bin})\""
               else
                 (>&2 echo 'Could not find file "${from}"')
                 ${if canThrow then "exit 1" else ""}
