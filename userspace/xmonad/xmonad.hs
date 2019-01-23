@@ -99,24 +99,9 @@ blue    = "#268bd2"
 cyan    = "#2aa198"
 green   = "#859900"
 
--- sizes
-gap    = 10
-topbar = 10
-border = 0
-prompt = 20
-status = 20
 
-myNormalBorderColor  = "#000000"
-myFocusedBorderColor = active
-
-active       = blue
-activeWarn   = red
-inactive     = base02
-focusColor   = blue
-unfocusColor = base02
-
-
-
+specialWss = [ "spotify", "mail", "clipboard", "messaging" ]
+workspaces = map show [1..5] ++ specialWss
 
 -----------------------------------------------------------------------}}}
 -- Helpers / System-integration                                        {{{
@@ -320,11 +305,6 @@ myLayout = mkToggle (FULL ?? EOT)
          ||| spiral (6/7)
          ||| ThreeColMid 1 (3/100) (1/2)
 
-myManageHook = composeAll
-  [ className =? "Gimp" --> doFloat
-  ]
-
-
 -----------------------------------------------------------------------}}}
 -- Startup                                                             {{{
 --------------------------------------------------------------------------
@@ -365,7 +345,7 @@ configBase xmproc =
   { XMonad.borderWidth =
       0
   , XMonad.workspaces =
-      XMonad.workspaces def
+      workspaces
   , XMonad.layoutHook =
       avoidStruts $ myLayout
   , XMonad.terminal =
@@ -384,8 +364,15 @@ configBase xmproc =
       startup
   , XMonad.mouseBindings =
       XMonad.mouseBindings def
-  , XMonad.manageHook =
-      manageDocks <+> manageHook def
+  , XMonad.manageHook = composeAll
+   [ className =? "Spotify" --> doShift "spotify"
+   , className =? "Thunderbird" --> doShift "mail"
+   , className =? "CopyQ" --> doShift "clipboard"
+   , className =? "Franz" --> doShift "messaging"
+   , className =? "Signal" --> doShift "messaging"
+   , className =? "Xmessage"  --> doFloat
+   , manageDocks
+   ]
   , XMonad.handleEventHook =
       XMonad.handleEventHook def
   , XMonad.focusFollowsMouse =
