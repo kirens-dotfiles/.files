@@ -8,13 +8,21 @@
 ---------------------------------------------------------------------------
 -- Modules                                                              {{{
 ---------------------------------------------------------------------------
-import XMonad
-import XMonad.Hooks.DynamicLog
+
+import XMonad hiding (workspaces)
+import qualified XMonad
+import XMonad.Hooks.DynamicLog as DynLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import XMonad.Util.Run
+
+-- Layout Info
+import qualified XMonad.StackSet as S
+import XMonad.Config.Prime as Prime (ScreenId ( S ))
+import qualified XMonad.Util.NamedWindows as NamedW
+import Data.Maybe (isJust, mapMaybe)
 
 -- My Config files
 import XMonad.Config.Kirens.Keys as MyKeys
@@ -272,21 +280,6 @@ launchXmobar file = spawnPipe$ Pkgs.xmobar ++ " " ++ file
 xmobarTitleColor = base3
 xmobarCurrentWorkspaceColor = blue
 
-xmobarConf :: Handle -> X ()
-xmobarConf xmproc = dynamicLogWithPP $ xmobarPP
-  { ppOutput  = hPutStrLn xmproc
-  , ppTitle   = xmobarColor xmobarTitleColor "" . shorten 100
-  , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-  , ppSep    = "  "
-  }
-
-xmobarInactiveConf xmproc = dynamicLogWithPP $ xmobarPP
-  { ppOutput  = hPutStrLn xmproc
-  , ppTitle   = xmobarColor "green" "" . shorten 100
-  , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-  , ppSep    = "  "
-  }
-
 
 -- Bar config
 mkXmobarCfg :: Int -> IO FilePath
@@ -295,6 +288,44 @@ mkXmobarCfg s = do
   let name = "/tmp/xmobar"++show s
   writeFile name $ show $ MyXmobar.barOnScreen s
   return name
+
+xmobarHook :: ScreenId -> Handle -> X ()
+xmobarHook screenId proc =
+  xmobarPrint screenId proc >>= io . hPutStrLn proc
+
+xmobarPrint :: ScreenId -> Handle -> X String
+xmobarPrint screenId proc = do
+  winset <- gets windowset
+
+  let
+    activeWs = S.currentTag winset
+    visibleWss =
+      map (S.tag . S.workspace) $ S.visible winset
+    hiddenWss =
+      filter (not . flip elem specialWss)
+      $ map S.tag
+      $ filter (isJust . S.stack)
+      $ S.hidden winset
+    ws = unwords $ flip mapMaybe workspaces $ \ws ->
+      if ws == activeWs
+      then return $ xmobarClr green ws
+      else if ws `elem` visibleWss
+      then return $ "("++ ws ++")"
+      else if ws `elem` hiddenWss
+      then return ws
+      else Nothing
+
+  wt <- maybe (return "") (fmap show . NamedW.getName) . S.peek $ winset
+  let title = DynLog.xmobarStrip wt
+
+  let activeScreen = S.screen $ S.current winset
+
+  if screenId == activeScreen
+  then return $ ws ++ " " ++ wt
+  else return $ xmobarClr base0 $ ws ++ " " ++ wt
+
+xmobarClr clr text =
+  "<fc=" ++ clr ++ ">" ++ text ++ "</fc>"
 
 -----------------------------------------------------------------------}}}
 -- Layouts                                                             {{{
@@ -325,19 +356,13 @@ startup = do
 main = do
   -- Launch apropriately many xmobars
   nScreens <- countScreens
-  xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [1..nScreens]
+  xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [0..nScreens]
   xmonad$ewmh$docks$configBase xmobars
 
 theLogHook xmproc =
   -- fade hook
   fadeInactiveLogHook 0.9
-  >> xmprocing xmproc
-
--- xmprocing (p:r) = sequence (xmobarInactiveConf p :(map xmobarConf r))
--- xmprocing []    = return []
-
-xmprocing = sequence.(zipWith (\n p -> if n==1 then xmobarInactiveConf p else xmobarConf p) [1..])
-
+  >> sequence (zipWith xmobarHook [Prime.S 0..] xmproc)
 
 --configBase :: MonadIO Handle -> XConfig l
 configBase xmproc =
