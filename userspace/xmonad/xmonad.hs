@@ -24,6 +24,9 @@ import XMonad.Config.Prime as Prime (ScreenId ( S ))
 import qualified XMonad.Util.NamedWindows as NamedW
 import Data.Maybe (isJust, mapMaybe)
 
+-- Format so XMobar understand
+import Codec.Binary.UTF8.String (encodeString)
+
 -- My Config files
 import XMonad.Config.Kirens.Keys as MyKeys
 
@@ -291,7 +294,7 @@ mkXmobarCfg s = do
 
 xmobarHook :: ScreenId -> Handle -> X ()
 xmobarHook screenId proc =
-  xmobarPrint screenId proc >>= io . hPutStrLn proc
+  xmobarPrint screenId proc >>= io . hPutStrLn proc . encodeString
 
 xmobarPrint :: ScreenId -> Handle -> X String
 xmobarPrint screenId proc = do
@@ -356,7 +359,7 @@ startup = do
 main = do
   -- Launch apropriately many xmobars
   nScreens <- countScreens
-  xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [0..nScreens]
+  xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [0..nScreens-1]
   xmonad$ewmh$docks$configBase xmobars
 
 theLogHook xmproc =
