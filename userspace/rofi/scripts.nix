@@ -1,6 +1,16 @@
 { stdenv, writeTextFile, bash, xrandr, rofi, xinput, togglAccessToken
-, rofi-toggl }:
+, rofi-toggl, coreutils, translate-shell }:
 let
+  translateScript = writeTextFile {
+    name = "rofi-translateScript";
+    text = import ./scripts/translate.nix.sh {
+      rofi = "${rofi}/bin/rofi";
+      echo = "${coreutils}/bin/echo";
+      test = "${coreutils}/bin/test";
+      tail = "${coreutils}/bin/tail";
+      translate = "${translate-shell}/bin/trans";
+    };
+  };
   monitorScript = writeTextFile {
     name = "rofi-monitorScript";
     text = import ./scripts/monitors.nix.sh {
@@ -44,5 +54,6 @@ in stdenv.mkDerivation {
 
     install -v -D -m755 ${monitorScript} $out/scripts/monitors
     install -v -D -m755 ${toggl} $out/scripts/toggl
+    install -v -D -m755 ${translateScript} $out/scripts/translate
   '';
 }

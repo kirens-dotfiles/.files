@@ -255,6 +255,7 @@ in
           rofi-toggl = pkgs.callPackage ./rofi/scripts/toggl
             { nodejs = myPkgs.nodejs-slim-10_x; };
           inherit (env) togglAccessToken;
+          translate-shell = myPkgs.translate-shell;
         };
 
         scripts = with pkgs;
