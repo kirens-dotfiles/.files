@@ -145,6 +145,20 @@ in
             '';
         }
       ] spotify)
+      (makeDesktopItem rec {
+        name = "CopyQ";
+        exec =
+          writeScript "CopyQ-Focus" ''
+            #! ${bash}/bin/bash
+            win=`${xdotool}/bin/xdotool search --class "CopyQ" | ${coreutils}/bin/tail -n 1`
+            if ${coreutils}/bin/test "$win" != ""
+            then
+              ${xdotool}/bin/xdotool windowactivate "$win"
+            fi
+          '';
+        desktopName = name;
+        genericName = "Clipboard Manager";
+      })
 
       # Fish completions really needs this
       gawk
