@@ -53,7 +53,24 @@ function __trash_testSize
 end __trash_testSize
 
 function trash
+  if test (count $argv) = 0
+    set argv --help
+  end
+
   switch ''$argv[1]
+    case --help
+      ${echo} 'Usage: trash [OPTION] FILE'
+      ${echo}
+      ${echo} 'Trash or permanently remove files'
+      ${echo}
+      ${echo} 'OPTIONS'
+      ${echo} '  -d  Permanently remove FILE'
+      ${echo} '  -D  Permanently remove the directory FILE'
+      ${echo} '  -Df Permanently forcefully remove the directory FILE'
+      ${echo}
+      ${echo} 'FILE'
+      ${echo} '  File or directory to trash or remove'
+      return 0
     case --clean
       __trash_clear
       return 0
