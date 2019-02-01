@@ -75,24 +75,32 @@ function trash
       __trash_clear
       return 0
     case -d
-      if __trash_testSize ''$argv[2]
-        ${rm} ''$argv[2]
-      end
+      for file in $argv[2..-1]
+        if __trash_testSize $file
+          ${rm} $file
+        end
+      end for
     case -D
-      if __trash_testSize ''$argv[2]
-        ${rm} -r ''$argv[2]
-      end
+      for file in $argv[2..-1]
+        if __trash_testSize $file
+          ${rm} -r $file
+        end
+      end for
     case -Df
-      if __trash_testSize ''$argv[2]
-        ${rm} -rf ''$argv[2]
-      end
+      for file in $argv[2..-1]
+        if __trash_testSize $file
+          ${rm} -rf $file
+        end
+      end for
     case '*'
-      if __trash_testSize ''$argv[1]
-        set trash_dir /tmp/trash/(date -Iseconds)-(random)
-        ${mkdir} -p ''$trash_dir
-        ${echo} (pwd)/''$argv[1] > ''$trash_dir/orig
-        ${mv} ''$argv[1] ''$trash_dir/data
-      end
+      for file in $argv[1..-1]
+        if __trash_testSize $file
+          set trash_dir /tmp/trash/(date -Iseconds)-(random)
+          ${mkdir} -p $trash_dir
+          ${echo} (pwd)/$file > $trash_dir/orig
+          ${mv} $file $trash_dir/data
+        end
+      end for
   end
 end trash
 ''
