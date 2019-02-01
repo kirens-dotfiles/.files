@@ -1,4 +1,6 @@
-#! /usr/bin/env bash
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p bash
+
 prompt_yn () {
     MSG=${1:-'Proceed?'}
     read -p "$MSG [y/N] " -n 1 -r
