@@ -112,7 +112,8 @@ green   = "#859900"
 
 
 specialWss = [ "spotify", "mail", "clipboard", "messaging" ]
-workspaces = map show [1..7] ++ specialWss
+workspaces = map show [1..9] ++ specialWss
+
 
 -----------------------------------------------------------------------}}}
 -- Helpers / System-integration                                        {{{
@@ -138,8 +139,8 @@ void = (>> return ())
 -- Launching scripts
 --------------------------------------------------------------------------
 
-cmd cmd pars = liftIO $ runProcessWithInput cmd pars ""
-
+run bin args inp = liftIO $ runProcessWithInput bin args inp
+cmd bin args = run bin args ""
 
 -- Terminal stuff
 --------------------------------------------------------------------------
@@ -219,6 +220,17 @@ menu = spawn $ unwords
   , "-show combi"
   , "-combi-modi \"drun,scripts:" ++ Pkgs.rofiScripts ++ "\""
   ]
+
+rofi lines name input =
+  run
+    Pkgs.rofi
+    [ "-dmenu"
+    , "-lines"
+    , show lines
+    , "-p"
+    , name
+    ]
+    (unlines input)
 
 -- Background
 --------------------------------------------------------------------------
@@ -426,6 +438,8 @@ myKeys =
   keyConfig$ def
   { MyKeys.menu =
       Main.menu
+  , MyKeys.selectWorkspace =
+      rofi 10 "Select Workspace" workspaces
   , MyKeys.terminalPlain =
       terminalApp
   , MyKeys.editDotfiles =

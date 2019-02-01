@@ -28,6 +28,7 @@ modNone = 0
 data Actions =
   Actions
   { menu :: X ()
+  , selectWorkspace :: X String
   , terminalPlain :: X ()
   , editDotfiles :: X ()
   , editTODO :: X ()
@@ -52,6 +53,8 @@ instance Default Actions where
     Actions
     { menu =
         noAction "launcher"
+    , selectWorkspace =
+        noAction "selecting workspaces" >> return ""
     , terminalPlain =
         noAction "plain terminal"
     , editDotfiles =
@@ -130,6 +133,14 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-C-l", nextWS)
   , ("M-<Space>", sendMessage NextLayout)
   , ("M-f", sendMessage $ Toggle FULL)
+  , ( "M-0"
+    , selectWorkspace actions
+      >>= windows . StackSet.greedyView . init
+    )
+  , ( "M-S-0"
+    , selectWorkspace actions
+      >>= windows . StackSet.shift . init
+    )
 
   -- Media keys
   , ("<XF86MonBrightnessUp>", screenBrightnessInc actions)
