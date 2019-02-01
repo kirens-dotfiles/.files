@@ -44,16 +44,20 @@ echo "-- Testing config ------------"
 echo "------------------------------"
 
 if nixos-rebuild test && prompt_yn 'Switch build?'; then
-    # Safe to switch
-    echo "------------------------------"
-    echo "-- Building config -----------"
-    echo "------------------------------"
-    nixos-rebuild switch
+  # Safe to switch
+  echo "------------------------------"
+  echo "-- Building config -----------"
+  echo "------------------------------"
+  result/activate
 
-    unlink_res
-else
-    # The compilation must have failed
-    if [ ! -L result ]; then exit 2; fi
-    unlink_res
+  unlink_res
 fi
+
+if [ ! -L result ]
+then
+  # The compilation must have failed
+  exit 2
+fi
+
+unlink_res
 
