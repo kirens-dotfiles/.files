@@ -2,18 +2,18 @@
 ''
 function __trash_clear
   for t in /tmp/trash/*
-    set file (cat ''$t/orig)
+    set file (cat $t/orig)
     read \
       --local \
       --nchars=1 \
-      --prompt-str="Permanently remove `''$file` [y/N] " \
+      --prompt-str="Permanently remove `$file` [y/N] " \
       confirmation
 
-    switch ''$confirmation
+    switch $confirmation
       case Y
-        ${rm} -rf ''$t
+        ${rm} -rf $t
       case y
-        ${rm} -r ''$t
+        ${rm} -r $t
       case '*'
         # Do nothing
     end
@@ -21,8 +21,8 @@ function __trash_clear
 end __trash_clear
 
 function __trash_determineSize
-  if set size (${timeout} 1s ${du} -s ''$argv[1] | ${cut} -f1)
-    if ${test} ''$size -lt 512000
+  if set size (${timeout} 1s ${du} -s $argv[1] | ${cut} -f1)
+    if ${test} $size -lt 512000
       ${echo} "Good"
       return 0
     else
@@ -36,14 +36,14 @@ function __trash_determineSize
 end __trash_determineSize
 
 function __trash_testSize
-  switch (__trash_determineSize ''$argv[1])
+  switch (__trash_determineSize $argv[1])
     case TooBig Undetermined
       read \
         --local \
         --prompt-str='Size > 0.5G or undetermined; remove anyways? [y/N] ' \
         confirmation
 
-      switch ''$confirmation
+      switch $confirmation
         case y Y
           return 0
         case '*'
@@ -57,7 +57,7 @@ function trash
     set argv --help
   end
 
-  switch ''$argv[1]
+  switch $argv[1]
     case --help
       ${echo} 'Usage: trash [OPTION] FILE'
       ${echo}
