@@ -8,6 +8,7 @@
         names = [
           "vim-javascript"
           "vim-colors-solarized"
+          "ale"
         ];
       }
     ];
