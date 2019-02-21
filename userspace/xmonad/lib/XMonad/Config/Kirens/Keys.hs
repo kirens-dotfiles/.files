@@ -17,7 +17,8 @@ import XMonad.Layout.MultiToggle.Instances ( StdTransformers (FULL) )
 import XMonad.Util.EZConfig ( mkKeymap )
 import qualified Prgms.ClipboardManager as CM
 import Prgms.ErrorPrompt ( noAction )
-
+import XMonad.Actions.CycleRecentWS ( cycleRecentWS )
+import qualified Graphics.X11.Types as Keys
 
 type KeyBnd = String
 
@@ -133,6 +134,7 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-C-l", nextWS)
   , ("M-<Space>", sendMessage NextLayout)
   , ("M-f", sendMessage $ Toggle FULL)
+  , ("M-<Tab>", cycleRecentWS [Keys.xK_Super_L] Keys.xK_Tab Keys.xK_grave)
   , ( "M-0"
     , selectWorkspace actions
       >>= windows . StackSet.greedyView . init
