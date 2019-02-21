@@ -9,6 +9,8 @@ set relativenumber
 
 " Margin
 set colorcolumn=80
+" More discrete color
+highlight ColorColumn ctermbg=0
 
 " Autobreak
 set textwidth=79
@@ -37,6 +39,16 @@ inoremap <C-w> <C-o>db
 " Folding
 set foldmethod=syntax
 set foldlevel=99
+
+" Fold color
+highlight Folded ctermbg=0
+
+" Serach highlighting
+highlight Search ctermbg=7
+
+" More discrete line numbers
+highlight LineNr ctermfg=10
+highlight CursorLineNr ctermfg=12
 
 let g:solarized_termcolors = 256
 ''
