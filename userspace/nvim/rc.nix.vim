@@ -30,5 +30,9 @@ nnoremap K i<CR><ESC>l
 " map mouse activity
 set mouse=a
 
+" Make word deletes stay in history
+set virtualedit=onemore
+inoremap <C-w> <C-o>db
+
 let g:solarized_termcolors = 256
 ''
