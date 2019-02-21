@@ -34,5 +34,9 @@ set mouse=a
 set virtualedit=onemore
 inoremap <C-w> <C-o>db
 
+" Folding
+set foldmethod=syntax
+set foldlevel=99
+
 let g:solarized_termcolors = 256
 ''
