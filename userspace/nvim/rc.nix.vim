@@ -3,6 +3,12 @@
 ${import ./dissableArrows.nix.vim { }}
 ${import ./leaveInsertMode.nix.vim { }}
 
+syntax enable
+set background=dark
+colorscheme solarized
+
+let g:signify_vcs_list = [ 'git', 'hg' ]
+
 " Line numbering
 set number
 set relativenumber
@@ -51,4 +57,8 @@ highlight LineNr ctermfg=10
 highlight CursorLineNr ctermfg=12
 
 let g:solarized_termcolors = 256
+
+" Enable project specific .vimrc's
+let g:localvimrc_whitelist='/e/.*'
+set secure
 ''
