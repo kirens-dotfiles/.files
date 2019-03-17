@@ -20,7 +20,7 @@ let
         lockptr = ../scripts/lockptr.nix;
         printVol = ../scripts/prettyprints/vol.nix;
         printVolLvl = ../scripts/prettyprints/vol_lvl.nix;
-        wireless = ../scripts/prettyprints/wireless.nix;
+        wireless = ../scripts/prettyprints/wireless.nix.js;
       };
   };
   # A file that exposes nix-generated paths to the compilation.
