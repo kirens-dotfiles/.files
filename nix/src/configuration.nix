@@ -11,11 +11,11 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware/nixpix.x360.3.nix
+      #./hardware/nixpix.x360.3.nix
       ./boot/grub.nix
+      ./hardware/nixpix.x360.4.nix
       ./net/nixpix.nix
       ./users/kiren.nix
-      ./virtualization/virtualBox.nix
     ];
 
   # Suspend to ram and nice stuff
