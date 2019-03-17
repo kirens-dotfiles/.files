@@ -40,17 +40,28 @@ PATH="$PATH:/run/current-system/sw/bin"
 if ! prompt_yn 'Build changes?'; then exit 3; fi
 
 echo "------------------------------"
-echo "-- Testing config ------------"
+echo "-- Building config -----------"
 echo "------------------------------"
 
-if nixos-rebuild test && prompt_yn 'Switch build?'; then
-  # Safe to switch
-  echo "------------------------------"
-  echo "-- Building config -----------"
-  echo "------------------------------"
-  result/activate
+if nixos-rebuild build
+then
+  if prompt_yn 'Activate build?'
+  then
+    # Safe to switch
+    echo "------------------------------"
+    echo "-- Activating config ---------"
+    echo "------------------------------"
+    result/activate
+  fi
 
-  unlink_res
+  if prompt_yn 'Switch build?'
+  then
+    # Safe to switch
+    echo "------------------------------"
+    echo "-- Switching config ----------"
+    echo "------------------------------"
+    nixos-rebuild boot
+  fi
 fi
 
 if [ ! -L result ]
