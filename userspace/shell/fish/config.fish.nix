@@ -6,18 +6,26 @@
     cp = "cp -i";
 
     # Git shorthands
+    gb = "git branch";
+    gbd = "git branch -d";
     gs = "git status";
     gsu = "gs -uno";
     ga = "git add";
     gai = "git add -i";
+    gch = "git checkout";
+    gchb = "git checkout -b";
     gc = "git commit";
     gcm = "git commit -m";
     gcam = "git commit -am";
     gf = "git fetch";
     gm = "git merge";
+    gpl = "git pull";
     gp = "git push";
+    gpu = "git push --set-upstream";
+    gpuo = "git push --set-upstream origin";
     gd = "git diff";
     gl = "git log";
+    gln = "git log -n";
     gl1 = "git log -n 1";
     gprune = "git fetch --prune";
 
