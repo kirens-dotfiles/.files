@@ -54,8 +54,6 @@ end
 function fish_prompt
   set -l last_status $status
 
-  __fish_prompt_fixMargin
-
   ${powerline} --shell bare --error $last_status -max-width (${tput} cols)
   printf '\n> '
 end
