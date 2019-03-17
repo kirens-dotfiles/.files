@@ -31,8 +31,6 @@ data Actions =
   { menu :: X ()
   , selectWorkspace :: X String
   , terminalPlain :: X ()
-  , screenBrightnessInc :: X ()
-  , screenBrightnessDec :: X ()
   , volumeInc :: X ()
   , volumeDec :: X ()
   , volumeToggleMute :: X ()
@@ -55,10 +53,6 @@ instance Default Actions where
         noAction "selecting workspaces" >> return ""
     , terminalPlain =
         noAction "plain terminal"
-    , screenBrightnessInc =
-        noAction "increasing screen brightness"
-    , screenBrightnessDec =
-        noAction "decreasing screen brightness"
     , volumeInc =
         noAction "increasing volume"
     , volumeDec =
@@ -134,8 +128,6 @@ keyConfig actions conf = mkKeymap conf $
     )
 
   -- Media keys
-  -- , ("<XF86MonBrightnessUp>", screenBrightnessInc actions)
-  -- , ("<XF86MonBrightnessDown>", screenBrightnessDec actions)
   , ("<XF86AudioRaiseVolume>", volumeInc actions)
   , ("<XF86AudioLowerVolume>", volumeDec actions)
   , ("<XF86AudioMute>", volumeToggleMute actions)

@@ -169,32 +169,6 @@ copyQ =
   where
     gen c = spawn $ Pkgs.copyQ ++ c
 
--- xbacklight
---------------------------------------------------------------------------
-
-bValues :: [Int] -- list of brightness levels on a log-scale
-bValues = let l n = n : l (floor.(max 2).exp.(+0.5).log.fromIntegral $ n)
-          in takeWhile (<100) (l 1) ++ [100]
-
--- | Compute current backlight-step and switch n steps
-backlight :: Int -> X ()
-backlight n = cmd Pkgs.xbacklight []
-    >>= ( read
-      >>> round
-      >>> (\n -> length (takeWhile (<n) bValues))
-      >>> (+n)
-      >>> (min $ length bValues - 1)
-      >>> (max 0)
-      >>> (bValues !!)
-      >>> show
-      >>> \n-> cmd Pkgs.xbacklight ["-set", n]
-        )
-    >> return ()
-
-backlightUp = backlight 1
-backlightDn = backlight (-1)
-
-
 -- amixer
 --------------------------------------------------------------------------
 
@@ -426,10 +400,6 @@ myKeys =
       rofi 10 "Select Workspace" workspaces
   , MyKeys.terminalPlain =
       terminalApp
-  , MyKeys.screenBrightnessInc =
-      backlightUp
-  , MyKeys.screenBrightnessDec =
-      backlightDn
   , MyKeys.volumeInc =
       volumeUp
   , MyKeys.volumeDec =
