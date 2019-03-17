@@ -2,5 +2,5 @@
 ''
 function pbcopy
   ${xclip}/bin/xclip -o -selection clipboard
-end pbcopy
+end
 ''

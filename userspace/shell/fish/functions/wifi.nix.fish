@@ -35,5 +35,5 @@ function wifi
         ${nmcli} device wifi con "''$argv[1]" "''$passwd"
       end
   end
-end wifi
+end
 ''

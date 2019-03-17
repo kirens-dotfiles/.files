@@ -18,7 +18,7 @@ function __trash_clear
         # Do nothing
     end
   end
-end __trash_clear
+end
 
 function __trash_determineSize
   if set size (${timeout} 1s ${du} -s $argv[1] | ${cut} -f1)
@@ -33,7 +33,7 @@ function __trash_determineSize
     ${echo} "Undetermined"
     return 2
   end
-end __trash_determineSize
+end
 
 function __trash_testSize
   switch (__trash_determineSize $argv[1])
@@ -50,7 +50,7 @@ function __trash_testSize
           return 1
       end
   end
-end __trash_testSize
+end
 
 function trash
   if test (count $argv) = 0
@@ -79,19 +79,19 @@ function trash
         if __trash_testSize $file
           ${rm} $file
         end
-      end for
+      end
     case -D
       for file in $argv[2..-1]
         if __trash_testSize $file
           ${rm} -r $file
         end
-      end for
+      end
     case -Df
       for file in $argv[2..-1]
         if __trash_testSize $file
           ${rm} -rf $file
         end
-      end for
+      end
     case '*'
       for file in $argv[1..-1]
         if __trash_testSize $file
@@ -100,7 +100,7 @@ function trash
           ${echo} (pwd)/$file > $trash_dir/orig
           ${mv} $file $trash_dir/data
         end
-      end for
+      end
   end
-end trash
+end
 ''
