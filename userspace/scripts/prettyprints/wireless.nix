@@ -1,4 +1,4 @@
-{ wirelesstools, gnugrep, gawk, coreutils }:
+{ wirelesstools, bash, gnugrep, gawk, coreutils }:
 let
   iwconfig = "${wirelesstools}/bin/iwconfig";
   grep = "${gnugrep}/bin/grep";
@@ -7,7 +7,7 @@ let
   expr = "${coreutils}/bin/expr";
   echo = "${coreutils}/bin/echo";
 in ''
-#! /usr/bin/env bash
+#! ${bash}/bin/bash
 # Based on solution by pbrisbin from Arch Forums
 # https://bbs.archlinux.org/viewtopic.php?pid=575358#p575358
 

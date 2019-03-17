@@ -1,11 +1,11 @@
-{ alsaUtils, gnugrep, coreutils }:
+{ alsaUtils, bash, gnugrep, coreutils }:
 let
   grep = "${gnugrep}/bin/grep";
   amixer = "${alsaUtils}/bin/amixer";
   printf = "${coreutils}/bin/printf";
   test = "${coreutils}/bin/test";
 in ''
-#! /usr/bin/env bash
+#! ${bash}/bin/bash
 vol=$(${amixer} get Master | ${grep} -oe "[0-9]*%" -m1)
 vol="''${vol::-1}"
 
