@@ -101,6 +101,8 @@ let
       coreutils;
   };
 in {
+  home.stateVersion = "18.09";
+
   imports = [
     ./xmonad/xmonad.nix
   ];
