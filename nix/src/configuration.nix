@@ -12,6 +12,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware/nixpix.x360.3.nix
+      ./boot/grub.nix
       ./net/nixpix.nix
       ./users/kiren.nix
       ./virtualization/virtualBox.nix
