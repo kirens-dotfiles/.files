@@ -23,6 +23,9 @@ in
   # Not sure why I want this
   services.upower.enable = true;
 
+  # Prevent computer from freezing if memory consuption is too high
+  services.earlyoom.enable = true;
+
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
