@@ -34,6 +34,14 @@ let
       name = builtins.concatStringsSep "-" [ package.name "restricted" ];
       src = package.outPath;
       installPhase = "bash ${installScript package}";
+
+      meta = let
+        meta = package.meta or { };
+      in meta // {
+        outputsToInstall = [ "out" ];
+        name = "restricted-" + meta.name or "unknown";
+        description = meta.description or "";
+      };
     };
 in package:
   restricter package // {
