@@ -100,8 +100,11 @@ let
     inherit (pkgs)
       coreutils;
   };
-in
-{
+in {
+  imports = [
+    ./xmonad/xmonad.nix
+  ];
+
   home.file = fishFunctions // {
     ".mozilla/firefox/${firefoxProfile}/chrome" = {
       source = ./firefox/userChrome;
@@ -254,38 +257,6 @@ in
 
   xsession = {
     enable = true;
-    windowManager.xmonad = {
-      enable = true;
-
-      configDir = ./xmonad;
-      configData = with pkgs; xmonad: {
-        inherit
-          dotfilesLoc xmonad
-          alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus tmux;
-        inherit (xorg) xmessage xbacklight;
-        xmobar = haskellPackages.xmobar;
-        st = pkgs.callPackage ./shell/st/build.nix { };
-        rofi-scripts = pkgs.callPackage ./rofi/scripts.nix {
-          rofi-toggl = pkgs.callPackage ./rofi/scripts/toggl
-            { nodejs = myPkgs.nodejs-slim-10_x; };
-          inherit (env) togglAccessToken;
-          translate-shell = myPkgs.translate-shell;
-        };
-
-        scripts = with pkgs;
-          mapAttrs (name: pac: writeScript name (callPackage pac { })) {
-            lockptr = ./scripts/lockptr.nix;
-            printVol = ./scripts/prettyprints/vol.nix;
-            printVolLvl = ./scripts/prettyprints/vol_lvl.nix;
-            wireless = ./scripts/prettyprints/wireless.nix;
-          };
-      };
-
-
-      enableContribAndExtras = true;
-      extraPackages = self: [
-      ];
-    };
     initExtra = ''
       # Turn off beeps.
       ${pkgs.xorg.xset}/bin/xset -b

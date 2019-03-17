@@ -149,9 +149,6 @@ terminalApp = terminalExec Pkgs.tmux
 -- TODO: escape single quotes
 terminalExec cmd = spawn$ terminalCmd ++ " -e \"" ++ cmd ++ "\""
 
-vim = terminalExec.("vi\" \"" ++)
-
-
 -- lock
 --------------------------------------------------------------------------
 
@@ -241,19 +238,6 @@ defaultBackground = "default.jpg"
 
 setBkgrnd :: BackgroundName -> X ()
 setBkgrnd n = spawn $ "feh --bg-fill $HOME/backgrounds/" ++ n
-
--- Introspective
---------------------------------------------------------------------------
---TODO: Temporarily hard-coded .files location
-editXmonadConfig :: X ()
-editXmonadConfig = vim $ Pkgs.dotfilesLocation ++ "/userspace/xmonad"
-
-editTODO :: X ()
-editTODO = vim $ Pkgs.dotfilesLocation ++ "/TODO"
-
-reloadXMonad :: X ()
-reloadXMonad = restart Pkgs.xmonad True
--- spawn $ Pkgs.xmonad ++ " --restart;"
 
 -- Screen grab
 --------------------------------------------------------------------------
@@ -442,10 +426,6 @@ myKeys =
       rofi 10 "Select Workspace" workspaces
   , MyKeys.terminalPlain =
       terminalApp
-  , MyKeys.editDotfiles =
-      editXmonadConfig
-  , MyKeys.editTODO =
-      Main.editTODO
   , MyKeys.screenBrightnessInc =
       backlightUp
   , MyKeys.screenBrightnessDec =
@@ -466,8 +446,6 @@ myKeys =
       lock
   , MyKeys.resetScreens =
       Main.resetScreens
-  , MyKeys.restartXMonad =
-      reloadXMonad
   , MyKeys.musicPlayPause =
       spotifySend "PlayPause"
   , MyKeys.musicNext =

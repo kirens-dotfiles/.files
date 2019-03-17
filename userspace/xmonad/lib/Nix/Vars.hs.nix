@@ -1,14 +1,11 @@
-{ scripts, dotfilesLoc, alsaUtils, copyq, i3lock-fancy, xmonad, xautolock
+{ scripts, alsaUtils, copyq, i3lock-fancy, xautolock
 , xmobar, rofi, libqalculate, st, xmessage, dbus, tmux, rofi-scripts, xbacklight
 }:
 ''
 module Nix.Vars where
 
-dotfilesLocation = "${dotfilesLoc}"
-
 dbusSend = "${dbus}/bin/dbus-send"
 st = "${st}/bin/st"
-xmonad = "${xmonad}/bin/xmonad"
 amixer = "${alsaUtils}/bin/amixer"
 copyQ = "${copyq}/bin/copyq"
 i3Lock = "${i3lock-fancy}/bin/i3lock-fancy"

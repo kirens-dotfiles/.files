@@ -31,8 +31,6 @@ data Actions =
   { menu :: X ()
   , selectWorkspace :: X String
   , terminalPlain :: X ()
-  , editDotfiles :: X ()
-  , editTODO :: X ()
   , screenBrightnessInc :: X ()
   , screenBrightnessDec :: X ()
   , volumeInc :: X ()
@@ -43,7 +41,6 @@ data Actions =
   , clipboardManager :: CM.ClipboardManager
   , lockscreen :: X ()
   , resetScreens :: X ()
-  , restartXMonad :: X ()
   , musicPlayPause :: X ()
   , musicNext :: X ()
   , musicPrev :: X ()
@@ -58,10 +55,6 @@ instance Default Actions where
         noAction "selecting workspaces" >> return ""
     , terminalPlain =
         noAction "plain terminal"
-    , editDotfiles =
-        noAction "editing dotfiles"
-    , editTODO =
-        noAction "editing TODO-notes"
     , screenBrightnessInc =
         noAction "increasing screen brightness"
     , screenBrightnessDec =
@@ -82,8 +75,6 @@ instance Default Actions where
         noAction "locking the screen"
     , resetScreens =
         noAction "reseting the screens"
-    , restartXMonad =
-        noAction "restarting XMonad"
     , musicPlayPause =
         noAction "playing music"
     , musicNext =
@@ -103,8 +94,6 @@ keyConfig actions conf = mkKeymap conf $
   -- Quick launches
   [ ("M-a", menu actions)
   , ("M-s", terminalPlain actions)
-  , ("M-e", editDotfiles actions)
-  , ("M-t", editTODO actions)
 
   -- Window mgmt
   , ("M-d", kill)
@@ -145,14 +134,14 @@ keyConfig actions conf = mkKeymap conf $
     )
 
   -- Media keys
-  , ("<XF86MonBrightnessUp>", screenBrightnessInc actions)
-  , ("<XF86MonBrightnessDown>", screenBrightnessDec actions)
+  -- , ("<XF86MonBrightnessUp>", screenBrightnessInc actions)
+  -- , ("<XF86MonBrightnessDown>", screenBrightnessDec actions)
   , ("<XF86AudioRaiseVolume>", volumeInc actions)
   , ("<XF86AudioLowerVolume>", volumeDec actions)
   , ("<XF86AudioMute>", volumeToggleMute actions)
-  , ("<XF86AudioPlay>", musicPlayPause actions)
-  , ("<XF86AudioNext>", musicNext actions)
-  , ("<XF86AudioPrev>", musicPrev actions)
+  -- , ("<XF86AudioPlay>", musicPlayPause actions)
+  -- , ("<XF86AudioNext>", musicNext actions)
+  -- , ("<XF86AudioPrev>", musicPrev actions)
   , ("M-p", trackpadEnabledToggle actions)
   , ("<Print>", printScreen actions)
 
@@ -162,7 +151,6 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-M1-S-c", CM.prev $ clipboardManager actions)
   , ("M-q", lockscreen actions)
   , ("M-M1-S-o", resetScreens actions)
-  , ("M-<Esc>", restartXMonad actions)
   , ("M-S-<Esc>", liftIO$exitWith ExitSuccess)
   --, ("M-S-z", spawn "xscreensaver-command -lock")
   ]
