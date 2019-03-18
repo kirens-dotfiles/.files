@@ -177,7 +177,7 @@ linVol n = getVolume >>= setVolume . (+n)
 
 -- Apparently increasing 1 is to small to propagate
 volumeUp = linVol 2
-volumeDn = linVol (-2)
+volumeDn = linVol (-3)
 
 toggleMute = spawn$ Pkgs.amixer ++ " set Master 1+ toggle"
 
