@@ -56,7 +56,10 @@ in
   };
 
   virtualisation.docker.enable = true;
-  services.compton.enable = true;
+  services.compton = {
+    enable = true;
+    backend = "glx";
+  };
   services.xserver = {
     enable = true;
     layout = "se";
@@ -65,6 +68,17 @@ in
       auto.enable = true;
       auto.user = "kiren";
     };
+
+    # C
+    exportConfiguration = true;
+    extraConfig = ''
+      Section "Device"
+          Identifier "Intel Graphics"
+          Driver "intel"
+          Option "TearFree" "true"
+          Option  "TripleBuffer" "true
+      EndSection
+    '';
 
     # Trackpad
     synaptics = {
