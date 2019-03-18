@@ -16,6 +16,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
+import System.Environment (getExecutablePath)
 import XMonad.Util.Run
 
 -- Layout Info
@@ -238,6 +239,13 @@ restartCompton = spawn "sh -c 'ps -e | grep compton | grep -oe \"[0-9]*\" | head
 resetScreens :: X ()
 resetScreens = spawn "xrandr --output eDP1 --mode 1920x1080 --primary --auto --output HDMI1 --off --output DP1 --off --output HDMI2 --off"
 
+
+-- Some screen stuff
+--------------------------------------------------------------------------
+
+restart = io getExecutablePath >>= flip XMonad.restart True
+
+
 -----------------------------------------------------------------------}}}
 -- Status bar                                                          {{{
 --------------------------------------------------------------------------
@@ -412,6 +420,8 @@ myKeys =
       lock
   , MyKeys.resetScreens =
       Main.resetScreens
+  , MyKeys.restartXMonad =
+      Main.restart
   , MyKeys.musicPlayPause =
       spotifySend "PlayPause"
   , MyKeys.musicNext =

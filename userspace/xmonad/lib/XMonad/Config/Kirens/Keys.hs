@@ -39,6 +39,7 @@ data Actions =
   , clipboardManager :: CM.ClipboardManager
   , lockscreen :: X ()
   , resetScreens :: X ()
+  , restartXMonad :: X ()
   , musicPlayPause :: X ()
   , musicNext :: X ()
   , musicPrev :: X ()
@@ -69,6 +70,8 @@ instance Default Actions where
         noAction "locking the screen"
     , resetScreens =
         noAction "reseting the screens"
+    , restartXMonad =
+        noAction "restarting XMonad"
     , musicPlayPause =
         noAction "playing music"
     , musicNext =
@@ -143,6 +146,7 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-M1-S-c", CM.prev $ clipboardManager actions)
   , ("M-q", lockscreen actions)
   , ("M-M1-S-o", resetScreens actions)
+  , ("M-<Esc>", restartXMonad actions)
   , ("M-S-<Esc>", liftIO$exitWith ExitSuccess)
   --, ("M-S-z", spawn "xscreensaver-command -lock")
   ]
