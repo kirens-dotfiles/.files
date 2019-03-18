@@ -51,11 +51,12 @@ let
       echo "Compilation successfull!"
     '';
     installPhase = ''
-      mkdir -p $out/bin $out/src
+      mkdir -p $out/bin $out/src/lib/Nix
+      cp --parents $(find ./ -type f -name "*.hs") $out/src
+      ln -s ${nixVarsHs} $out/src/lib/Nix/Vars.hs
+
       cp xmonad $out/bin/xmonad-x86_64-linux
-      makeWrapper $out/bin/xmonad-x86_64-linux $out/bin/xmonad \
-      #  --add-flags --replace
-      #  --set XMONAD_DATA_DIR $out/.xmonad
+      makeWrapper $out/bin/xmonad-x86_64-linux $out/bin/xmonad
     '';
   };
   xmonad = pkgs.xmonad-with-packages.override {
