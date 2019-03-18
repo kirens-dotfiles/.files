@@ -30,7 +30,6 @@ in
   services.printing = {
     enable = true;
     drivers = with pkgs; [
-      myPkgs.cloud-print-connector
       gutenprint
       hplip
       splix
@@ -89,7 +88,7 @@ in
     enable = true;
     # Lock & suspend on lid close
     lidEventCommands = ''
-      i3lock-fancy& systemctl suspend
+      systemctl suspend
     '';
   };
 
