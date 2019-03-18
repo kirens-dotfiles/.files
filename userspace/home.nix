@@ -86,13 +86,12 @@ let
         "expr" "false" "fmt" "groups" "head" "kill" "ln" "ls" "md5sum" "mkdir"
         "mktemp" "mv" "nohup" "printf" "pwd" "readlink" "rmdir" "seq" "sha1sum"
         "sha256sum" "sha512sum" "sleep" "sort" "tail" "tee" "test" "timeout"
-        "touch" "true" "unlink" "uptime" "wc" "yes"
+        "touch" "true" "uniq" "unlink" "uptime" "wc" "yes"
       ]; }
       { pkg = man-db; bins = ["man"]; }
       { pkg = findutils; bins = ["find" "xargs"]; }
       { pkg = nix; bins = ["nix" "nix-shell" "nix-build" "nix-env" "nix-store"]; }
       { pkg = nettools; bins = ["netstat"]; }
-      { pkg = myPkgs.signal-cli; bins = ["signal-cli"]; }
     ];
 
   fishFunctions = import ./shell/fish/functions {
@@ -184,7 +183,7 @@ in {
       # Terminal file explorer
       ranger
       # Node without npm
-      myPkgs.nodejs-slim-10_x
+      nodejs-slim-10_x
     ])
   ];
 
@@ -216,10 +215,10 @@ in {
 
     neovim  = {
       enable = true;
-      package = specificBins ["vi"] myPkgs.neovim;
+      package = pkgs.neovim;
       viAlias = true;
 
-      configure = importWith ./nvim/config.nix myPkgs;
+      configure = importWith ./nvim/config.nix pkgs;
     };
 
     fish =
