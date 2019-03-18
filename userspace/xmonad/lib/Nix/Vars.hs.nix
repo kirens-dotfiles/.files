@@ -18,6 +18,7 @@ xmessage = "${xmessage}/bin/xmessage"
 tmux = "${tmux}/bin/tmux"
 xbacklight = "${xbacklight}/bin/xbacklight"
 
+randomBgScript = "${scripts.randomBackground}"
 lockptrScript = "${scripts.lockptr}"
 printVolScript = "${scripts.printVol}"
 printVolLvlScript = "${scripts.printVolLvl}"

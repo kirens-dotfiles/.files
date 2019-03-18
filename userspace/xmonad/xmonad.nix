@@ -3,10 +3,9 @@ let
   env = import ../env.nix;
   configData = with pkgs; {
     inherit
-      alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus tmux feh;
+      alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus tmux;
     inherit (xorg) xmessage xbacklight;
     xmobar = haskellPackages.xmobar;
-    backgrounds = ../backgrounds;
     st = pkgs.callPackage ../shell/st/build.nix { };
     rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
       rofi-toggl = pkgs.callPackage ../rofi/scripts/toggl
@@ -21,6 +20,7 @@ let
         printVol = ../scripts/prettyprints/vol.nix;
         printVolLvl = ../scripts/prettyprints/vol_lvl.nix;
         wireless = ../scripts/prettyprints/wireless.nix.js;
+        randomBackground = ../backgrounds;
       };
   };
   # A file that exposes nix-generated paths to the compilation.

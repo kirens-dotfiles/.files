@@ -205,13 +205,9 @@ rofi lines name input =
 
 -- Background
 --------------------------------------------------------------------------
-type BackgroundName = String
 
-defaultBackground :: BackgroundName
-defaultBackground = "default.jpg"
-
-setBkgrnd :: BackgroundName -> X ()
-setBkgrnd n = spawn $ "feh --bg-fill $HOME/backgrounds/" ++ n
+setRandomBg :: X ()
+setRandomBg = void $ cmd Pkgs.randomBgScript []
 
 -- Screen grab
 --------------------------------------------------------------------------
@@ -315,7 +311,7 @@ myLayout = mkToggle (FULL ?? EOT)
 
 startup = do
     setVolume 0
-    setBkgrnd defaultBackground
+    setRandomBg
     autolockInit
     lock
     CM.init copyQ
