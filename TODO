@@ -1,6 +1,7 @@
 # BACKLOG
 ## GENERAL
 
+  * ISO-builder to include step-by-step install program
   * look into using servo for emeded sites / webbrowser, sequrity aspects?
     Alternatively how to get Firefox to launch webiste in "kiosk-mode"
   * Figure out good note-takeing system for future events (i.e. FuM)
@@ -11,27 +12,25 @@
 ## TERMINAL EMULATOR
 
   * Enable opening an unbound tmux instance
-  * Som way to force close a locked up script in tmux
+  * Some way to force stop a locked up script in tmux
 
 ## ROFI
 
+  * Speed up launch so first characters don't go uncaught
   * Integrate with task warrior
 
 ## HOME MANAGER
 
-  * Fix reloading uppon compile so that xmonad doesn't need to pollute userspace.
+  * Use home-manager nixos module
   * Investigate if firefox extensions can be added through home-manager
 
 ## FISH
 
   * Complete nix-shell in a smart manner with pkgs lookup
-  * Turn aliases into functions. (I seem to be sticking to fish after all)
 
 ## VIM
 
-  * look into neovim coloring errors
   * Code Completeion (specifically Haskell/Javascript/Python/Java)
-  * Folding colors, the current gray is horrendous
 
 ## NIXOS
 
@@ -63,7 +62,6 @@
   * Custom Layout, allowing:
       On top - Fullscren / out of workspace programms (for things such as calendar, messaging, todos)
   * xscreensaver
-  * editTODO shortcut should autocommit + -push
   * Investigate xmobar coloring of mem% not working
 
  KEYBOARD
@@ -82,10 +80,6 @@
 
 # DEFERED (should do but uncertain how to solve, await more time to research)
 
-## FISH
-
-  * Ctrl+BS as kill-word in fish
-
 ## GENERAL
 
   * Bluetooth headphones, low sound quality
@@ -99,3 +93,6 @@
   * Make nix-shell launch fish
   * using `logger` in some config-scipts?
   * Make a home-manager extension that allows styling of ST
+  * Fix reloading uppon compile so that xmonad doesn't need to pollute userspace.
+  * editTODO shortcut should autocommit + -push
+  * Ctrl+BS as kill-word in fish
