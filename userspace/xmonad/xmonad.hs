@@ -321,7 +321,6 @@ startup = do
     setVolume 0
     setRandomBg
     autolockInit
-    lock
     CM.init copyQ
     setWMName "LG3D"
 
@@ -334,7 +333,7 @@ main = do
   -- Launch apropriately many xmobars
   nScreens <- countScreens
   xmobars <- sequence$ map ((>>=launchXmobar).mkXmobarCfg) [0..nScreens-1]
-  xmonad$ewmh$docks$configBase xmobars
+  XMonad.xmonad $ ewmh $ docks $ configBase xmobars
 
 theLogHook xmproc =
   -- fade hook
