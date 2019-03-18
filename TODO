@@ -94,54 +94,8 @@
 
   * Only press Super to open dmenu
 
-
-# DONE
-
-## FISH
-
-  * fish conf dir should be a symlink so functions can be loaded ad hoc
-  * Use powerline-go in a custom builder, similar to ST
-
-## NIXOS
-
-  * Modularize config
-  * Is there some kind of user.nix config? Might be worth trying to migrate
-    some configs from fish / X11 stuff to it in that case.
-  * Move aliases to `environment.interactiveShellInit`
-  * Separate hardware-config
-
-## NVIM
-
-  * Map mouse to visual mode
-  * nvim as standard editor in git
-
-## ROFI
-
-  * Multiple monitors => better hotswaping
-
-## TERMINAL EMULATOR
-
-  * Move tmux into home-manager config
-  * Debug st tmux vim crach
-  * Switch from xterm to ST
-  * Custom ST build
-
-## XMONAD
-
-  * Compile xmonad as part of `home manager build`
-  * Dynamic creation of XMobars Depending on number of attached monitiors
-  * acpid - lid close -> sleep-pc
-  * prt sc -> screenshot
-  * Keybindings for Volume/Brightness
-  * Multiple monitors, basic
-  * Xmobar configuration file included in xmonad.hs to prevent code duplication
-  * Do not loose focus when background tasks such as volume is changed.
-
-
 # TESTED/REJECTED/WONTFIX
 
   * Make nix-shell launch fish
   * using `logger` in some config-scipts?
   * Make a home-manager extension that allows styling of ST
-
-END OF TODO
