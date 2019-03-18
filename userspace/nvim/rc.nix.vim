@@ -18,6 +18,9 @@ set colorcolumn=80
 " More discrete color
 highlight ColorColumn ctermbg=0
 
+" Yank line
+noremap Y y$
+
 " Autobreak
 set textwidth=79
 set wrap
