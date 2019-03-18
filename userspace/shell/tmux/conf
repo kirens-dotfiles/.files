@@ -1,5 +1,7 @@
 { sensible }:
 ''
+set-option -g default-shell /run/current-system/sw/bin/fish
+
 run-shell ${sensible}
 
 # Propagate window title
