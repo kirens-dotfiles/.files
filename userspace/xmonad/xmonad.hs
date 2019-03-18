@@ -18,6 +18,7 @@ import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import System.Environment (getExecutablePath)
 import XMonad.Util.Run
+import Control.Concurrent (forkIO)
 
 -- Layout Info
 import qualified XMonad.StackSet as S
@@ -142,6 +143,7 @@ void = (>> return ())
 
 run bin args inp = liftIO $ runProcessWithInput bin args inp
 cmd bin args = run bin args ""
+exe bin args = void $ cmd bin args
 
 -- Terminal stuff
 --------------------------------------------------------------------------
@@ -153,9 +155,7 @@ terminalExec cmd = spawn$ terminalCmd ++ " -e \"" ++ cmd ++ "\""
 -- lock
 --------------------------------------------------------------------------
 
-lock = spawn Pkgs.i3Lock -- "xautolock -locknow"
-autolockInit = spawn $ Pkgs.xautolock ++ " -time 15 -locker " ++ Pkgs.i3Lock
-
+lock = exe Pkgs.xautolock [ "-locknow" ]
 
 -- CopyQ
 --------------------------------------------------------------------------
@@ -208,7 +208,7 @@ rofi lines name input =
 --------------------------------------------------------------------------
 
 setRandomBg :: X ()
-setRandomBg = void $ cmd Pkgs.randomBgScript []
+setRandomBg = liftIO $ void $ forkIO $ io $ exe Pkgs.randomBgScript []
 
 -- Screen grab
 --------------------------------------------------------------------------
@@ -320,7 +320,6 @@ myLayout = mkToggle (FULL ?? EOT)
 startup = do
     setVolume 0
     setRandomBg
-    autolockInit
     CM.init copyQ
     setWMName "LG3D"
 

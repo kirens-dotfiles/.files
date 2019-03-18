@@ -258,11 +258,26 @@ in {
 
   xsession = {
     enable = true;
-    initExtra = ''
+    initExtra = let
+      xset = "${pkgs.xorg.xset}/bin/xset";
+      xkbcomp = "${pkgs.xorg.xkbcomp}/bin/xkbcomp";
+      xautolock = "${pkgs.xautolock}/bin/xautolock";
+      locker = pkgs.stdenv.mkDerivation rec {
+        name = "lock-with-betterlockscreen";
+        src = pkgs.betterlockscreen;
+        buildInputs = [ pkgs.makeWrapper ];
+        installPhase = ''
+          makeWrapper ${pkgs.betterlockscreen}/bin/betterlockscreen $out \
+            --add-flags '--lock blur'
+        '';
+      };
+    in ''
       # Turn off beeps.
-      ${pkgs.xorg.xset}/bin/xset -b
+      ${xset} -b
       # Switch keyboard layout
-      ${pkgs.xorg.xkbcomp}/bin/xkbcomp ${./keyboard/custom-xkb-keymap} :0
+      ${xkbcomp} ${./keyboard/custom-xkb-keymap} :0
+      # Automatic locking
+      ${xautolock} -time 15 -locker ${locker} &
     '';
   };
 

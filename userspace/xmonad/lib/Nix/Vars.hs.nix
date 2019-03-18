@@ -1,4 +1,4 @@
-{ scripts, alsaUtils, copyq, i3lock-fancy, xautolock
+{ scripts, alsaUtils, copyq, xautolock
 , xmobar, rofi, libqalculate, st, xmessage, dbus, tmux, rofi-scripts, xbacklight
 }:
 ''
@@ -8,7 +8,6 @@ dbusSend = "${dbus}/bin/dbus-send"
 st = "${st}/bin/st"
 amixer = "${alsaUtils}/bin/amixer"
 copyQ = "${copyq}/bin/copyq"
-i3Lock = "${i3lock-fancy}/bin/i3lock-fancy"
 xautolock = "${xautolock}/bin/xautolock"
 xmobar = "${xmobar}/bin/xmobar"
 rofi = "${rofi}/bin/rofi"

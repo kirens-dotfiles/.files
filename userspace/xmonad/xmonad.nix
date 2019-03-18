@@ -3,7 +3,7 @@ let
   env = import ../env.nix;
   configData = with pkgs; {
     inherit
-      alsaUtils copyq i3lock-fancy xautolock rofi libqalculate dbus tmux;
+      alsaUtils copyq xautolock rofi libqalculate dbus tmux;
     inherit (xorg) xmessage xbacklight;
     xmobar = haskellPackages.xmobar;
     st = pkgs.callPackage ../shell/st/build.nix { };
