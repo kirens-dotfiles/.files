@@ -90,7 +90,7 @@ import XMonad.Actions.SinkAll
 --------------------------------------------------------------------------
 
 terminalBin = Pkgs.st
-terminalCmd = terminalBin ++ " -f 'Hack:size=12'"
+terminalCmd = terminalBin
 
 -- Colors
 ------------
