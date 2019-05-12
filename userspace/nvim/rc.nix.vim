@@ -38,6 +38,8 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " Break lines at cursor (oposite of J; J∘K == id)
 nnoremap K i<CR><ESC>l
+" Insert empty lines in normal mode
+nnoremap <CR> mxo<esc>`x
 
 " map mouse activity
 set mouse=a
