@@ -3,11 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-let
-
-  myPkgs = import ./nixpkgs { };
-
-in
 {
   imports =
     [ # Include the results of the hardware scan.
