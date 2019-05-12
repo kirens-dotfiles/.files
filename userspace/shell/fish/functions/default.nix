@@ -28,6 +28,7 @@ in lib.mapAttrs'
   (n: v: { name = nameToPath n; value = callFunction v; })
   {
     clear-docker = ./clear-docker.nix.fish;
+    git-pushu = ./git-pushu.nix.fish;
     help-vi = ./help-vi.nix.fish;
     nx-run = ./nx-run.nix.fish;
     prgm = ./prgm.nix.fish;
@@ -41,4 +42,3 @@ in lib.mapAttrs'
     wifi = ./wifi.nix.fish;
     brightness = ./brightness.nix.fish;
   }
-
