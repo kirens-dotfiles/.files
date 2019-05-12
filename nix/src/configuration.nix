@@ -16,6 +16,7 @@ in
       ./hardware/nixpix.x360.4.nix
       ./net/nixpix.nix
       ./users/kiren.nix
+      ./graphics/fonts.nix
     ];
 
   # Suspend to ram and nice stuff
@@ -33,25 +34,6 @@ in
       gutenprint
       hplip
       splix
-    ];
-  };
-
-  fonts = {
-    enableFontDir = true;
-    enableGhostscriptFonts = true;
-
-    enableDefaultFonts = true;
-
-    fonts = with pkgs; [
-#      google-fonts
-      font-awesome-ttf
-
-      # Coding
-      hack-font
-      source-code-pro
-      hasklig
-      monoid
-      iosevka
     ];
   };
 
