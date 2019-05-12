@@ -22,3 +22,6 @@
 [submodule "userspace/keyboard/src"]
 	path = userspace/keyboard/src
 	url = git@github.com:kirens-dotfiles/xkb-generator.git
+[submodule "userspace/shell/fish/packages/auto-nix-shell"]
+	path = userspace/shell/fish/packages/auto-nix-shell
+	url = git@github.com:chrismwendt/auto-nix-shell.git

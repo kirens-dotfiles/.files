@@ -8,24 +8,23 @@ let
   callOnlyNessecary = f: args:
     f (removeUnwantedArgs f args);
 
-  callFunction = pkg: {
-    text = callOnlyNessecary (import pkg) (pkgs // {
-      cut     = "${coreutils}/bin/cut";
-      du      = "${coreutils}/bin/du";
-      echo    = "${coreutils}/bin/echo";
-      mkdir   = "${coreutils}/bin/mkdir";
-      mv      = "${coreutils}/bin/mv";
-      rm      = "${coreutils}/bin/rm";
-      test    = "${coreutils}/bin/test";
-      timeout = "${coreutils}/bin/timeout";
-    });
-  };
+  callFunction = pkg: callOnlyNessecary (import pkg) (pkgs // {
+    cut     = "${coreutils}/bin/cut";
+    du      = "${coreutils}/bin/du";
+    echo    = "${coreutils}/bin/echo";
+    mkdir   = "${coreutils}/bin/mkdir";
+    mv      = "${coreutils}/bin/mv";
+    rm      = "${coreutils}/bin/rm";
+    test    = "${coreutils}/bin/test";
+    timeout = "${coreutils}/bin/timeout";
+  });
 
-  nameToPath = name:
-    ".config/fish/functions/" + name + ".fish";
-
-in lib.mapAttrs'
-  (n: v: { name = nameToPath n; value = callFunction v; })
+in lib.mapAttrsToList
+  (name: source: pkgs.writeTextFile {
+    name = "${name}.fish";
+    destination = "/share/fish/functions/${name}.fish";
+    text = callFunction source;
+  })
   {
     clear-docker = ./clear-docker.nix.fish;
     git-pushu = ./git-pushu.nix.fish;
