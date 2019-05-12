@@ -13,6 +13,10 @@ in {
 
     hosts =
       lib.zipAttrsWith (lib.const builtins.concatLists) [
+        {
+          "52.16.245.35" = [ "ombord.sj.se" ];
+          "10.101.0.1" = [ "www.ombord.info" ];
+        }
         (localRoute [
           "youtube.com" "www.youtube.com"
           "localhost" config.networking.hostName
