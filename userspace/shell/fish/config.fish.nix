@@ -21,8 +21,8 @@
     gm = "git merge";
     gpl = "git pull";
     gp = "git push";
-    gpu = "git push --set-upstream";
-    gpuo = "git push --set-upstream origin";
+    gpu = "git-pushu";
+    gpuo = "git-pushu origin";
     gd = "git diff";
     gl = "git log";
     gln = "git log -n";
