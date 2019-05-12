@@ -2,6 +2,12 @@
 ''
 set-option -g default-shell /run/current-system/sw/bin/fish
 
+# Switch prefix from `b` to `a`
+set -g prefix C-a
+unbind C-b
+# Bind `C-a C-a` to type `C-a`
+bind C-a send-prefix
+
 run-shell ${sensible}
 
 # Propagate window title
