@@ -23,6 +23,11 @@
       fsType = "btrfs";
     };
 
+  fileSystems."/var/lib/docker" = {
+    device = "/dev/disk/by-uuid/682557cb-cdc4-4826-b7c1-095806d97d11";
+    fsType = "ext4";
+  };
+
   boot.initrd.luks.devices."enc-data-3d".device = "/dev/disk/by-uuid/0e96be52-bed9-4d10-9858-1da9773541da";
 
   swapDevices = [ ];
