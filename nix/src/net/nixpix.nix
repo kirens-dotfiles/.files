@@ -1,5 +1,7 @@
 { config, lib, ... }:
-{
+let
+    localRoute = names: { "127.0.0.1" = names; "::1" = names; };
+in {
   networking = {
     hostName = "nixpix";
     nameservers = [ "1.1.1.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
@@ -11,10 +13,10 @@
 
     hosts =
       lib.zipAttrsWith (lib.const builtins.concatLists) [
-        (import ./blockYouTube.nix {})
-        (let ds = [ "localhost" config.networking.hostName ];
-         in { "127.0.0.1" = ds; "::1" = ds; }
-        )
+        (localRoute [
+          "youtube.com" "www.youtube.com"
+          "localhost" config.networking.hostName
+        ])
       ];
   };
 }
