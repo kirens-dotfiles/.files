@@ -8,6 +8,7 @@
         names = [
           "vim-signify"
           "vim-javascript"
+          "vim-go"
           "vim-colors-solarized"
           "ale"
           "vim-localvimrc"
