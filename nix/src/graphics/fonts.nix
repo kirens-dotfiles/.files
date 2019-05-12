@@ -18,7 +18,9 @@ let
 
   rejectFonts = fonts: ''
     <selectfont>
-      ${rejects fonts}
+      <rejectfont>
+        ${rejects fonts}
+      </rejectfont>
     </selectfont>
   '';
   fallbacksFonts = otherFonts: concatStrings (
@@ -43,7 +45,6 @@ let
   '';
 in {
   fonts = {
-    enableFontDir = true;
     enableGhostscriptFonts = false;
     enableDefaultFonts = false;
 
@@ -51,7 +52,6 @@ in {
       font-awesome-ttf
       myPkgs.xkcd-font
       twemoji-color-font
-      noto-fonts-emoji
 
       # Basically DejaVu without uneccesary glyphs
       ttf_bitstream_vera
@@ -80,7 +80,7 @@ in {
           fantasy = [];
           system-ui = [ "FontAwesome" ];
           math = [ "FreeSerif" ];
-          emoji = [ "Noto Color Emoji" "Noto Emoji" ];
+          emoji = [ "Twitter Color Emoji" ];
         })
       ];
     };
