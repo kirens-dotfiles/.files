@@ -26,7 +26,7 @@ let
   # A file that exposes nix-generated paths to the compilation.
   nixVarsHs = pkgs.writeTextFile {
     name = "Nix.Vars.hs";
-    text = import ./lib/Nix/Vars.hs.nix configData;
+    text = import ./lib/Nix/Vars.nix.hs configData;
   };
 
   xmonadGhc = pkgs.haskellPackages.ghcWithPackages (p: with p; [
