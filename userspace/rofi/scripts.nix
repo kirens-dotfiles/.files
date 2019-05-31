@@ -9,6 +9,7 @@ let
       test = "${coreutils}/bin/test";
       tail = "${coreutils}/bin/tail";
       translate = "${translate-shell}/bin/trans";
+      bash = "${bash}/bin/bash";
     };
   };
   monitorScript = writeTextFile {
@@ -17,6 +18,9 @@ let
       xrandr = "${xrandr}/bin/xrandr";
       rofi = "${rofi}/bin/rofi";
       xinput = "${xinput}/bin/xinput";
+      test = "${coreutils}/bin/test";
+      printf = "${coreutils}/bin/printf";
+      bash = "${bash}/bin/bash";
     };
   };
   toggl = writeTextFile {
@@ -38,7 +42,7 @@ let
       if [[ -z "$@" ]]; then
         find ./ -maxdepth 1 -and -type l -or -type f -printf '%f\n'
       else
-        ${bash}/bin/bash "./$1" > /dev/null &
+        "./$1" > /dev/null &
       fi
     '';
   };

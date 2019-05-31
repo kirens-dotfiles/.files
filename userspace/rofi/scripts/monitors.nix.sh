@@ -1,17 +1,19 @@
-{ xrandr, rofi, xinput }:
+{ bash, xrandr, rofi, xinput, printf, test }:
 ''
+#! ${bash}
 print_menu() {
-  printf "Normal\nOnly internal monitor\0"
-  printf "External\nOnly HDMI monitor\0"
-  printf "Stacked\nExternal monitor above internal\0"
-  printf "Mirrored\nExternal monitor mirroring internal\0"
-  printf "Current\nOnly perform post remap hook\0"
+  ${printf} "Normal\nOnly internal monitor\0"
+  ${printf} "External\nOnly HDMI monitor\0"
+  ${printf} "Stacked\nExternal monitor above internal\0"
+  ${printf} "Mirrored\nExternal monitor mirroring internal\0"
+  ${printf} "Current\nOnly perform post remap hook\0"
 }
 option_count=4
 
 res=''$(print_menu | ${rofi} -dmenu -i -sep '\0' -lines "$option_count" -eh 2 -p 'Monitor Layout' -no-custom -format i)
 
-if [ -z "$res" ] ; then
+if ${test} -z "$res"
+then
     exit
 fi
 

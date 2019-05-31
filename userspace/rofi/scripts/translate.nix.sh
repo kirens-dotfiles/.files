@@ -1,5 +1,6 @@
-{ rofi, echo, test, tail, translate }:
+{ bash, rofi, echo, test, tail, translate }:
 ''
+#! ${bash}
 print_menu() {
   ${echo} "english"
   ${echo} "swedish"
