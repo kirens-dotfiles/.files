@@ -43,6 +43,7 @@ data Actions =
   , musicPlayPause :: X ()
   , musicNext :: X ()
   , musicPrev :: X ()
+  , defaultKeyboardLayout :: X ()
   }
 
 instance Default Actions where
@@ -78,6 +79,8 @@ instance Default Actions where
         noAction "skipping music"
     , musicPrev =
         noAction "reverse skipping music"
+    , defaultKeyboardLayout =
+        noAction "switching to default keyboard layout"
     }
 
 -- This should be made a better generalization (KeyBnd strings error prone) TODO
@@ -148,6 +151,7 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-<Esc>", restartXMonad actions)
   , ("M-S-<Esc>", liftIO$exitWith ExitSuccess)
   --, ("M-S-z", spawn "xscreensaver-command -lock")
+  , ("M-<Space>", defaultKeyboardLayout actions)
   ]
   -- Switch workspace
   ++ keysWithPar

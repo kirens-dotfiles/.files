@@ -155,6 +155,11 @@ terminalExec cmd = spawn$ terminalCmd ++ " -e \"" ++ cmd ++ "\""
 
 lock = exe Pkgs.xautolock [ "-locknow" ]
 
+-- KeyboardLayout
+--------------------------------------------------------------------------
+
+pickDefaultLayout = exe Pkgs.xkbcomp [Pkgs.customKeymap, ":0"]
+
 -- CopyQ
 --------------------------------------------------------------------------
 
@@ -421,4 +426,6 @@ myKeys =
       spotifySend "Next"
   , MyKeys.musicPrev =
       spotifySend "Prev"
+  , MyKeys.defaultKeyboardLayout =
+      pickDefaultLayout
   }

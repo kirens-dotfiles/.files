@@ -4,15 +4,21 @@ let
   configData = with pkgs; {
     inherit
       alsaUtils copyq xautolock rofi libqalculate dbus tmux;
-    inherit (xorg) xmessage xbacklight;
+
+    inherit (xorg) xmessage xbacklight xkbcomp;
+
     xmobar = haskellPackages.xmobar;
+
     st = pkgs.callPackage ../shell/st/build.nix { };
+
     rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
       rofi-toggl = pkgs.callPackage ../rofi/scripts/toggl
         { nodejs = pkgs.nodejs-slim-10_x; };
       inherit (env) togglAccessToken;
       translate-shell = pkgs.translate-shell;
     };
+
+    custom-keymap = ../keyboard/custom-xkb-keymap;
 
     scripts = with pkgs;
       lib.mapAttrs (name: pac: writeScript name (callPackage pac { })) {
