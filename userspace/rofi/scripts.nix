@@ -1,5 +1,5 @@
 { stdenv, writeTextFile, bash, xrandr, rofi, xinput, togglAccessToken
-, rofi-toggl, coreutils, translate-shell }:
+, rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep }:
 let
   translateScript = writeTextFile {
     name = "rofi-translateScript";
@@ -46,6 +46,16 @@ let
       fi
     '';
   };
+  restoreTmux = writeScript "restore-tmux" (
+    import ./scripts/restoreTmux.nix.sh {
+      st = "${st}/bin/st";
+      rofi = "${rofi}/bin/rofi";
+      tmux = "${tmux}/bin/tmux";
+      grep = "${gnugrep}/bin/grep";
+      test = "${coreutils}/bin/test";
+      bash = "${bash}/bin/bash";
+    }
+  );
 
 
 in stdenv.mkDerivation {
@@ -59,5 +69,6 @@ in stdenv.mkDerivation {
     install -v -D -m755 ${monitorScript} $out/scripts/monitors
     install -v -D -m755 ${toggl} $out/scripts/toggl
     install -v -D -m755 ${translateScript} $out/scripts/translate
+    install -v -D -m755 ${restoreTmux} $out/scripts/restoreTmux
   '';
 }

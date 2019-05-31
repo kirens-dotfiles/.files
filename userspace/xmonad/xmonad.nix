@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   env = import ../env.nix;
-  configData = with pkgs; {
+  configData = with pkgs; rec {
     inherit
       alsaUtils copyq xautolock rofi libqalculate dbus tmux;
 
@@ -12,9 +12,10 @@ let
     st = pkgs.callPackage ../shell/st/build.nix { };
 
     rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
+      inherit (env) togglAccessToken;
+      inherit st;
       rofi-toggl = pkgs.callPackage ../rofi/scripts/toggl
         { nodejs = pkgs.nodejs-slim-10_x; };
-      inherit (env) togglAccessToken;
       translate-shell = pkgs.translate-shell;
     };
 
