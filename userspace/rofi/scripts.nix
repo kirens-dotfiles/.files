@@ -1,5 +1,6 @@
 { stdenv, writeTextFile, bash, xrandr, rofi, xinput, togglAccessToken
-, rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep }:
+, rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep
+, nodejs-slim-10_x, setxkbmap }:
 let
   translateScript = writeTextFile {
     name = "rofi-translateScript";
@@ -21,6 +22,14 @@ let
       test = "${coreutils}/bin/test";
       printf = "${coreutils}/bin/printf";
       bash = "${bash}/bin/bash";
+    };
+  };
+  keyboardLayout = writeTextFile {
+    name = "rofi-selectLayout";
+    text = import ./scripts/setxkbmap.nix.js {
+      rofi = "${rofi}/bin/rofi";
+      node = "${nodejs-slim-10_x}/bin/node";
+      setxkbmap = "${setxkbmap}/bin/setxkbmap";
     };
   };
   toggl = writeTextFile {
@@ -70,5 +79,6 @@ in stdenv.mkDerivation {
     install -v -D -m755 ${toggl} $out/scripts/toggl
     install -v -D -m755 ${translateScript} $out/scripts/translate
     install -v -D -m755 ${restoreTmux} $out/scripts/restoreTmux
+    install -v -D -m755 ${keyboardLayout} $out/scripts/keyboard
   '';
 }
