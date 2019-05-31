@@ -118,7 +118,6 @@ keyConfig actions conf = mkKeymap conf $
   -- Workspaces
   , ("M-C-h", prevWS)
   , ("M-C-l", nextWS)
-  , ("M-<Space>", sendMessage NextLayout)
   , ("M-f", sendMessage $ Toggle FULL)
   , ("M-<Tab>", cycleRecentWS [Keys.xK_Super_L] Keys.xK_Tab Keys.xK_grave)
   , ( "M-0"

@@ -54,8 +54,6 @@ import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 
 -- More Layouts
-import XMonad.Layout.Spiral
-import XMonad.Layout.ThreeColumns
 import XMonad.Layout.BinarySpacePartition
 
 -- Date (for screenshots)
@@ -308,10 +306,7 @@ xmobarClr clr text =
 -- Layouts                                                             {{{
 --------------------------------------------------------------------------
 
-myLayout = mkToggle (FULL ?? EOT)
-         $ emptyBSP
-         ||| spiral (6/7)
-         ||| ThreeColMid 1 (3/100) (1/2)
+myLayout = mkToggle (FULL ?? EOT) emptyBSP
 
 -----------------------------------------------------------------------}}}
 -- Startup                                                             {{{
