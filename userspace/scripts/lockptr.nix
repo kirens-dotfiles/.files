@@ -1,6 +1,6 @@
-{ xorg, gnugrep }:
+{ bash, xorg, gnugrep }:
 ''
-#! /usr/bin/env bash
+#! ${bash}/bin/bash
 #hhp
 
 lock () {
