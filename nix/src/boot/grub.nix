@@ -11,6 +11,7 @@
     ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
+    cleanTmpDir = true;
 
     # Use the systemd-boot EFI boot loader.
     loader = {
