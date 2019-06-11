@@ -286,10 +286,12 @@ in {
     in ''
       # Turn off beeps.
       ${xset} -b
+
       # Switch keyboard layout
       ${xkbcomp} ${./keyboard/custom-xkb-keymap} :0
+
       # Automatic locking
-      ${xautolock} -time 15 -locker ${locker} &
+      ${xautolock} -time 5 -locker ${locker} &
     '';
   };
 
