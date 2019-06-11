@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
-    localRoute = names: { "127.0.0.1" = names; "::1" = names; };
+  localRoute = names: { "127.0.0.1" = names; "::1" = names; };
+  mullvad = import ./vpn/mullvad { inherit config lib; };
 in {
   networking = {
     hostName = "nixpix";
@@ -23,4 +24,5 @@ in {
         ])
       ];
   };
+  services.openvpn = mullvad.gothenburg;
 }
