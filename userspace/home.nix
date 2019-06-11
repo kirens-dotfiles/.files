@@ -82,13 +82,6 @@ let
         bins = ["dig"];
       }
       { pkg = ghc; bins = ["ghci"]; }
-      { pkg = coreutils; bins = [
-        "cat" "chmod" "chown" "cp" "date" "df" "dirname" "du" "echo" "env"
-        "expr" "false" "fmt" "groups" "head" "kill" "ln" "ls" "md5sum" "mkdir"
-        "mktemp" "mv" "nohup" "printf" "pwd" "readlink" "rmdir" "seq" "sha1sum"
-        "sha256sum" "sha512sum" "sleep" "sort" "tail" "tee" "test" "timeout"
-        "touch" "true" "uniq" "unlink" "uptime" "wc" "yes"
-      ]; }
       { pkg = fixed-man; bins = ["man"]; }
       { pkg = findutils; bins = ["find" "xargs"]; }
       { pkg = nix; bins = ["nix" "nix-shell" "nix-build" "nix-env" "nix-store"]; }
@@ -138,6 +131,7 @@ in {
     apps
     packagesWithSpecificBins
     (with pkgs; [
+      coreutils
       curl
       wget
       htop
