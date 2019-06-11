@@ -103,8 +103,6 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-S-j", windows StackSet.swapDown)
   , ("M-S-k", windows StackSet.swapUp)
   , ("M-S-<Return>", windows StackSet.swapMaster)
-  , ("M-h", sendMessage Shrink)
-  , ("M-l", sendMessage Expand)
   , ("M-S-<Space>", sinkAll)
   -- For BSP Layout
   , ("M-<Up>", sendMessage $ ExpandTowards U)
