@@ -27,6 +27,7 @@ let
     substring
     mapAttrs
     mapAttrsToList
+    makeBinPath
   ;
   inherit (pkgs)
     callPackage
@@ -88,11 +89,22 @@ let
         "sha256sum" "sha512sum" "sleep" "sort" "tail" "tee" "test" "timeout"
         "touch" "true" "uniq" "unlink" "uptime" "wc" "yes"
       ]; }
-      { pkg = man-db; bins = ["man"]; }
+      { pkg = fixed-man; bins = ["man"]; }
       { pkg = findutils; bins = ["find" "xargs"]; }
       { pkg = nix; bins = ["nix" "nix-shell" "nix-build" "nix-env" "nix-store"]; }
       { pkg = nettools; bins = ["netstat"]; }
     ];
+
+  fixed-man = (minimalExposure
+    [ "bin/man" ]
+    (pkgs.man-db.overrideAttrs (o: o // {
+      postInstall = with pkgs; ''
+        find "$out/bin" -type f | while read file; do
+          wrapProgram "$file" --prefix PATH : ${makeBinPath [gzip groff]}
+        done
+      '';
+    }))
+  );
 
   fishFunctions = import ./shell/fish/functions {
     inherit lib pkgs;
@@ -203,6 +215,8 @@ in {
       enable = true;
       # dataLocation = TODO
     };
+
+    man.enable = false;
 
     git = {
       enable = true;
