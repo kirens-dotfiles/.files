@@ -13,6 +13,7 @@
       ./hardware/nixpix.x360.4.nix
 
       # Other config packages
+      ./audio/bluetooth.nix
       ./boot/grub.nix
       ./net/nixpix.nix
       ./users/kiren.nix
@@ -72,13 +73,5 @@
     lidEventCommands = ''
       systemctl suspend
     '';
-  };
-
-  # Enable sound.
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
-    package = pkgs.pulseaudioFull;
   };
 }
