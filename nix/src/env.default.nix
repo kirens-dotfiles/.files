@@ -1,3 +1,5 @@
 {
-  bootMessage = "If found, please hand this device to authorities";
+  myCfg = {
+    # Add the secret options here
+  };
 }

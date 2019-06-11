@@ -5,10 +5,15 @@
 { config, pkgs, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
-      #./hardware/nixpix.x360.3.nix
-      ./boot/grub.nix
+    [
+      ./env
+      ./env.nix
+
+      # Include the results of the hardware scan.
       ./hardware/nixpix.x360.4.nix
+
+      # Other config packages
+      ./boot/grub.nix
       ./net/nixpix.nix
       ./users/kiren.nix
       ./graphics/fonts.nix

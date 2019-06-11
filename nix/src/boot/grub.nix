@@ -22,7 +22,7 @@
     efiSupport = true;
     gfxmodeEfi = "1920x1080";
     splashImage = pkgs.callPackage ./splashImage.nix {
-      message = (import ../env.nix).bootMessage;
+      message = config.myCfg.bootMessage;
     };
   };
 
