@@ -25,6 +25,4 @@
       message = config.myCfg.bootMessage;
     };
   };
-
-  nix.maxJobs = lib.mkDefault 4;
 }
