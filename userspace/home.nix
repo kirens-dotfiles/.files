@@ -99,10 +99,12 @@ let
     }))
   );
 
-  fishFunctions = import ./shell/fish/functions {
+  fishFunctions = import ./shell/fish/mergedPackages.nix {
     inherit lib pkgs;
     inherit (pkgs)
-      coreutils;
+      coreutils
+      stdenv
+      ;
   };
 in {
   home.stateVersion = "18.09";
