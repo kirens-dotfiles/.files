@@ -8,11 +8,12 @@ ensuring reproducible builds.
     * [Reproducible](#reproducible)
     * [Automated](#automated)
     * [Secure](#secure)
+  * [Building / Updating](#building--updating)
   * [Installation](#installation)
     * [Setup disks](#setup-disks)
       * [Initiate the encryption](#initiate-the-encryption)
       * [Open existing disks](#open-existing-disks)
-     * [Install NixOS](#install-nixos)
+    * [Install NixOS](#install-nixos)
 
 # Principles
 ### Reproducible
@@ -37,6 +38,26 @@ I hope to end up with a more secure workstation as I can vet all software being 
 This however requires balancing with using old software that is exposing me to vulnerabilities.
 Part of this implies exposing few programs and services.
 I will aim to create nix-style dependencies and never assume packages exist.
+
+
+# Building / Updating
+
+I'm currently aiming to make this whole repo a single nix-expression. As such
+the `/default.nix` will result in a build script for the system.
+
+More specifically the result of the expression is actually an atttribute set
+for each device in my configuration. Running `nix-build -A device` in the
+project root will thus create a `./result` that is the activation script for
+`device`.
+
+The activation script is run with one argument that determines what kind of
+activation that is done.
+
+To test the config in one go run;
+```
+nix-build -A laptop; and sudo ./result test;
+```
+
 
 # Installation
 TODO: Will be updated on next install to reflect changes in nix-setup.
@@ -134,7 +155,7 @@ Open `/mnt/etc/nixos/hardware-config.nix` and modify the following
       enable = true;
       version = 2;
       device = "nodev";
-      efiSupport = true; 
+      efiSupport = true;
       gfxmodeEfi = "1024x768";
     };
     efi.canTouchEfiVariables = true;
