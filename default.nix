@@ -4,6 +4,10 @@ let
   buildConfig = name: let
     nixos = import ./deps/nixpkgs/nixos {
       configuration = { ... }: {
+        # Use our customized pkgs
+        _module.args.pkgs = pkgs;
+
+        # Imports to add customization
         imports = [
           # Global modules
           ./modules/env
@@ -17,7 +21,10 @@ let
 
   activationPath = /bin/switch-to-configuration;
 
-  pkgs = import ./deps/nixpkgs { };
+  pkgs = import ./deps/nixpkgs {
+    overlays = import ./pkgs;
+    config = import ./userspace/config.nix;
+  };
   inherit (pkgs) stdenv lib;
 
   # Some helpers
