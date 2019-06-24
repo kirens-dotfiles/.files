@@ -17,7 +17,7 @@ let
         ];
       };
     };
-  in nixos.system;
+  in nixos.system // { inherit (nixos) pkgs config options; };
 
   activationPath = /bin/switch-to-configuration;
 
@@ -36,11 +36,11 @@ let
      @return derivation A derivation containing `/activate` that is the proxied
                         activation script.
   */
-  activationScriptProxy = with myLib.bash; activation: let
+  activationScriptProxy = with myLib.bash; activationBuild: let
     proxy = message: command: ''
       ${echo} '||' ${lib.escapeShellArg message}
       ${echo} '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'
-      ${activation} ${command}
+      ${activationBuild + activationPath} ${command}
     '';
   in pkgs.writeShellScript "activate" (case "$1" [
     "test" (proxy "Activating build" "test")
@@ -56,13 +56,15 @@ let
         switch  Same as `test` followed by `write`.
         dry-run Print what would be activated without doing it.
     '')
-  ]);
+  ])
+  // { build = activationBuild; }
+  ;
 
   # Combine builder, activation and runner.
   availableBuilds = names:
     lib.listToAttrs (lib.flip map names (name: {
       inherit name;
-      value = activationScriptProxy (buildConfig name + activationPath);
+      value = activationScriptProxy (buildConfig name);
     }))
     # Merge configurations with a dummy package that casues an evaluation
     # error. This will give help a user trying to run `nix build` without any
@@ -77,3 +79,5 @@ in
   availableBuilds [
     "laptop"
   ]
+  //
+  { inherit pkgs; }
