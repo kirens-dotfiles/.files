@@ -25,36 +25,7 @@ let
     overlays = import ./pkgs;
     config = import ./userspace/config.nix;
   };
-  inherit (pkgs) stdenv lib;
-
-  # Some helpers
-  mapLines = mapper: text:
-    lib.concatMapStringsSep "\n" mapper (lib.splitString "\n" text);
-
-  # Some bash shorthands
-  bash = with lib; rec {
-    echo = "${pkgs.coreutils}/bin/echo";
-
-    echoBlock = mapLines (line: "${echo} ${escapeShellArg line}");
-
-    case = let
-      mapCaseList' = mapper: foldl ({ result, prop }: val:
-        if isNull prop
-        then { inherit result; prop = val; }
-        else { result = result ++ [(mapper prop val)]; prop = null; }
-      ) { result = [ ]; prop = null; };
-      mapCaseList = mapper: list: (mapCaseList' mapper list).result;
-      caseToString = case: body: ''
-        ${case})
-          ${body}
-          ;;
-      '';
-    in on: cases: ''
-      case ${on} in
-          ${concatStringsSep "\n" (mapCaseList caseToString cases)}
-      esac
-    '';
-  };
+  inherit (pkgs) stdenv lib myLib;
 
   /* Wrap nixos activation script in one with a slightly modified interface.
      This is primarilay to create a buffer if anything changes or differs
@@ -65,18 +36,18 @@ let
      @return derivation A derivation containing `/activate` that is the proxied
                         activation script.
   */
-  activationScriptProxy = activation: let
+  activationScriptProxy = with myLib.bash; activation: let
     proxy = message: command: ''
-      ${bash.echo} '||' ${lib.escapeShellArg message}
-      ${bash.echo} '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'
+      ${echo} '||' ${lib.escapeShellArg message}
+      ${echo} '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'
       ${activation} ${command}
     '';
-  in pkgs.writeShellScript "activate" (bash.case "$1" [
+  in pkgs.writeShellScript "activate" (case "$1" [
     "test" (proxy "Activating build" "test")
     "switch" (proxy "Switching build" "switch")
     "write" (proxy "Writing build" "boot")
     "dry-run" (proxy "Would activate" "dry-activate")
-    "*" (bash.echoBlock ''
+    "*" (echoBlock ''
       Usage: ./activate COMMAND
 
       COMMAND:
@@ -87,8 +58,6 @@ let
     '')
   ]);
 
-  derivationError = msg: stdenv.mkDerivation { name = abort msg; };
-
   # Combine builder, activation and runner.
   availableBuilds = names:
     lib.listToAttrs (lib.flip map names (name: {
@@ -98,7 +67,7 @@ let
     # Merge configurations with a dummy package that casues an evaluation
     # error. This will give help a user trying to run `nix build` without any
     # aditional arguments.
-    // derivationError ''
+    // myLib.derivationError ''
 
       ' Specify which derivation you want to build!
       ' Use `nix-build -A UNIT`, where UNIT is one of:
