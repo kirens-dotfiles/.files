@@ -3,7 +3,15 @@
 let
   buildConfig = name: let
     nixos = import ./deps/nixpkgs/nixos {
-      configuration = ./configurations + "/${name}";
+      configuration = { ... }: {
+        imports = [
+          # Global modules
+          ./modules/env
+
+          # Actual Configuration
+          (./configurations + "/${name}")
+        ];
+      };
     };
   in nixos.system;
 

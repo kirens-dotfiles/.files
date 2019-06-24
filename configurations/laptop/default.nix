@@ -6,7 +6,6 @@
 {
   imports =
     [
-      ./env
       ./env.nix
 
       # Include the results of the hardware scan.
