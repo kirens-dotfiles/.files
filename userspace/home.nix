@@ -35,8 +35,6 @@ let
   inherit (callPackage ./lib.nix { })
     importWith
   ;
-  # For packages that need a more up to date channel.
-  myPkgs = import ../nix/src/nixpkgs { };
 
   firefoxProfile = "x25cwq9m.default";
 
@@ -63,13 +61,13 @@ let
 
 
   apps = with pkgs; mapAttrsToList app {
-    Franz = myPkgs.franz;
-    signal-desktop = myPkgs.signal-desktop;
+    #Franz = myPkgs.franz;
+    signal-desktop = pkgs.signal-desktop;
     # Visually manage monitors
     arandr = arandr;
     atom = atom;
     # Gitkraken only serves latest, so we need newer version
-    gitkraken = myPkgs.gitkraken;
+    gitkraken = gitkraken;
   };
   packagesWithSpecificBins = with pkgs;
     map ({ pkg, bins }: specificBins bins pkg) [
@@ -119,7 +117,7 @@ in {
     };
     ".tmux.conf".text =
       import ./shell/tmux/conf
-        { sensible = myPkgs.tmuxPlugins.sensible; };
+        { sensible = pkgs.tmuxPlugins.sensible; };
     ".config/rofi/config".text = pkgs.callPackage ./rofi/config.nix { };
     ".config/nixpkgs/config.nix".source = ./config.nix;
     ".ghci".text = ''
@@ -240,7 +238,7 @@ in {
       // import ./shell/fish/config.fish.nix {
         dotfilesLoc = dotfilesLoc;
         powerline = (pkgs.callPackage ./shell/powerline/build.nix {
-          powerline-go = myPkgs.powerline-go;
+          powerline-go = pkgs.powerline-go;
         });
         inherit (pkgs) bash ncurses coreutils;
       };
@@ -260,9 +258,6 @@ in {
       temperature.night = 6500; #3500;
       brightness.day = "1";
       brightness.night = "1"; #"0.5";
-
-      # For version 1.12 where custom times are enabled
-      package = myPkgs.redshift;
 
       extraOptions = [
         "-c /home/kiren/.config/redshift/redshift.conf"
