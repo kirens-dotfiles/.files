@@ -1,5 +1,5 @@
 [submodule "userspace/home-manager"]
-	path = userspace/home-manager
+	path = deps/home-manager
 	url = git@github.com:kirens-dotfiles/home-manager.git
 [submodule "userspace/st/src"]
 	path = userspace/shell/st/src

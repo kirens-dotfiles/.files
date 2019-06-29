@@ -9,6 +9,9 @@ let
 
         # Imports to add customization
         imports = [
+          # Home manager
+          ./deps/home-manager/nixos
+
           # Global modules
           ./modules/env
 
