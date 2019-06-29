@@ -3,9 +3,23 @@ let
   env = import ../env.nix;
   configData = with pkgs; rec {
     inherit
-      alsaUtils copyq xautolock rofi libqalculate dbus tmux;
+      alsaUtils copyq xautolock libqalculate dbus tmux;
 
     inherit (xorg) xmessage xbacklight xkbcomp;
+
+    rofi = let
+      prgms = buildEnv {
+        name = "prgms";
+        paths = config.xmonad.packages;
+      };
+    in runCommand
+      "xmonad-rofi-with-path"
+      { buildInputs = [ makeWrapper ]; }
+      ''
+        makeWrapper ${pkgs.rofi}/bin/rofi $out/bin/rofi \
+          --set XDG_DATA_DIRS ${prgms}/share \
+          --set PATH ${prgms}/bin
+      '';
 
     xmobar = haskellPackages.xmobar;
 
@@ -53,8 +67,6 @@ let
       echo "XMonad is compiling source..."
       ghc --make xmonad.hs -i -ilib -fforce-recomp -main-is main -v0 \
         -o xmonad
-      ln -s ./ .xmonad
-      # HOME=$(pwd) xmonad --recompile
       echo "Compilation successfull!"
     '';
     installPhase = ''
@@ -64,20 +76,21 @@ let
 
       cp xmonad $out/bin/xmonad-x86_64-linux
       makeWrapper $out/bin/xmonad-x86_64-linux $out/bin/xmonad
+        # We don't want the path
+        --unset PATH
     '';
-  };
-  xmonad = pkgs.xmonad-with-packages.override {
-    ghcWithPackages = pkgs.haskellPackages.ghcWithPackages;
-    packages = p: with p; [
-      xmonad-contrib
-      xmonad-extras
-    ];
   };
 
 in {
-  xsession.windowManager.command = "${xmonadConfigBuild}/bin/xmonad";
+  options.xmonad.packages = lib.mkOption {
+    default = [];
+    description = "Paths for program launcer";
+    type = with lib.types; listOf package;
+  };
+  config = {
+    xsession.windowManager.command = "${xmonadConfigBuild}/bin/xmonad";
 
-  home.activation.XMonad =
+    home.activation.XMonad =
     config.lib.dag.entryBetween ["reloadSystemD"] ["installPackages"] ''
     echo "Installing in PATH"
     $DRY_RUN_CMD nix-env -i ${xmonadConfigBuild}
@@ -91,5 +104,6 @@ in {
 
     echo "Removing from PATH"
     $DRY_RUN_CMD nix-env --uninstall ${xmonadConfigBuild}
-  '';
+    '';
+  };
 }

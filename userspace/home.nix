@@ -126,6 +126,11 @@ in {
   };
 
 
+  xmonad.packages = with pkgs; [
+    firefox
+    spotify
+    gitkraken
+  ];
 
   home.packages = concatLists [
     apps
