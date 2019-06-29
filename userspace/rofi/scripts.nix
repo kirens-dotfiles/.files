@@ -1,4 +1,4 @@
-{ stdenv, writeTextFile, bash, xrandr, rofi, xinput, togglAccessToken
+{ stdenv, writeTextFile, bash, findutils, xrandr, rofi, xinput, togglAccessToken
 , rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep
 , nodejs-slim-10_x, setxkbmap }:
 let
@@ -49,7 +49,7 @@ let
       cd @scriptsPath@/scripts
 
       if [[ -z "$@" ]]; then
-        find ./ -maxdepth 1 -and -type l -or -type f -printf '%f\n'
+        ${findutils}/bin/find ./ -maxdepth 1 -and -type l -or -type f -printf '%f\n'
       else
         "./$1" > /dev/null &
       fi
