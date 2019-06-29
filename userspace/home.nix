@@ -26,7 +26,6 @@ let
     toLower
     substring
     mapAttrs
-    mapAttrsToList
     makeBinPath
   ;
   inherit (pkgs)
@@ -52,23 +51,7 @@ let
         )
       )
     ]);
-  app = name:
-    minimalExposure [
-      "share/applications/${name}.desktop"
-      { from = "bin/${name}"; canThrow = false; }
-      { from = "share/${name}"; canThrow = false; }
-    ];
 
-
-  apps = with pkgs; mapAttrsToList app {
-    #Franz = myPkgs.franz;
-    signal-desktop = pkgs.signal-desktop;
-    # Visually manage monitors
-    arandr = arandr;
-    atom = atom;
-    # Gitkraken only serves latest, so we need newer version
-    gitkraken = gitkraken;
-  };
   packagesWithSpecificBins = with pkgs;
     map ({ pkg, bins }: specificBins bins pkg) [
       # Image viewer
@@ -119,7 +102,6 @@ in {
       import ./shell/tmux/conf
         { sensible = pkgs.tmuxPlugins.sensible; };
     ".config/rofi/config".text = pkgs.callPackage ./rofi/config.nix { };
-    ".config/nixpkgs/config.nix".source = ./config.nix;
     ".ghci".text = ''
       :set prompt "λ> "
     '';
@@ -127,39 +109,25 @@ in {
 
 
   xmonad.packages = with pkgs; [
+    arandr
+    chromium
     firefox
-    spotify
+    franz
     gitkraken
+    libreoffice
+    signal-desktop
+    spotify
+    thunderbird
   ];
 
   home.packages = concatLists [
-    apps
     packagesWithSpecificBins
     (with pkgs; [
       coreutils
       curl
-      wget
       htop
       less
 
-      (minimalExposure [
-        "share/applications/spotify.desktop"
-        {
-          from = "bin/spotify";
-          canThrow = false;
-          map = spotify:
-            writeScript "Spotify-wrapper" ''
-              #! ${bash}/bin/bash
-              win=`${xdotool}/bin/xdotool search --class "spotify" | ${coreutils}/bin/tail -n 1`
-              if ${coreutils}/bin/test "$win" != ""
-              then
-                ${xdotool}/bin/xdotool windowactivate "$win"
-              else
-                ${spotify}
-              fi
-            '';
-        }
-      ] spotify)
       (makeDesktopItem rec {
         name = "CopyQ";
         exec =
@@ -179,20 +147,13 @@ in {
       gawk
       gnused
 
-      libreoffice
       inkscape
       gimp
       vlc
       (minimalExposure [{ from = "bin/mupdf-x11"; to = "bin/mupdf"; }] mupdf)
-      imagemagick7
-      chromium
-      firefox
-      thunderbird
 
       (callPackage ./devtools/environments { })
 
-      # Terminal file explorer
-      ranger
       # Node without npm
       nodejs-slim-10_x
     ])
@@ -203,11 +164,6 @@ in {
   };
 
   programs = {
-    home-manager = {
-      enable = true;
-      path = "home-manager";
-    };
-
     command-not-found.enable = true;
 
     taskwarrior = {

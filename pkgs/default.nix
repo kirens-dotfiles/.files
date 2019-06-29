@@ -7,4 +7,5 @@
         --set PATH ${self.coreutils}/bin
     '';
   });
+  spotify = super.spotify.overrideAttrs (import ./spotify.nix self);
 })]
