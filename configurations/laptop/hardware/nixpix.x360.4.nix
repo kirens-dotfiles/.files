@@ -4,7 +4,7 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [ ../../../deps/nixpkgs/nixos/modules/installer/scan/not-detected.nix
     ];
 
   fileSystems."/" =
