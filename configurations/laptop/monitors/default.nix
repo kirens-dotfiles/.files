@@ -16,4 +16,14 @@ in {
       { keys = [ 225 ]; events = [ "key" ]; command = backlight "1"; }
     ];
   };
+
+  # Initiate xserver with all monitors overlayed
+  services.xserver.xrandrHeads = map
+    (m: { monitorConfig = "Option \"Position\" \"0 0\""; } // m)
+    [
+      { output = "eDP-1"; primary = true; }
+      { output = "DP-1"; }
+      { output = "HDMI-1"; }
+      { output = "HDMI-2"; }
+    ];
 }
