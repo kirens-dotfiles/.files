@@ -1,22 +1,5 @@
 { pkgs, config, ... }:
-let
-  brightnessCtl = pkgs.stdenv.mkDerivation {
-    name = "brightnessCtl";
-    src = ./.;
-    buildInputs = with pkgs; [ ghc ];
-    buildPhase = ''
-      ghc brightness.hs
-    '';
-    installPhase = ''
-      cp brightness $out
-    '';
-  };
-
-  light = "${config.security.wrapperDir}/light";
-
-  brightness = lvl: "${light} -S $(${light} | ${brightnessCtl} ${lvl})";
-
-in {
+{
   # It's a me
   users.extraGroups.kiren.gid = 1000;
   users.extraUsers.kiren = {
@@ -35,15 +18,6 @@ in {
   security.sudo.enable = true;
   programs.fish.enable = true;
   programs.adb.enable = true;
-
-  security.wrappers.light.source = "${pkgs.light}/bin/light";
-  services.actkbd = {
-    enable = true;
-    bindings = [
-      { keys = [ 224 ]; events = [ "key" ]; command = brightness "-1"; }
-      { keys = [ 225 ]; events = [ "key" ]; command = brightness "1"; }
-    ];
-  };
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";

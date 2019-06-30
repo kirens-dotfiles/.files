@@ -14,6 +14,7 @@
       # Other config packages
       ./audio/bluetooth.nix
       ./boot/grub.nix
+      ./monitors
       ./net/nixpix.nix
       ./users/kiren.nix
       ./graphics/fonts.nix
