@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports =
     [
@@ -20,6 +20,10 @@
       ./users
       ./graphics/fonts.nix
     ];
+
+  # Prevent setting path. We want no runtime dependencies, and this will make
+  # sure all of them fail
+  environment.profileRelativeEnvVars.PATH = lib.mkForce [ ];
 
   security.sudo.enable = true;
 

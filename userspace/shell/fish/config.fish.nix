@@ -48,7 +48,9 @@
 
   shellInit = ''
     set -g -x DOTFILES "${dotfilesLoc}"
-    set PATH (string match -v "/run/current-system/sw/bin" $PATH)
+    set PATH /run/wrappers/bin \
+             /home/kiren/.nix-profile/bin \
+             /run/current-system/sw/bin
   '';
 
   interactiveShellInit =
