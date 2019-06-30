@@ -1,6 +1,10 @@
 { config, pkgs, lib, ... }:
 let
+  cfg = config.xmonad;
+  absoluteRuntimePath = config.home.homeDirectory + toString cfg.runtimePath;
+
   env = import ../env.nix;
+
   configData = with pkgs; rec {
     inherit
       alsaUtils copyq xautolock libqalculate dbus tmux;
@@ -10,7 +14,7 @@ let
     rofi = let
       prgms = buildEnv {
         name = "prgms";
-        paths = config.xmonad.packages;
+        paths = cfg.packages;
       };
     in runCommand
       "xmonad-rofi-with-path"
@@ -50,7 +54,28 @@ let
     text = import ./lib/Nix/Vars.nix.hs configData;
   };
 
-  xmonadGhc = pkgs.haskellPackages.ghcWithPackages (p: with p; [
+  hsPkgsWithOverridenXMonad = pkgs.haskellPackages.override {
+    overrides = self: super: {
+      xmonad = pkgs.haskell.lib.appendPatch
+        super.xmonad ( pkgs.writeText "patch" ''
+          diff --git a/src/XMonad/Main.hs b/src/XMonad/Main.hs
+          index 70033a3..6486644 100644
+          --- a/src/XMonad/Main.hs
+          +++ b/src/XMonad/Main.hs
+          @@ -418,7 +421,8 @@ handle event@(PropertyEvent { ev_event_type = t, ev_atom = a })
+           handle e@ClientMessageEvent { ev_message_type = mt } = do
+               a <- getAtom "XMONAD_RESTART"
+               if (mt == a)
+          -        then restart "xmonad" True
+          +        then io (lookupEnv "XMONAD_BINARY")
+          +            >>= flip restart True . fromMaybe "xmonad"
+                   else broadcastMessage e
+
+           handle e = broadcastMessage e -- trace (eventName e) -- ignoring
+        '');
+    };
+  };
+  xmonadGhc = hsPkgsWithOverridenXMonad.ghcWithPackages (p: with p; [
     xmonad
     xmonad-contrib
     xmonad-extras
@@ -70,40 +95,84 @@ let
       echo "Compilation successfull!"
     '';
     installPhase = ''
-      mkdir -p $out/bin $out/src/lib/Nix
+      mkdir -p $out/src/lib/Nix
       cp --parents $(find ./ -type f -name "*.hs") $out/src
       ln -s ${nixVarsHs} $out/src/lib/Nix/Vars.hs
 
-      cp xmonad $out/bin/xmonad-x86_64-linux
-      makeWrapper $out/bin/xmonad-x86_64-linux $out/bin/xmonad
-        # We don't want the path
-        --unset PATH
+      cp xmonad $out/xmonad-x86_64-linux
+
+      # The only runtime reference we want is to where newer restart bins
+      makeWrapper $out/xmonad-x86_64-linux $out/xmonad \
+        ${lib.optionalString (! isNull cfg.runtimePath) ''
+          --unset PATH \
+          --set XMONAD_BINARY ${absoluteRuntimePath}
+        ''}
     '';
   };
 
 in {
-  options.xmonad.packages = lib.mkOption {
-    default = [];
-    description = "Paths for program launcer";
-    type = with lib.types; listOf package;
+  options.xmonad = with lib; {
+    packages = mkOption {
+      default = [];
+      description = "Paths for program launcer";
+      type = with types; listOf package;
+    };
+    # XXX: This needs to be more rigourus
+    runtimePath = mkOption {
+      default = null;
+      description = "Path pointing to runtime path from where to reload";
+      type = with types; nullOr path;
+    };
   };
   config = {
-    xsession.windowManager.command = "${xmonadConfigBuild}/bin/xmonad";
+    xsession.windowManager.command = "${xmonadConfigBuild}/xmonad";
+
+    home.file."${toString cfg.runtimePath}".source =
+      xmonadConfigBuild + /xmonad;
 
     home.activation.XMonad =
-    config.lib.dag.entryBetween ["reloadSystemD"] ["installPackages"] ''
-    echo "Installing in PATH"
-    $DRY_RUN_CMD nix-env -i ${xmonadConfigBuild}
+      config.lib.dag.entryBetween ["reloadSystemD"] ["onFilesChange"] ''
+        # XXX: This is kind of a hack, but it works in most cases
+        tryRestartXMonad() {
+          # Assert there is one single X display on a unix socket
+          test -d /tmp/.X11-unix || return 1
+          test "$(ls /tmp/.X11-unix | wc -l)" = "1" || return 1
 
-    echo "Sending restart signal"
-    {
-      $DRY_RUN_CMD xmonad --restart
-      echo "Waiting"
-      sleep 3
-    } || echo "XMonad could not be restarted"
+          # Set the display in this context
+          local DISPLAY=:`ls /tmp/.X11-unix | grep -oP '\d+'`
+          # Export the local DISPLAY variable, this will not afect locality
+          export DISPLAY
 
-    echo "Removing from PATH"
-    $DRY_RUN_CMD nix-env --uninstall ${xmonadConfigBuild}
-    '';
+          # Fetch WM info
+          local wmInfo=`${pkgs.wmctrl}/bin/wmctrl -m`
+          test "$?" = "0" || return 1
+
+          # Assert that the running WM is named xmonad
+          (echo "$wmInfo" | grep --quiet 'Name: xmonad') || return 1
+
+          # Try to identify is the same derivation is currently running
+          local oldPid=`ps -e | grep xmonad | grep -oP '^\d+'`
+          local oldDir=`dirname $(readlink "/proc/$oldPid/exe")`
+          if test "$oldDir" = "${xmonadConfigBuild}"
+          then
+            echo 'No modification to XMonad: not restarting'
+            return 0
+          fi
+
+          # Perform the actual reloading
+          echo "Sending restart signal"
+          $DRY_RUN_CMD ${xmonadConfigBuild}/xmonad --restart \
+            || return 1
+        }
+
+        # Try restarting xmonad
+        if ! tryRestartXMonad
+        then
+          echo 'Warning: Failed to restart xmonad either' 1>&2
+          echo '         - a single running X-server was not identified' 1>&2
+          echo '         - or the assertion that xmonad is the WM' 1>&2
+          echo '         - or the hot-reloading operation failed' 1>&2
+        fi
+      '';
   };
 }

@@ -40,9 +40,6 @@ import XMonad.Actions.Volume (getVolume, setVolume)
 -- Gnome support stuff (e.g. getactivewindow)
 import XMonad.Hooks.EwmhDesktops
 
--- swingstuff
-import XMonad.Hooks.SetWMName
-
 -- For default XMonad config
 import XMonad.Config
 
@@ -321,7 +318,6 @@ startup = do
     setVolume 0
     setRandomBg
     CM.init copyQ
-    setWMName "LG3D"
 
 -----------------------------------------------------------------------}}}
 -- Main                                                                {{{

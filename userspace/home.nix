@@ -119,6 +119,7 @@ in {
     spotify
     thunderbird
   ];
+  xmonad.runtimePath = /.local/share/xmonad;
 
   home.packages = concatLists [
     packagesWithSpecificBins
@@ -186,13 +187,7 @@ in {
       };
     };
 
-    neovim  = {
-      enable = true;
-      package = pkgs.neovim;
-      viAlias = true;
-
-      configure = importWith ./nvim/config.nix pkgs;
-    };
+    neovim = importWith ./nvim/config.nix pkgs;
 
     fish =
       { enable = true; }
@@ -219,10 +214,6 @@ in {
       temperature.night = 6500; #3500;
       brightness.day = "1";
       brightness.night = "1"; #"0.5";
-
-      extraOptions = [
-        "-c /home/kiren/.config/redshift/redshift.conf"
-      ];
     };
   };
 
