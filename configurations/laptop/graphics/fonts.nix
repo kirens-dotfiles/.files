@@ -1,7 +1,5 @@
 { config, pkgs, lib, ... }:
 let
-  myPkgs = import ../nixpkgs { };
-
   inherit (lib)
     concatStrings
     mapAttrsToList
@@ -50,7 +48,7 @@ in {
 
     fonts = with pkgs; [
       font-awesome-ttf
-      myPkgs.xkcd-font
+      xkcd-font
       twemoji-color-font
 
       # Basically DejaVu without uneccesary glyphs

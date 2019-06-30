@@ -14,11 +14,11 @@
       # Other config packages
       ./audio/bluetooth.nix
       ./boot/grub.nix
+      ./graphics/fonts.nix
       ./locale
       ./monitors
       ./net/nixpix.nix
       ./users
-      ./graphics/fonts.nix
     ];
 
   # Prevent setting path. We want no runtime dependencies, and this will make
