@@ -1,14 +1,13 @@
-{ super, self }:
-let lib = self; in
+{ super, ... }:
 {
-  maintainers = (super.maintainers or { }) // {
+  maintainers = super.maintainers // {
     kirens = {
       email = "nix@erik.work";
       github = "kirens";
       name = "Erik Nygren";
     };
   };
-  licenses = (super.licenses or { }) // {
+  licenses = super.licenses // {
     unknown = {
       free = false;
       fullName = "License is not known or specified";

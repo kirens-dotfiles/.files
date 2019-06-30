@@ -1,9 +1,10 @@
 [(self: super: {
   myLib = self.callPackage ./myLib { self = self.myLib; };
 
-  lib = let
-    superLib = (super.lib or {});
-  in superLib // self.callPackage ./lib/lib.nix { super = superLib; };
+  lib = super.lib // import ./lib {
+    super = super.lib;
+    self = self.lib;
+  };
 
   gitkraken = super.gitkraken.overrideAttrs (old: {
     installPhase = old.installPhase + ''

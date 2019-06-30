@@ -34,10 +34,7 @@ let
 
   activationPath = /bin/switch-to-configuration;
 
-  pkgs = import ./deps/nixpkgs {
-    overlays = import ./pkgs/overlays.nix;
-    config = import ./pkgs/exempts.nix;
-  };
+  pkgs = import ./deps/nixpkgs (import ./pkgs);
   inherit (pkgs) stdenv lib myLib;
 
   /* Wrap nixos activation script in one with a slightly modified interface.
