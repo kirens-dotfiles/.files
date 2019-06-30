@@ -3,7 +3,6 @@ let
   server = remotes: {
     servers.primary = {
       autoStart = true;
-      updateResolvConf = true;
       authUserPass = {
         username = config.myCfg.mullvadAccountNumber;
         password = "m";
