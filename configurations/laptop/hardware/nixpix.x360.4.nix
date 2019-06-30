@@ -7,6 +7,9 @@
     [ ../../../deps/nixpkgs/nixos/modules/installer/scan/not-detected.nix
     ];
 
+  # A weekly health check for the drive.
+  services.fstrim.enable = true;
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/ce57694b-5b83-4fb5-abff-c5b4593df273";
       fsType = "ext4";
@@ -32,6 +35,9 @@
   boot.initrd.luks.devices."enc-data-3d".device = "/dev/disk/by-uuid/0e96be52-bed9-4d10-9858-1da9773541da";
 
   swapDevices = [ ];
+
+  # Should have some neet battery optimizations
+  services.tlp.enable = false;
 
   nix.maxJobs = lib.mkDefault 4;
 
