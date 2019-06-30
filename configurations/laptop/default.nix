@@ -17,7 +17,7 @@
       ./locale
       ./monitors
       ./net/nixpix.nix
-      ./users/kiren.nix
+      ./users
       ./graphics/fonts.nix
     ];
 
@@ -46,11 +46,6 @@
   services.xserver = {
     enable = true;
     layout = "se";
-
-    displayManager = {
-      auto.enable = true;
-      auto.user = "kiren";
-    };
 
     # Trackpad
     synaptics = {
