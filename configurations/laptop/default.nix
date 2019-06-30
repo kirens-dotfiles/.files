@@ -21,6 +21,8 @@
       ./graphics/fonts.nix
     ];
 
+  security.sudo.enable = true;
+
   # Suspend to ram and nice stuff
   powerManagement.enable = true;
   # Not sure why I want this

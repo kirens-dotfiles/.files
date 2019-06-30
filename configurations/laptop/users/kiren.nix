@@ -15,7 +15,6 @@
   home-manager.users.kiren = import ../../../userspace/home.nix;
 
   # Some stuff I require
-  security.sudo.enable = true;
   programs.fish.enable = true;
   programs.adb.enable = true;
 }
