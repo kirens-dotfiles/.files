@@ -2,10 +2,11 @@
 { }:
 let
   buildConfig = name: let
+    topLevelPkgs = pkgs;
     nixos = import ./deps/nixpkgs/nixos {
-      configuration = { ... }: {
+      configuration = { config, lib, ... }: {
         # Use our customized pkgs
-        _module.args.pkgs = pkgs;
+        _module.args.pkgs = topLevelPkgs;
 
         # Imports to add customization
         imports = [
@@ -18,6 +19,15 @@ let
           # Actual Configuration
           (./configurations + "/${name}")
         ];
+
+        # Link home generations in final symlink tree
+        system.extraSystemBuilderCmds = with lib; concatStringsSep "\n" (
+          [ "mkdir $out/homes" ]
+          ++
+          mapAttrsToList
+          (name: cfg: "ln -s ${cfg.home.activationPackage} $out/homes/${name}")
+          config.home-manager.users
+        );
       };
     };
   in nixos.system // { inherit (nixos) pkgs config options; };
@@ -45,21 +55,26 @@ let
       ${echo} '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'
       ${activationBuild + activationPath} ${command}
     '';
-  in pkgs.writeShellScript "activate" (case "$1" [
-    "test" (proxy "Activating build" "test")
-    "switch" (proxy "Switching build" "switch")
-    "write" (proxy "Writing build" "boot")
-    "dry-run" (proxy "Would activate" "dry-activate")
-    "*" (echoBlock ''
-      Usage: ./activate COMMAND
+    activation = pkgs.writeShellScript "activate" (case "$1" [
+      "test" (proxy "Activating build" "test")
+      "switch" (proxy "Switching build" "switch")
+      "write" (proxy "Writing build" "boot")
+      "dry-run" (proxy "Would activate" "dry-activate")
+      "*" (echoBlock ''
+        Usage: ./activate COMMAND
 
-      COMMAND:
-        test    Activate build without storeing it on the system.
-        write   Store as a generation and replace the boot build.
-        switch  Same as `test` followed by `write`.
-        dry-run Print what would be activated without doing it.
-    '')
-  ])
+        COMMAND:
+          test    Activate build without storeing it on the system.
+          write   Store as a generation and replace the boot build.
+          switch  Same as `test` followed by `write`.
+          dry-run Print what would be activated without doing it.
+      '')
+    ]);
+  in pkgs.runCommand "system-build" { } ''
+    mkdir $out
+    install ${activation} $out/activate
+    ln -s ${activationBuild} $out/build
+  ''
   // { build = activationBuild; }
   ;
 
