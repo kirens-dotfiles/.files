@@ -23,7 +23,8 @@
       fsType = "btrfs";
     };
 
-  fileSystems."/var/lib/docker" = {
+#  fileSystems."/var/lib/docker" = {
+  fileSystems."/media/photos" = {
     device = "/dev/disk/by-uuid/682557cb-cdc4-4826-b7c1-095806d97d11";
     fsType = "ext4";
   };
