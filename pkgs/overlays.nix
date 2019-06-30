@@ -14,6 +14,8 @@
     '';
   });
 
+  home-manager = (import ../deps/home-manager { pkgs = self; }).home-manager;
+
   slimThemes = super.slimThemes // self.callPackage ./slimThemes.nix { };
 
   spotify = super.spotify.overrideAttrs (import ./spotify.nix self);
