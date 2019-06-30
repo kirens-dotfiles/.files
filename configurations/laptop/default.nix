@@ -25,6 +25,12 @@
   # sure all of them fail
   environment.profileRelativeEnvVars.PATH = lib.mkForce [ ];
 
+  # Don't need or want that many virtual terminals
+  services.logind.extraConfig = ''
+    NAutoVTs=2
+    ReserveVT=2
+  '';
+
   security.sudo.enable = true;
 
   # Suspend to ram and nice stuff
