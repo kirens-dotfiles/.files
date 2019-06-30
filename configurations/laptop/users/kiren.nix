@@ -7,14 +7,17 @@
     createHome = true;
     home = "/home/kiren";
     description = "Erik Nygren";
-    extraGroups = [ "wheel" "kiren" "docker" "audio" "adbuser" "vboxusers" ];
+    extraGroups = [
+      "wheel"
+      "kiren"
+      "docker"
+      "audio"
+      "adbuser"
+      "vboxusers"
+    ];
     shell = pkgs.fish;
   };
 
   # Home configuration
   home-manager.users.kiren = import ../../../userspace/home.nix;
-
-  # Some stuff I require
-  programs.fish.enable = true;
-  programs.adb.enable = true;
 }
