@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [ ./kiren.nix ];
+  imports = [ ./kiren.nix ./guest.nix ];
 
   users.login.path = [ "${pkgs.coreutils}/bin" ];
 
