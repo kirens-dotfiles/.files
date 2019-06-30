@@ -1,5 +1,5 @@
 { self, lib, callPackage, stdenv, ... }:
-{
+import ./standalone // {
   bash = callPackage ./bash { self = self.bash; };
 
   derivationError = msg: stdenv.mkDerivation { name = abort msg; };

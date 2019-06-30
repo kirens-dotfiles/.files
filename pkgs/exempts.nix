@@ -1,42 +1,28 @@
 let
-  inherit (builtins)
-    parseDrvName
-    elem
-    trace
-    ;
+  exemptPkgs = [
+    { name = "spotify"; }
+    { name = "gitkraken"; }
+  ];
+  exemptLicenses = [
+    { spdxId = "CC-BY-NC-3.0"; }
+    { shortName = "unknown"; }
+  ];
+
+  inherit (builtins) parseDrvName trace any;
+  inherit (import ./myLib/standalone) hasStructure;
+
+  unknown = { unknown = "unknown"; };
+
+  okPkg = attr: any (hasStructure attr);
+
 in {
-  allowUnfreePredicate = (pkg:
-    let
-      unknown = "unknown";
-      pkgName = pkg.name or unknown;
-      name = if pkgName != unknown
-        then (parseDrvName pkgName).name
-        else unknown
-        ;
-
-      pkgLicense =
-        pkg.meta.license.spdxId
-        or pkg.meta.license.fullName
-        or unknown;
-
-      exemptPkgs = [
-        "spotify"
-        "gitkraken"
-      ];
-      exemptLicenses = [
-        "CC-BY-NC-3.0"
-      ];
-
-      prompt = exempted:
-        if exempted
-        then trace "Exempting unfree licensed: ${name} (${pkgLicense})" true
-        else false
-        ;
-
-    in prompt (
-      elem name exemptPkgs
-      ||
-      elem pkgLicense exemptLicenses
-    )
-  );
+  allowUnfreePredicate = pkg: let
+    name = if pkg ? name then (parseDrvName pkg.name) else unknown;
+    nameText = name.name or "?";
+    license = pkg.meta.license or unknown;
+    licenseText = license.fullName or license.shortName or "?";
+  in if okPkg name exemptPkgs || okPkg license exemptLicenses
+    then trace "Exempting unfree licensed: ${nameText} (${licenseText})" true
+    else false
+    ;
 }
