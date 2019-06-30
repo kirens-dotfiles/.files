@@ -35,8 +35,8 @@ let
   activationPath = /bin/switch-to-configuration;
 
   pkgs = import ./deps/nixpkgs {
-    overlays = import ./pkgs;
-    config = import ./userspace/config.nix;
+    overlays = import ./pkgs/overlays.nix;
+    config = import ./pkgs/exempts.nix;
   };
   inherit (pkgs) stdenv lib myLib;
 

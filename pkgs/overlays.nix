@@ -1,5 +1,5 @@
 [(self: super: {
-  myLib = self.callPackage ./lib { self = self.myLib; };
+  myLib = self.callPackage ./myLib { self = self.myLib; };
 
   lib = let
     superLib = (super.lib or {});
