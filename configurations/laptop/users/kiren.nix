@@ -4,16 +4,15 @@
   users.extraGroups.kiren.gid = 1000;
   users.extraUsers.kiren = {
     isNormalUser = true;
-    createHome = true;
-    home = "/home/kiren";
     description = "Erik Nygren";
+    group = "kiren";
     extraGroups = [
       "wheel"
-      "kiren"
       "docker"
       "audio"
       "adbuser"
       "vboxusers"
+      "networkmanager"
     ];
     shell = pkgs.fish;
   };
