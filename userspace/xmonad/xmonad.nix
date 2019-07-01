@@ -30,8 +30,7 @@ let
     rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
       inherit (config.systemConfig.myCfg) togglAccessToken;
       inherit st;
-      rofi-toggl = pkgs.callPackage ../rofi/scripts/toggl
-        { nodejs = pkgs.nodejs-slim-10_x; };
+      rofi-toggl = (pkgs.callPackage ../rofi/scripts/toggl { }).package;
       translate-shell = pkgs.translate-shell;
     };
 
