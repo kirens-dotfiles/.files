@@ -4,6 +4,7 @@
     # Prevent unintentional overwrites
     mv = "mv -i";
     cp = "cp -i";
+    cpr = "cp -riv";
 
     # Git shorthands
     gb = "git branch";
