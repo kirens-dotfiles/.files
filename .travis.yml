@@ -4,9 +4,15 @@ cache:
   directories:
   - $TRAVIS_BUILD_DIR/.git/modules
 
-# The before_install process prepares and installs test frameworks
+git:
+  depth: 2
+  submodules: false
+
+# The before_install process prepares and installs test frameworks.
+# It also fetches submodules if they're not already cached.
 before_install:
 - sudo ./.ci/install-bats.sh
+- git submodule update --init --recursive --depth 1
 
 # The install process makes sure the code base seems reasonable and may
 # perform some simpler tests
