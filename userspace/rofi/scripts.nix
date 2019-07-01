@@ -1,6 +1,6 @@
 { stdenv, writeTextFile, bash, findutils, xrandr, rofi, xinput, togglAccessToken
 , rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep
-, nodejs-slim-10_x, setxkbmap }:
+, nodejs-slim-10_x, setxkbmap, fetchFromGitHub }:
 let
   translateScript = writeTextFile {
     name = "rofi-translateScript";
@@ -66,6 +66,17 @@ let
     }
   );
 
+  fontawesome  = writeScript "fontawesome" (
+    import ./scripts/fontawesome.nix.sh {
+      inherit fetchFromGitHub;
+      bash = "${bash}/bin/bash";
+      printf = "${coreutils}/bin/printf";
+      rofi = "${rofi}/bin/rofi";
+      cat = "${coreutils}/bin/cat";
+      cut = "${coreutils}/bin/cut";
+      xclip = "${coreutils}/bin/xclip";
+    }
+  );
 
 in stdenv.mkDerivation {
   name = "rofi-scripts";
@@ -80,5 +91,6 @@ in stdenv.mkDerivation {
     install -v -D -m755 ${translateScript} $out/scripts/translate
     install -v -D -m755 ${restoreTmux} $out/scripts/restoreTmux
     install -v -D -m755 ${keyboardLayout} $out/scripts/keyboard
+    install -v -D -m755 ${fontawesome} $out/scripts/fontawesome
   '';
 }
