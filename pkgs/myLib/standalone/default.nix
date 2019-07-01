@@ -46,7 +46,5 @@ in rec {
   foldSet = folder: initial: set:
     foldl' (acc: n: folder acc n (set.${n})) initial (attrNames set);
 
-  derivationError = msg: let
-    deriv = derivation { name = abort msg; };
-  in removeAttrs deriv (attrNames deriv);
+  derivationError = msg: { type = abort msg; };
 }
