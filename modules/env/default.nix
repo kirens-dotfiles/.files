@@ -10,7 +10,8 @@ let
     by version control.
   '';
 
-  getEnvName = name: "cfgEnv-${name}";
+  # TODO: Warn if `name` is an invalid shell variable
+  getEnvName = name: "DOTFILES_${name}";
 
   envOrUnspecified = name: let
     value = builtins.getEnv (getEnvName name);
