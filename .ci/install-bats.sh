@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
-out=mktemp
+out=`mktemp --directory`
 cd $out
+
 git clone \
   --branch master \
   --depth 1 \
