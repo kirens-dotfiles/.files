@@ -6,7 +6,7 @@ cache:
 
 # The before_install process prepares and installs test frameworks
 before_install:
-- sudo .ci/install-bats.sh
+- sudo ./.ci/install-bats.sh
 
 # The install process makes sure the code base seems reasonable and may
 # perform some simpler tests
@@ -18,4 +18,4 @@ before_script: nix-build --show-trace -A all
 
 # The script process performs tests on the resulting build
 script:
-- tests/derivation/basic.bats
+- ./tests/derivation/basic.bats
