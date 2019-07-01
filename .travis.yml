@@ -1,0 +1,4 @@
+language: nix
+install: nix-build -A all
+script:
+- tests/basic.sh
