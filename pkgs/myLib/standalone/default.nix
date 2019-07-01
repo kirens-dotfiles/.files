@@ -4,6 +4,7 @@ let
     attrNames
     isAttrs
     trace
+    foldl'
     ;
 in rec {
   flip = a: b: c: a c b;
@@ -41,4 +42,11 @@ in rec {
     allOf (attrNames object) (name:
       subject ? ${name} && match subject.${name} object.${name}
     );
+
+  foldSet = folder: initial: set:
+    foldl' (acc: n: folder acc n (set.${n})) initial (attrNames set);
+
+  derivationError = msg: let
+    deriv = derivation { name = abort msg; };
+  in removeAttrs deriv (attrNames deriv);
 }
