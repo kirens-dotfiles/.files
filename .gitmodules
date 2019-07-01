@@ -25,3 +25,6 @@
 [submodule "userspace/shell/fish/packages/auto-nix-shell"]
 	path = userspace/shell/fish/packages/auto-nix-shell
 	url = git@github.com:chrismwendt/auto-nix-shell.git
+[submodule "userspace/shell/fish/packages/fishnet"]
+	path = userspace/shell/fish/packages/fishnet
+	url = git@github.com:kirens-dotfiles/fishnet.git

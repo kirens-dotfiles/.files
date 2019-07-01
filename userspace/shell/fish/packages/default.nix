@@ -19,4 +19,5 @@ let
 
 in (lib.mapAttrsToList fishPackage {
   auto-nix-shell = ./auto-nix-shell;
+  fishnet = ./fishnet;
 })
