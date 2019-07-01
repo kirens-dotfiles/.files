@@ -3,6 +3,7 @@ language: nix
 cache:
   directories:
   - $TRAVIS_BUILD_DIR/.git/modules
+  - /nix/store
 
 git:
   depth: 2
