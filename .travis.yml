@@ -1,5 +1,9 @@
 language: nix
 
+cache:
+  directories:
+  - $TRAVIS_BUILD_DIR/.git/modules
+
 # The before_install process prepares and installs test frameworks
 before_install:
 - sudo .ci/install-bats.sh
