@@ -75,12 +75,23 @@ let
   // { build = activationBuild; }
   ;
 
+  buildAll = builds: pkgs.runCommand "all-builds" { } (
+    myLib.foldSet
+      (builder: name: build: builder + "\nln -s ${build} $out/${name}")
+      "mkdir $out"
+      builds
+  );
+
   # Combine builder, activation and runner.
-  availableBuilds = names:
-    lib.listToAttrs (lib.flip map names (name: {
+  availableBuilds = names: let
+    builds = lib.listToAttrs (lib.flip map names (name: {
       inherit name;
       value = activationScriptProxy (buildConfig name);
-    }))
+    }));
+  in
+    builds
+    # Make all builds in one go and link them by their respective names in root
+    // { all = buildAll builds; }
     # Merge configurations with a dummy package that casues an evaluation
     # error. This will give help a user trying to run `nix build` without any
     # aditional arguments.

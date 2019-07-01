@@ -1,30 +1,24 @@
 [submodule "userspace/home-manager"]
 	path = deps/home-manager
-	url = git@github.com:kirens-dotfiles/home-manager.git
+	url = https://github.com/kirens-dotfiles/home-manager.git
 [submodule "userspace/st/src"]
 	path = userspace/shell/st/src
-	url = git@github.com:kirens-dotfiles/st.git
+	url = https://github.com/kirens-dotfiles/st.git
 [submodule "nix/src/nixpkgs"]
 	path = deps/nixpkgs
-	url = git@github.com:kirens-dotfiles/nixpkgs.git
-[submodule "userspace/rofi/scripts/rofi-fontawesome"]
-	path = userspace/rofi/scripts/rofi-fontawesome
-	url = https://github.com/wstam88/rofi-fontawesome
+	url = https://github.com/kirens-dotfiles/nixpkgs.git
 [submodule "userspace/rofi/scripts/toggl.source"]
 	path = userspace/rofi/scripts/toggl
-	url = git@github.com:kirens-dotfiles/rofi-toggl.git
+	url = https://github.com/kirens-dotfiles/rofi-toggl.git
 [submodule "userspace/powerline/src"]
 	path = userspace/shell/powerline/src
-	url = git@github.com:kirens-dotfiles/powerline-go.git
+	url = https://github.com/kirens-dotfiles/powerline-go.git
 [submodule "userspace/devtools/environments"]
 	path = userspace/devtools/environments
-	url = git@github.com:kirens-dotfiles/nix-env-templates.git
+	url = https://github.com/kirens-dotfiles/nix-env-templates.git
 [submodule "userspace/keyboard/src"]
 	path = userspace/keyboard/src
-	url = git@github.com:kirens-dotfiles/xkb-generator.git
-[submodule "userspace/shell/fish/packages/auto-nix-shell"]
-	path = userspace/shell/fish/packages/auto-nix-shell
-	url = git@github.com:chrismwendt/auto-nix-shell.git
+	url = https://github.com/kirens-dotfiles/xkb-generator.git
 [submodule "userspace/shell/fish/packages/fishnet"]
 	path = userspace/shell/fish/packages/fishnet
-	url = git@github.com:kirens-dotfiles/fishnet.git
+	url = https://github.com/kirens-dotfiles/fishnet.git

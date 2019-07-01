@@ -1,6 +1,5 @@
 { lib, pkgs, ... }:
 let
-  env = import ./env.nix;
   dotfilesLoc = "/e/_FILES/.files";
   name = rec {
     first = "Erik";

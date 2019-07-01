@@ -3,8 +3,6 @@ let
   cfg = config.xmonad;
   absoluteRuntimePath = config.home.homeDirectory + toString cfg.runtimePath;
 
-  env = import ../env.nix;
-
   configData = with pkgs; rec {
     inherit
       alsaUtils copyq xautolock libqalculate dbus tmux;
@@ -30,10 +28,9 @@ let
     st = pkgs.callPackage ../shell/st/build.nix { };
 
     rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
-      inherit (env) togglAccessToken;
+      inherit (config.systemConfig.myCfg) togglAccessToken;
       inherit st;
-      rofi-toggl = pkgs.callPackage ../rofi/scripts/toggl
-        { nodejs = pkgs.nodejs-slim-10_x; };
+      rofi-toggl = (pkgs.callPackage ../rofi/scripts/toggl { }).package;
       translate-shell = pkgs.translate-shell;
     };
 
