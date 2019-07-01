@@ -1,4 +1,17 @@
 language: nix
-install: nix-build --show-trace -A all
+
+# The before_install process prepares and installs test frameworks
+before_install:
+- ci/install-bats.sh
+
+# The install process makes sure the code base seems reasonable and may
+# perform some simpler tests
+install:
+- ./tests/pre/basic.bats
+
+# The before_script process builds our expressions
+before_script: nix-build --show-trace -A all
+
+# The script process performs tests on the resulting build
 script:
-- tests/basic.sh
+- tests/derivation/basic.bats
