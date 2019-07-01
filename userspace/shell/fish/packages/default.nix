@@ -1,4 +1,4 @@
-{ stdenv, lib, createCode, fishDirs }:
+{ pkgs, stdenv, lib, createCode, fishDirs }:
 let
   fishPackage = name: src:
     stdenv.mkDerivation {
@@ -18,6 +18,12 @@ let
     };
 
 in (lib.mapAttrsToList fishPackage {
-  auto-nix-shell = ./auto-nix-shell;
   fishnet = ./fishnet;
-})
+}) ++ [
+  (fishPackage "auto-nix-shell" (pkgs.fetchFromGitHub {
+    owner = "chrismwendt";
+    repo = "auto-nix-shell";
+    rev = "86236510daf01ecdc30b7d3b7eb7916aaff3fedf";
+    sha256 = "0z3fhzyk0fhnndgc8ckwpvnvad1gn44ijpsm2i475j0a46i5f0sb";
+  }))
+]

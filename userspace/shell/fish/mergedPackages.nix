@@ -45,7 +45,7 @@ let
 in listToAttrs (lib.flip map fishDirs (dir: {
   name = ".config/fish/${dir}";
   value = { source = mergeDirFromPackages (concatLists [
-    (import ./packages { inherit lib stdenv fishDirs createCode; })
+    (import ./packages { inherit pkgs lib stdenv fishDirs createCode; })
     (import ./functions { inherit pkgs lib coreutils; })
   ]) dir; };
 }))
