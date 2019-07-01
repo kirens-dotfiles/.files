@@ -4,10 +4,9 @@
 
 { config, pkgs, lib, ... }:
 {
+  useEnv = [ ./env.nix ];
   imports =
     [
-      ./env.nix
-
       # Include the results of the hardware scan.
       ./hardware/nixpix.x360.4.nix
 
