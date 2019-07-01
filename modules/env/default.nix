@@ -3,11 +3,22 @@ let
   notSpecified = option: abort ''
 
     Secret option `${option}` not specified.
-    Do so by adding the following to your configuration
+    Do so by setting the "${getEnvName option}" environment variable or adding
+    the following to your configuration
       myCfg.${option} = {{some value}};
     It is reccomended that these options are kept in a file that is not tracked
     by version control.
   '';
+
+  getEnvName = name: "cfgEnv-${name}";
+
+  envOrUnspecified = name: let
+    value = builtins.getEnv (getEnvName name);
+  in
+    if value == ""
+      then notSpecified name
+      else value
+    ;
 
   inherit (lib.types)
     submodule
@@ -20,7 +31,7 @@ let
     then makeStringConf value
     else value;
   mkConfig = name: additionalConf: lib.mkOption (
-    { default = notSpecified name; }
+    { default = envOrUnspecified name; }
     //
     (descOrConf additionalConf)
   );
