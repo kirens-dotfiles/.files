@@ -25,6 +25,8 @@ import qualified XMonad.StackSet as S
 import XMonad.Config.Prime as Prime (ScreenId ( S ))
 import qualified XMonad.Util.NamedWindows as NamedW
 import Data.Maybe (isJust, mapMaybe)
+import Data.List (isInfixOf)
+import Data.Bool (bool)
 
 -- Format so XMobar understand
 import Codec.Binary.UTF8.String (encodeString)
@@ -115,6 +117,45 @@ workspaces = map show [1..9] ++ specialWss
 -----------------------------------------------------------------------}}}
 -- Helpers / System-integration                                        {{{
 --------------------------------------------------------------------------
+
+musicPlaying :: MonadIO m => m [ String ]
+musicPlaying = do
+  status <- cmd Pkgs.playerctl [ "-a", "status" ]
+  players <- cmd Pkgs.playerctl [ "-l" ]
+  let a =
+       map fst
+       $ filter ((== "Playing") . snd)
+       $ zip (lines players) (lines status)
+  exe Pkgs.playerctl [ show a ]
+  exe Pkgs.playerctl [ show $ lines players ]
+  exe Pkgs.playerctl [ show $ lines status ]
+  exe Pkgs.playerctl [ show $ zip (lines players) (lines status) ]
+  return a
+
+musicPlaying' :: MonadIO m => m [ String ]
+musicPlaying' = do
+  s <- musicPlaying
+  -- exe Pkgs.playerctl [ show s ]
+  return s
+
+playerctlWith :: MonadIO m => [ String ] -> String -> m String
+playerctlWith args player =
+  cmd Pkgs.playerctl ([ "--player=" ++ player ] ++ args)
+
+playerctlWithPlaying :: MonadIO m => [ String ] -> m ()
+playerctlWithPlaying args =
+  musicPlaying
+  >>= void . mapM (playerctlWith args)
+
+play = exe Pkgs.playerctl [ "play" ]
+pause = exe Pkgs.playerctl [ "-a", "pause" ]
+
+playPause = do
+  musicPlaying
+  >>= bool pause play . null
+
+prev = playerctlWithPlaying [ "previous" ]
+next = playerctlWithPlaying [ "next" ]
 
 -- Spotify Ctl
 
@@ -417,11 +458,11 @@ myKeys =
   , MyKeys.restartXMonad =
       Main.restart
   , MyKeys.musicPlayPause =
-      spotifySend "PlayPause"
+      playPause
   , MyKeys.musicNext =
-      spotifySend "Next"
+      next
   , MyKeys.musicPrev =
-      spotifySend "Prev"
+      prev
   , MyKeys.defaultKeyboardLayout =
       pickDefaultLayout
   }
