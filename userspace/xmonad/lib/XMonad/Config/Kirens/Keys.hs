@@ -134,9 +134,9 @@ keyConfig actions conf = mkKeymap conf $
   , ("<XF86AudioRaiseVolume>", volumeInc actions)
   , ("<XF86AudioLowerVolume>", volumeDec actions)
   , ("<XF86AudioMute>", volumeToggleMute actions)
-  -- , ("<XF86AudioPlay>", musicPlayPause actions)
-  -- , ("<XF86AudioNext>", musicNext actions)
-  -- , ("<XF86AudioPrev>", musicPrev actions)
+  , ("<XF86AudioPlay>", musicPlayPause actions)
+  , ("<XF86AudioNext>", musicNext actions)
+  , ("<XF86AudioPrev>", musicPrev actions)
   , ("M-p", trackpadEnabledToggle actions)
   , ("<Print>", printScreen actions)
 
