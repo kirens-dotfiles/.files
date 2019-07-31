@@ -18,6 +18,8 @@
 
   slimThemes = super.slimThemes // self.callPackage ./slimThemes { };
 
+  docker = super.docker.overrideAttrs (import ./docker self);
+
   spotify = super.spotify.overrideAttrs (import ./spotify self);
 
   git-customized = super.git.overrideAttrs (import ./git self);
