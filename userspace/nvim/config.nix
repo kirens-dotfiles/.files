@@ -16,6 +16,7 @@ in {
       {
         names = [
           "ale"
+          "rust-vim"
           "vim-colors-solarized"
           "vim-go"
           "vim-javascript"
