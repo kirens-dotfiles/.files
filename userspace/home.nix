@@ -186,7 +186,11 @@ in {
       };
     };
 
-    neovim.configure = importWith ./nvim/config.nix pkgs;
+    neovim = {
+      enable = true;
+      viAlias = true;
+      configure = importWith ./nvim/config.nix pkgs;
+    };
 
     fish =
       { enable = true; }
