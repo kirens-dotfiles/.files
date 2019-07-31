@@ -9,6 +9,10 @@ let
 
     inherit (xorg) xmessage xbacklight xkbcomp;
 
+    multiroom = (pkgs.callPackage ../scripts/multiroom {
+      inherit (config.systemConfig.myCfg) multiroomHost;
+    }).package;
+
     rofi = let
       prgms = buildEnv {
         name = "prgms";

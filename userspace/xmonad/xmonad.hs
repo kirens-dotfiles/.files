@@ -453,6 +453,12 @@ myKeys =
       volumeDn
   , MyKeys.volumeToggleMute =
       toggleMute
+  , MyKeys.multiroomInc =
+      exe Pkgs.multiroom [ "+1" ]
+  , MyKeys.multiroomDec =
+      exe Pkgs.multiroom [ "-1" ]
+  , MyKeys.multiroomToggleMute =
+      exe Pkgs.multiroom [ "toggleMute" ]
   , MyKeys.trackpadEnabledToggle =
       toggleTrackpad
   , MyKeys.printScreen =

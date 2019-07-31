@@ -34,6 +34,9 @@ data Actions =
   , volumeInc :: X ()
   , volumeDec :: X ()
   , volumeToggleMute :: X ()
+  , multiroomInc :: X ()
+  , multiroomDec :: X ()
+  , multiroomToggleMute :: X ()
   , trackpadEnabledToggle :: X ()
   , printScreen :: X ()
   , clipboardManager :: CM.ClipboardManager
@@ -61,6 +64,12 @@ instance Default Actions where
         noAction "decreasing volume"
     , volumeToggleMute =
         noAction "muting volume"
+    , multiroomInc =
+        noAction "increasing multiroom volume"
+    , multiroomDec =
+        noAction "decreasing multiroom volume"
+    , multiroomToggleMute =
+        noAction "muting multiroom volume"
     , trackpadEnabledToggle =
         noAction "toggling the trackpad"
     , printScreen =
@@ -134,6 +143,9 @@ keyConfig actions conf = mkKeymap conf $
   , ("<XF86AudioRaiseVolume>", volumeInc actions)
   , ("<XF86AudioLowerVolume>", volumeDec actions)
   , ("<XF86AudioMute>", volumeToggleMute actions)
+  , ("M1-<XF86AudioRaiseVolume>", multiroomInc actions)
+  , ("M1-<XF86AudioLowerVolume>", multiroomDec actions)
+  , ("M1-<XF86AudioMute>", multiroomToggleMute actions)
   , ("<XF86AudioPlay>", musicPlayPause actions)
   , ("<XF86AudioNext>", musicNext actions)
   , ("<XF86AudioPrev>", musicPrev actions)
