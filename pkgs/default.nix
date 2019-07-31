@@ -1,4 +1,4 @@
 {
-  overlays = import ./overlays.nix;
+  overlays = import ./overlays;
   config = import ./exempts.nix;
 }

@@ -1,7 +1,7 @@
 [(self: super: {
-  myLib = self.callPackage ./myLib { self = self.myLib; };
+  myLib = self.callPackage ../myLib { self = self.myLib; };
 
-  lib = super.lib // import ./lib {
+  lib = super.lib // import ../lib {
     super = super.lib;
     self = self.lib;
   };
@@ -14,9 +14,9 @@
     '';
   });
 
-  home-manager = (import ../deps/home-manager { pkgs = self; }).home-manager;
+  home-manager = (import ../../deps/home-manager { pkgs = self; }).home-manager;
 
-  slimThemes = super.slimThemes // self.callPackage ./slimThemes.nix { };
+  slimThemes = super.slimThemes // self.callPackage ./slimThemes { };
 
-  spotify = super.spotify.overrideAttrs (import ./spotify.nix self);
+  spotify = super.spotify.overrideAttrs (import ./spotify self);
 })]
