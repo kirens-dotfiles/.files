@@ -50,7 +50,7 @@
     ];
   };
 
-  # virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
   services.compton.enable = true;
   services.xserver = {
     enable = true;
