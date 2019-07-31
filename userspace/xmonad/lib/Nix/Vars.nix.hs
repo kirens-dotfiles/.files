@@ -1,6 +1,6 @@
 { scripts, alsaUtils, copyq, xautolock
 , xmobar, rofi, libqalculate, st, xmessage, dbus, tmux, rofi-scripts, xbacklight
-, xkbcomp, custom-keymap, playerctl
+, xkbcomp, custom-keymap, playerctl, imagemagick
 }:
 ''
 module Nix.Vars where
@@ -18,6 +18,7 @@ xmessage = "${xmessage}/bin/xmessage"
 tmux = "${tmux}/bin/tmux"
 xbacklight = "${xbacklight}/bin/xbacklight"
 playerctl = "${playerctl}/bin/playerctl"
+screenshot = "${imagemagick}/bin/import"
 
 xkbcomp = "${xkbcomp}/bin/xkbcomp"
 customKeymap = "${custom-keymap}"

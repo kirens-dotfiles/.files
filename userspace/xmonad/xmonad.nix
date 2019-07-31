@@ -5,7 +5,7 @@ let
 
   configData = with pkgs; rec {
     inherit
-      alsaUtils copyq xautolock libqalculate dbus tmux playerctl;
+      alsaUtils copyq xautolock libqalculate dbus tmux playerctl imagemagick;
 
     inherit (xorg) xmessage xbacklight xkbcomp;
 
