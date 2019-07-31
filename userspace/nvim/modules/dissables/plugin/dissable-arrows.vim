@@ -1,5 +1,3 @@
-{ }:
-''
 " I need to forget arrows
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -25,4 +23,3 @@ inoremap <C-Up> <NOP>
 inoremap <C-Down> <NOP>
 inoremap <C-Left> <NOP>
 inoremap <C-Right> <NOP>
-''

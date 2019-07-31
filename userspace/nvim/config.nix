@@ -1,8 +1,17 @@
-{ vimPlugins }:
-{
-  customRC = import ./rc.nix.vim { };
+{ vimPlugins, callPackage }: let
+  myModules = callPackage ./modules { };
+in {
+  customRC = ''
+    " Default to X clipboard
+    set clipboard=unnamedplus
+
+    " map mouse activity
+    set mouse=a
+
+    set virtualedit=onemore
+  '';
   vam = {
-    knownPlugins = vimPlugins;
+    knownPlugins = vimPlugins // myModules.plugins;
     pluginDictionaries = [
       {
         names = [
@@ -15,6 +24,7 @@
           "vim-nix"
         ];
       }
+      { inherit (myModules) names; }
     ];
   };
 }
