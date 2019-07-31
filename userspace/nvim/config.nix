@@ -15,13 +15,13 @@ in {
     pluginDictionaries = [
       {
         names = [
-          "vim-signify"
-          "vim-javascript"
-          "vim-go"
-          "vim-colors-solarized"
           "ale"
+          "vim-colors-solarized"
+          "vim-go"
+          "vim-javascript"
           "vim-localvimrc"
           "vim-nix"
+          "vim-signify"
         ];
       }
       { inherit (myModules) names; }
