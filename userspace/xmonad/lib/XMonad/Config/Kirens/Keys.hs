@@ -114,16 +114,12 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-S-<Return>", windows StackSet.swapMaster)
   , ("M-S-<Space>", sinkAll)
   -- For BSP Layout
-  , ("M-<Up>", sendMessage $ ExpandTowards U)
-  , ("M-<Down>", sendMessage $ ExpandTowards D)
-  , ("M-<Left>", sendMessage $ ExpandTowards L)
-  , ("M-<Right>", sendMessage $ ExpandTowards R)
-  , ("M-S-<Up>", sendMessage $ ShrinkFrom U)
-  , ("M-S-<Down>", sendMessage $ ShrinkFrom D)
-  , ("M-S-<Left>", sendMessage $ ShrinkFrom L)
-  , ("M-S-<Right>", sendMessage $ ShrinkFrom R)
-  , ("M-M1-<Left>", sendMessage $ Rotate)
-  , ("M-M1-<Right>", sendMessage $ Swap)
+  , ("M-M1-k", sendMessage $ ExpandTowards U)
+  , ("M-M1-j", sendMessage $ ExpandTowards D)
+  , ("M-M1-h", sendMessage $ ExpandTowards L)
+  , ("M-M1-l", sendMessage $ ExpandTowards R)
+  , ("M-h", sendMessage $ Rotate)
+  , ("M-l", sendMessage $ Swap)
 
   -- Workspaces
   , ("M-C-h", prevWS)

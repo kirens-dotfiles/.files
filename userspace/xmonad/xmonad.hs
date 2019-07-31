@@ -75,7 +75,7 @@ import qualified Nix.Vars as Pkgs
 import qualified Data.Map as Map
 
 -- Transparent Inactive Windows
-import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 
 -- Detecting screens
 import XMonad.Layout.IndependentScreens

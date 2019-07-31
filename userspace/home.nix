@@ -90,7 +90,7 @@ in {
   home.stateVersion = "18.09";
 
   imports = [
-    ./xmonad/xmonad.nix
+    ./xmonad
   ];
 
   home.file = fishFunctions // {
