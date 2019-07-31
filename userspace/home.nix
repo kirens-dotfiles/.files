@@ -175,7 +175,7 @@ in {
 
     git = {
       enable = true;
-      package = specificBins ["git"] pkgs.git;
+      package = specificBins ["git"] pkgs.git-customized;
       userName = name.userAltUpper;
       userEmail = email.dev;
 

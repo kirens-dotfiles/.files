@@ -19,4 +19,6 @@
   slimThemes = super.slimThemes // self.callPackage ./slimThemes { };
 
   spotify = super.spotify.overrideAttrs (import ./spotify self);
+
+  git-customized = super.git.overrideAttrs (import ./git self);
 })]
