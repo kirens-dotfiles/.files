@@ -17,12 +17,14 @@ in {
         names = [
           "ale"
           "rust-vim"
+          "typescript-vim"
           "vim-colors-solarized"
           "vim-go"
           "vim-javascript"
           "vim-localvimrc"
           "vim-nix"
           "vim-signify"
+          "vim-toml"
         ];
       }
       { inherit (myModules) names; }
