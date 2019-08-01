@@ -5,6 +5,7 @@
     src = ./. + ("/" + pname);
   };
   importOrder = [
+    "dissables"
     "pkg-configs"
 
     "auto-leave-insert"
@@ -14,6 +15,8 @@
     "rebinds"
     "style"
     "highlight-space"
+
+    "ftrc"
   ];
 in {
   names = importOrder;
