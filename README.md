@@ -9,6 +9,7 @@ ensuring reproducible builds.
     * [Automated](#automated)
     * [Secure](#secure)
   * [Building / Updating](#building--updating)
+  * [Structure](#structure)
   * [Installation](#installation)
     * [Setup disks](#setup-disks)
       * [Initiate the encryption](#initiate-the-encryption)
@@ -57,6 +58,35 @@ To test the config in one go run;
 ```
 nix-build -A laptop; and sudo ./result test;
 ```
+
+
+# Structure
+This repo aims to contain the single nix expression to contain all my config which is located in `default.nix`.
+
+To increase code sharing I aim to utilize modules and what I call _"collections"_.
+
+TODO: Describe this more thoroughly
+
+* **deps**
+  * home-manager
+  * nixpkgs
+* **configuration**  
+  Contains a directory with the build expression for each device
+  * {{config name}}  
+    The structure under these is not yet clear
+* **modules**  
+  Modules which are specific to my config
+* **tests**  
+  Tests to verify the derivation, hopefully at some point to test that habits and assumptions of my usage are tested for breakage with a new installation
+* **pkgs**
+  * overlays  
+    Temporary overlays or overlays that might not fit into the nixpkgs
+  * lib  
+    Slight or temporary modifications to nixpkgs.lib
+  * myLib  
+    Helper functions that I create
+* **collections**
+  Supposed to generalize certain concepts such that code sharing between my configurations can increase
 
 
 # Installation
