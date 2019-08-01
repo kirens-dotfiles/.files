@@ -66,6 +66,7 @@ in {
           bootMessage = "Message to be displayed on the grub boot screen";
           mullvadAccountNumber = "Identifier for Mullvad vpn account";
           togglAccessToken = "Access token for your toggl account";
+          multiroomHost = "Hostname for multiroom device";
         };
       };
     };
