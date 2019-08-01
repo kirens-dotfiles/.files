@@ -111,7 +111,6 @@ in {
     arandr
     chromium
     firefox
-    franz
     gitkraken
     libreoffice
     signal-desktop
@@ -127,6 +126,8 @@ in {
       curl
       htop
       less
+
+      ag # <- Like grep but for code
 
       (makeDesktopItem rec {
         name = "CopyQ";

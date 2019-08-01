@@ -23,4 +23,14 @@
   spotify = super.spotify.overrideAttrs (import ./spotify self);
 
   git-customized = super.git.overrideAttrs (import ./git self);
+
+  fish = super.fish.overrideAttrs (_: {
+    version = "custom";
+    src = self.fetchFromGitHub {
+      owner = "fish-shell";
+      repo = "fish-shell";
+      rev = "7ee675afcf486609caf03018b54d1ccd20efec07";
+      sha256 = "0fdcxz4z06lmhp2lr9xcl82nxjsb43rv1nq33pdwj5blslbb0g6g";
+    };
+  });
 })]
