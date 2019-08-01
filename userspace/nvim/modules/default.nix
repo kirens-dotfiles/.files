@@ -13,7 +13,7 @@
 
     "rebinds"
     "style"
-    "highlight-bad-space"
+    "highlight-space"
   ];
 in {
   names = importOrder;
