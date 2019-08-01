@@ -4,11 +4,6 @@ branches:
   only:
   - master
 
-cache:
-  directories:
-  - $TRAVIS_BUILD_DIR/.git/modules
-  - /nix/store
-
 git:
   depth: 2
   submodules: false
