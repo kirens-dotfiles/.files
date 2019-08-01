@@ -21,6 +21,7 @@
     gf = "git fetch";
     gm = "git merge";
     gpl = "git pull";
+    gplu = "git pull upstream (git rev-parse --abbrev-ref HEAD)";
     gp = "git push";
     gpu = "git-pushu";
     gpuo = "git-pushu origin";
@@ -49,9 +50,14 @@
 
   shellInit = ''
     set -g -x DOTFILES "${dotfilesLoc}"
-    set PATH /run/wrappers/bin \
-             /home/kiren/.nix-profile/bin \
-             /run/current-system/sw/bin
+    for path in \
+        /run/current-system/sw/bin \
+        /home/kiren/.nix-profile/bin \
+        /run/wrappers/bin
+      if not contains $path $PATH
+        set -p PATH "$path"
+      end
+    end
   '';
 
   interactiveShellInit =

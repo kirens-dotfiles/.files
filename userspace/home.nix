@@ -90,7 +90,7 @@ in {
   home.stateVersion = "18.09";
 
   imports = [
-    ./xmonad/xmonad.nix
+    ./xmonad
   ];
 
   home.file = fishFunctions // {
@@ -111,7 +111,6 @@ in {
     arandr
     chromium
     firefox
-    franz
     gitkraken
     libreoffice
     signal-desktop
@@ -127,6 +126,8 @@ in {
       curl
       htop
       less
+
+      ag # <- Like grep but for code
 
       (makeDesktopItem rec {
         name = "CopyQ";
@@ -175,7 +176,7 @@ in {
 
     git = {
       enable = true;
-      package = specificBins ["git"] pkgs.git;
+      package = specificBins ["git"] pkgs.git-customized;
       userName = name.userAltUpper;
       userEmail = email.dev;
 
@@ -186,7 +187,11 @@ in {
       };
     };
 
-    neovim.configure = importWith ./nvim/config.nix pkgs;
+    neovim = {
+      enable = true;
+      viAlias = true;
+      configure = importWith ./nvim/config.nix pkgs;
+    };
 
     fish =
       { enable = true; }

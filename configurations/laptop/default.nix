@@ -20,6 +20,13 @@
       ./users
     ];
 
+  nix.nixPath = let
+    path = toString config.myCfg.dotfilesPath;
+  in lib.mkForce [
+    "nixpkgs=${path}/deps/nixpkgs"
+    "nixos-config=${path}"
+  ];
+
   # Prevent setting path. We want no runtime dependencies, and this will make
   # sure all of them fail
   environment.profileRelativeEnvVars.PATH = lib.mkForce [ ];
@@ -40,17 +47,7 @@
   # Prevent computer from freezing if memory consuption is too high
   services.earlyoom.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [
-      gutenprint
-      hplip
-      splix
-    ];
-  };
-
-  # virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
   services.compton.enable = true;
   services.xserver = {
     enable = true;

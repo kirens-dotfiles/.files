@@ -17,6 +17,7 @@ import XMonad.Util.Run(spawnPipe)
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
 import System.Environment (getExecutablePath)
+import System.Directory (getHomeDirectory)
 import XMonad.Util.Run
 import Control.Concurrent (forkIO)
 
@@ -74,7 +75,7 @@ import qualified Nix.Vars as Pkgs
 import qualified Data.Map as Map
 
 -- Transparent Inactive Windows
-import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.FadeInactive (fadeInactiveLogHook)
 
 -- Detecting screens
 import XMonad.Layout.IndependentScreens
@@ -254,8 +255,15 @@ setRandomBg = liftIO $ void $ forkIO $ io $ exe Pkgs.randomBgScript []
 -- Screen grab
 --------------------------------------------------------------------------
 printScreen :: X ()
-printScreen = dateTimeStr >>=
-  spawn.("import -silent -window root \"$HOME/screenshots/screenshot-"++).(++".png\"")
+printScreen = do
+  date <- dateTimeStr
+  home <- liftIO getHomeDirectory
+  exe Pkgs.screenshot
+    [ "-silent"
+    , "-window"
+    , "root"
+    , home ++ "/screenshots/screenshot-" ++ date ++ ".png"
+    ]
 
 dateTimeStr :: (MonadIO m) => m String
 dateTimeStr = liftIO getCurrentTime >>= return.composite
@@ -445,6 +453,12 @@ myKeys =
       volumeDn
   , MyKeys.volumeToggleMute =
       toggleMute
+  , MyKeys.multiroomInc =
+      exe Pkgs.multiroom [ "+1" ]
+  , MyKeys.multiroomDec =
+      exe Pkgs.multiroom [ "-1" ]
+  , MyKeys.multiroomToggleMute =
+      exe Pkgs.multiroom [ "toggleMute" ]
   , MyKeys.trackpadEnabledToggle =
       toggleTrackpad
   , MyKeys.printScreen =

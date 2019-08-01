@@ -5,6 +5,7 @@ let
     isAttrs
     trace
     foldl'
+    pathExists
     ;
 in rec {
   flip = a: b: c: a c b;
@@ -47,4 +48,15 @@ in rec {
     foldl' (acc: n: folder acc n (set.${n})) initial (attrNames set);
 
   derivationError = msg: { type = abort msg; };
+
+  tryImport = fallback: path:
+    if pathExists path
+      then import path
+      else
+        trace
+          "NOTE: Ignoring import \"${toString path}\" that is nonexistent"
+          fallback
+    ;
+
+  tryImportFn = fallback: tryImport (_: fallback);
 }

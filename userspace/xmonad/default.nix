@@ -5,9 +5,13 @@ let
 
   configData = with pkgs; rec {
     inherit
-      alsaUtils copyq xautolock libqalculate dbus tmux playerctl;
+      alsaUtils copyq xautolock libqalculate dbus tmux playerctl imagemagick;
 
     inherit (xorg) xmessage xbacklight xkbcomp;
+
+    multiroom = (pkgs.callPackage ../scripts/multiroom {
+      inherit (config.systemConfig.myCfg) multiroomHost;
+    }).package;
 
     rofi = let
       prgms = buildEnv {

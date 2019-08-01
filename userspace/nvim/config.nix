@@ -1,20 +1,33 @@
-{ vimPlugins }:
-{
-  customRC = import ./rc.nix.vim { };
+{ vimPlugins, callPackage }: let
+  myModules = callPackage ./modules { };
+in {
+  customRC = ''
+    " Default to X clipboard
+    set clipboard=unnamedplus
+
+    " map mouse activity
+    set mouse=a
+
+    set virtualedit=onemore
+  '';
   vam = {
-    knownPlugins = vimPlugins;
+    knownPlugins = vimPlugins // myModules.plugins;
     pluginDictionaries = [
       {
         names = [
-          "vim-signify"
-          "vim-javascript"
-          "vim-go"
-          "vim-colors-solarized"
           "ale"
+          "rust-vim"
+          "typescript-vim"
+          "vim-colors-solarized"
+          "vim-go"
+          "vim-javascript"
           "vim-localvimrc"
           "vim-nix"
+          "vim-signify"
+          "vim-toml"
         ];
       }
+      { inherit (myModules) names; }
     ];
   };
 }

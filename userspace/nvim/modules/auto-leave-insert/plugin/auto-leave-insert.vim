@@ -1,5 +1,3 @@
-{ }:
-''
 " Don't stay in insert mode if focus is lost
 autocmd FocusLost * stopinsert
 
@@ -9,4 +7,3 @@ autocmd InsertLeave * let &updatetime = updatetimePreInsert
 
 " When cursor has held for `updatetime` leave insert mode
 autocmd CursorHoldI * stopinsert
-''

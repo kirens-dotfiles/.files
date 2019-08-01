@@ -1,9 +1,8 @@
 language: nix
 
-cache:
-  directories:
-  - $TRAVIS_BUILD_DIR/.git/modules
-  - /nix/store
+branches:
+  only:
+  - master
 
 git:
   depth: 2

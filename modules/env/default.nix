@@ -47,6 +47,28 @@ let
           "Ignoring environment-config \"${toString path}\" that is nonexistent"
           []
   );
+  fields = {
+    bootMessage = "Message to be displayed on the grub boot screen";
+    # This can lead to a lot of trouble, use with care
+    dotfilesPath = "Supposed to inform about the config location";
+    mullvadAccountNumber = "Identifier for Mullvad vpn account";
+    togglAccessToken = "Access token for your toggl account";
+    multiroomHost = "Hostname for multiroom device";
+  };
+  myCfgModule = lib.mkOption {
+    default = {};
+    description = ''
+      Contains properties that should not be version controlled.
+    '';
+    type = submodule {
+      options = lib.mapAttrs (n: _:
+        # XXX: Need to make this default more resiliant, but it'll have to work
+        #      for now :/
+        lib.mkOption (descOrConf n // { default = ""; })
+      ) fields;
+    };
+  };
+
 in {
   options = {
     useEnv = lib.mkOption {
@@ -56,24 +78,14 @@ in {
       '';
       type = listOf path;
     };
-    myCfg = lib.mkOption {
-      default = {};
-      description = ''
-        Contains properties that should not be version controlled.
-      '';
-      type = submodule {
-        options = lib.mapAttrs mkConfig {
-          bootMessage = "Message to be displayed on the grub boot screen";
-          mullvadAccountNumber = "Identifier for Mullvad vpn account";
-          togglAccessToken = "Access token for your toggl account";
-        };
-      };
-    };
+    myCfg =  lib.mapAttrs mkConfig fields;
   };
   config = {
     myCfg = let
       envs = mergeExistingPaths config.useEnv;
-      merged = lib.mergeDefinitions [ "myCfg" ] options.myCfg.type envs;
-    in merged.optionalValue.value or { };
+      merged = lib.mergeDefinitions [ "myCfg" ] myCfgModule.type envs;
+    in builtins.intersectAttrs fields (
+      lib.filterAttrs (_: v: v != "") merged.optionalValue.value or { }
+    );
   };
 }

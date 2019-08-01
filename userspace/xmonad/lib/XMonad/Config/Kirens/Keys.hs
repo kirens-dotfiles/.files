@@ -34,6 +34,9 @@ data Actions =
   , volumeInc :: X ()
   , volumeDec :: X ()
   , volumeToggleMute :: X ()
+  , multiroomInc :: X ()
+  , multiroomDec :: X ()
+  , multiroomToggleMute :: X ()
   , trackpadEnabledToggle :: X ()
   , printScreen :: X ()
   , clipboardManager :: CM.ClipboardManager
@@ -61,6 +64,12 @@ instance Default Actions where
         noAction "decreasing volume"
     , volumeToggleMute =
         noAction "muting volume"
+    , multiroomInc =
+        noAction "increasing multiroom volume"
+    , multiroomDec =
+        noAction "decreasing multiroom volume"
+    , multiroomToggleMute =
+        noAction "muting multiroom volume"
     , trackpadEnabledToggle =
         noAction "toggling the trackpad"
     , printScreen =
@@ -105,16 +114,12 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-S-<Return>", windows StackSet.swapMaster)
   , ("M-S-<Space>", sinkAll)
   -- For BSP Layout
-  , ("M-<Up>", sendMessage $ ExpandTowards U)
-  , ("M-<Down>", sendMessage $ ExpandTowards D)
-  , ("M-<Left>", sendMessage $ ExpandTowards L)
-  , ("M-<Right>", sendMessage $ ExpandTowards R)
-  , ("M-S-<Up>", sendMessage $ ShrinkFrom U)
-  , ("M-S-<Down>", sendMessage $ ShrinkFrom D)
-  , ("M-S-<Left>", sendMessage $ ShrinkFrom L)
-  , ("M-S-<Right>", sendMessage $ ShrinkFrom R)
-  , ("M-M1-<Left>", sendMessage $ Rotate)
-  , ("M-M1-<Right>", sendMessage $ Swap)
+  , ("M-M1-k", sendMessage $ ExpandTowards U)
+  , ("M-M1-j", sendMessage $ ExpandTowards D)
+  , ("M-M1-h", sendMessage $ ExpandTowards L)
+  , ("M-M1-l", sendMessage $ ExpandTowards R)
+  , ("M-h", sendMessage $ Rotate)
+  , ("M-l", sendMessage $ Swap)
 
   -- Workspaces
   , ("M-C-h", prevWS)
@@ -134,6 +139,9 @@ keyConfig actions conf = mkKeymap conf $
   , ("<XF86AudioRaiseVolume>", volumeInc actions)
   , ("<XF86AudioLowerVolume>", volumeDec actions)
   , ("<XF86AudioMute>", volumeToggleMute actions)
+  , ("M1-<XF86AudioRaiseVolume>", multiroomInc actions)
+  , ("M1-<XF86AudioLowerVolume>", multiroomDec actions)
+  , ("M1-<XF86AudioMute>", multiroomToggleMute actions)
   , ("<XF86AudioPlay>", musicPlayPause actions)
   , ("<XF86AudioNext>", musicNext actions)
   , ("<XF86AudioPrev>", musicPrev actions)

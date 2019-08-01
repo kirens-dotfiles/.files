@@ -15,6 +15,7 @@ let
     mkdir   = "${coreutils}/bin/mkdir";
     mv      = "${coreutils}/bin/mv";
     rm      = "${coreutils}/bin/rm";
+    tail    = "${coreutils}/bin/tail";
     test    = "${coreutils}/bin/test";
     timeout = "${coreutils}/bin/timeout";
   });
@@ -29,10 +30,11 @@ in lib.mapAttrsToList
     clear-docker = ./clear-docker.nix.fish;
     git-pushu = ./git-pushu.nix.fish;
     help-vi = ./help-vi.nix.fish;
-    nx-run = ./nx-run.nix.fish;
     prgm = ./prgm.nix.fish;
     trash = ./trash.nix.fish;
     nx-shell = ./nx-shell.nix.fish;
+    try = ./try.nix.fish;
+    tryRun = ./tryRun.nix.fish;
     shell-lvl = ./shell-lvl.nix.fish;
     vol = ./vol.nix.fish;
     lampa = ./lampa.nix.fish;
