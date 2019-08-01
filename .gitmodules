@@ -24,4 +24,4 @@
 	url = https://github.com/kirens-dotfiles/fishnet.git
 [submodule "userspace/scripts/multiroom"]
 	path = userspace/scripts/multiroom
-	url = git@github.com:kirens-dotfiles/multiroom.git
+	url = https://github.com/kirens-dotfiles/multiroom.git
