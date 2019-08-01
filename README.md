@@ -1,4 +1,5 @@
-# .files
+# .files [![Build Status](https://travis-ci.com/kirens-dotfiles/.files.svg?branch=master)](https://travis-ci.com/kirens-dotfiles/.files)
+
 The goal is to have one nix expression for my complete workstation stack,
 ensuring reproducible builds.
 
