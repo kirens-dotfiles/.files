@@ -20,6 +20,13 @@
       ./users
     ];
 
+  nix.nixPath = let
+    path = toString config.myCfg.dotfilesPath;
+  in lib.mkForce [
+    "nixpkgs=${path}/deps/nixpkgs"
+    "nixos-config=${path}"
+  ];
+
   # Prevent setting path. We want no runtime dependencies, and this will make
   # sure all of them fail
   environment.profileRelativeEnvVars.PATH = lib.mkForce [ ];

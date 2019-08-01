@@ -8,6 +8,8 @@ let
         # Use our customized pkgs
         _module.args.pkgs = topLevelPkgs;
 
+        myCfg.dotfilesPath = toString ./.;
+
         # Imports to add customization
         imports = [
           # Home manager
