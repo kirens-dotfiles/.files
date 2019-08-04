@@ -34,8 +34,6 @@ let
     importWith
   ;
 
-  firefoxProfile = "x25cwq9m.default";
-
   minimalExposure = pkgs.callPackage ./remapNS.nix { };
   specificBins = bins:
     minimalExposure (concatLists [
@@ -91,12 +89,10 @@ in {
 
   imports = [
     ./xmonad
+    ./firefox
   ];
 
   home.file = fishFunctions // {
-    ".mozilla/firefox/${firefoxProfile}/chrome" = {
-      source = ./firefox/userChrome;
-    };
     ".tmux.conf".text =
       import ./shell/tmux/conf
         { sensible = pkgs.tmuxPlugins.sensible; };
@@ -110,7 +106,6 @@ in {
   xmonad.packages = with pkgs; [
     arandr
     chromium
-    firefox
     gitkraken
     libreoffice
     signal-desktop
