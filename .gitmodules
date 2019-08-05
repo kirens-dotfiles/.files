@@ -8,7 +8,7 @@
 	path = deps/nixpkgs
 	url = https://github.com/kirens-dotfiles/nixpkgs.git
 [submodule "userspace/rofi/scripts/toggl.source"]
-	path = userspace/rofi/scripts/toggl
+	path = pkgs/overlays/rofi-toggl
 	url = https://github.com/kirens-dotfiles/rofi-toggl.git
 [submodule "userspace/powerline/src"]
 	path = userspace/shell/powerline/src

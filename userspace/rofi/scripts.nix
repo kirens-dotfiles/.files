@@ -1,6 +1,6 @@
 { stdenv, writeTextFile, bash, findutils, xrandr, rofi, xinput, togglAccessToken
 , rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep
-, nodejs-slim-10_x, setxkbmap, fetchFromGitHub }:
+, nodejs-slim-10_x, setxkbmap, fetchFromGitHub, writeShellScript }:
 let
   translateScript = writeTextFile {
     name = "rofi-translateScript";
@@ -32,15 +32,11 @@ let
       setxkbmap = "${setxkbmap}/bin/setxkbmap";
     };
   };
-  toggl = writeTextFile {
-    name = "rofi-togglScript";
-    text = ''
-      #! ${bash}/bin/bash
+  toggl = writeShellScript "rofi-togglScript" ''
+    export TOGGL_TOKEN="${togglAccessToken}"
+    ${rofi-toggl}/bin/rofi-toggl
+  '';
 
-      export TOGGL_TOKEN="${togglAccessToken}"
-      ${rofi-toggl}/bin/rofi-toggl
-    '';
-  };
   scriptSelector = writeTextFile {
     name = "rofi-togglScript";
     text = ''

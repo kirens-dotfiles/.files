@@ -18,6 +18,8 @@
 
   slimThemes = super.slimThemes // self.callPackage ./slimThemes { };
 
+  rofi-toggl = (self.callPackage ./rofi-toggl { }).package;
+
   docker = super.docker.overrideAttrs (import ./docker self);
 
   spotify = super.spotify.overrideAttrs (import ./spotify self);

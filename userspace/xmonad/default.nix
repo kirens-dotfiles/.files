@@ -40,7 +40,6 @@ let
 
     rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
       inherit (config.systemConfig.myCfg) togglAccessToken;
-      rofi-toggl = (pkgs.callPackage ../rofi/scripts/toggl { }).package;
       translate-shell = pkgs.translate-shell;
     };
 
