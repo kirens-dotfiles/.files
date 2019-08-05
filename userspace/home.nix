@@ -107,7 +107,6 @@ in {
     arandr
     chromium
     gitkraken
-    libreoffice
     signal-desktop
     spotify
     thunderbird
