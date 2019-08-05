@@ -13,6 +13,7 @@ let
     du      = "${coreutils}/bin/du";
     echo    = "${coreutils}/bin/echo";
     mkdir   = "${coreutils}/bin/mkdir";
+    mktemp  = "${coreutils}/bin/mktemp";
     mv      = "${coreutils}/bin/mv";
     rm      = "${coreutils}/bin/rm";
     tail    = "${coreutils}/bin/tail";
@@ -29,10 +30,12 @@ in lib.mapAttrsToList
   {
     clear-docker = ./clear-docker.nix.fish;
     git-pushu = ./git-pushu.nix.fish;
+    git-tmpclone = ./git-tmpclone.nix.fish;
     help-vi = ./help-vi.nix.fish;
     prgm = ./prgm.nix.fish;
     trash = ./trash.nix.fish;
     nx-shell = ./nx-shell.nix.fish;
+    tmpdir = ./tmpdir.nix.fish;
     try = ./try.nix.fish;
     tryRun = ./tryRun.nix.fish;
     shell-lvl = ./shell-lvl.nix.fish;
