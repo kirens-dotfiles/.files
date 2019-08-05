@@ -16,9 +16,11 @@ in {
       {
         names = [
           "ale"
+          "csv-vim"
           "rust-vim"
           "typescript-vim"
           "vim-colors-solarized"
+          "vim-fish"
           "vim-go"
           "vim-javascript"
           "vim-localvimrc"
