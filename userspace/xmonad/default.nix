@@ -5,7 +5,16 @@ let
 
   configData = with pkgs; rec {
     inherit
-      alsaUtils copyq xautolock libqalculate dbus tmux playerctl imagemagick;
+      alsaUtils
+      copyq
+      xautolock
+      libqalculate
+      dbus
+      tmux
+      playerctl
+      imagemagick
+      st
+      ;
 
     inherit (xorg) xmessage xbacklight xkbcomp;
 
@@ -29,11 +38,8 @@ let
 
     xmobar = haskellPackages.xmobar;
 
-    st = pkgs.callPackage ../shell/st/build.nix { };
-
     rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
       inherit (config.systemConfig.myCfg) togglAccessToken;
-      inherit st;
       rofi-toggl = (pkgs.callPackage ../rofi/scripts/toggl { }).package;
       translate-shell = pkgs.translate-shell;
     };

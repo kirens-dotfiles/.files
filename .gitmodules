@@ -2,7 +2,7 @@
 	path = deps/home-manager
 	url = https://github.com/kirens-dotfiles/home-manager.git
 [submodule "userspace/st/src"]
-	path = userspace/shell/st/src
+	path = pkgs/overlays/st
 	url = https://github.com/kirens-dotfiles/st.git
 [submodule "nix/src/nixpkgs"]
 	path = deps/nixpkgs

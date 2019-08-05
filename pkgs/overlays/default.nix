@@ -22,6 +22,8 @@
 
   spotify = super.spotify.overrideAttrs (import ./spotify self);
 
+  st = super.st.overrideAttrs (attrs: { src = ./st; });
+
   git-customized = super.git.overrideAttrs (import ./git self);
 
   fish = super.fish.overrideAttrs (_: {
