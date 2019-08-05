@@ -49,16 +49,22 @@ let
                         activation script.
   */
   activationScriptProxy = with myLib.bash; activationBuild: let
-    proxy = message: command: ''
+    proxy = mkGeneration: message: command: ''
       ${echo} '||' ${lib.escapeShellArg message}
       ${echo} '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'
       ${activationBuild + activationPath} ${command}
+      ${lib.optionalString mkGeneration ''
+        ${pkgs.nix}/bin/nix-env -p /nix/var/nix/profiles/system \
+          --set ${activationBuild}
+      ''}
     '';
+    start = proxy false;
+    store = proxy true;
     activation = pkgs.writeShellScript "activate" (case "$1" [
-      "test" (proxy "Activating build" "test")
-      "switch" (proxy "Switching build" "switch")
-      "write" (proxy "Writing build" "boot")
-      "dry-run" (proxy "Would activate" "dry-activate")
+      "test" (start "Activating build" "test")
+      "switch" (store "Switching build" "switch")
+      "write" (store "Writing build" "boot")
+      "dry-run" (start "Would activate" "dry-activate")
       "*" (echoBlock ''
         Usage: ./activate COMMAND
 
