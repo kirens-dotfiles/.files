@@ -9,11 +9,12 @@
     "pkg-configs"
 
     "auto-leave-insert"
-    "tabs-spaces"
     "trailing-space"
 
     "rebinds"
     "style"
+
+    "tabs-spaces"
     "highlight-space"
 
     "ftrc"
