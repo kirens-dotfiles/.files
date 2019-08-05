@@ -1,6 +1,5 @@
-{ bash, rofi, tmux, grep, st, test }:
+{ rofi, tmux, grep, st, test }:
 ''
-#! ${bash}
 res=$(${tmux} ls \
       | ${grep} --invert-match attached \
       | ${rofi} -dmenu -p 'Unattached sessions' \

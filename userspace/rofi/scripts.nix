@@ -1,71 +1,59 @@
-{ stdenv, writeTextFile, bash, findutils, xrandr, rofi, xinput, togglAccessToken
+{ stdenv, findutils, xrandr, rofi, xinput, togglAccessToken
 , rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep
 , nodejs-slim-10_x, setxkbmap, fetchFromGitHub, writeShellScript }:
 let
-  translateScript = writeTextFile {
-    name = "rofi-translateScript";
-    text = import ./scripts/translate.nix.sh {
+  translateScript = writeShellScript "rofi-translateScript"
+    (import ./scripts/translate.nix.sh {
       rofi = "${rofi}/bin/rofi";
       echo = "${coreutils}/bin/echo";
       test = "${coreutils}/bin/test";
       tail = "${coreutils}/bin/tail";
       translate = "${translate-shell}/bin/trans";
-      bash = "${bash}/bin/bash";
-    };
-  };
-  monitorScript = writeTextFile {
-    name = "rofi-monitorScript";
-    text = import ./scripts/monitors.nix.sh {
+    });
+
+  monitorScript = writeShellScript "rofi-monitorScript"
+    (import ./scripts/monitors.nix.sh {
       xrandr = "${xrandr}/bin/xrandr";
       rofi = "${rofi}/bin/rofi";
       xinput = "${xinput}/bin/xinput";
       test = "${coreutils}/bin/test";
       printf = "${coreutils}/bin/printf";
-      bash = "${bash}/bin/bash";
-    };
-  };
-  keyboardLayout = writeTextFile {
-    name = "rofi-selectLayout";
-    text = import ./scripts/setxkbmap.nix.js {
+    });
+
+  keyboardLayout = writeScript "rofi-selectLayout"
+    (import ./scripts/setxkbmap.nix.js {
       rofi = "${rofi}/bin/rofi";
       node = "${nodejs-slim-10_x}/bin/node";
       setxkbmap = "${setxkbmap}/bin/setxkbmap";
-    };
-  };
+    });
+
   toggl = writeShellScript "rofi-togglScript" ''
     export TOGGL_TOKEN="${togglAccessToken}"
     ${rofi-toggl}/bin/rofi-toggl
   '';
 
-  scriptSelector = writeTextFile {
-    name = "rofi-togglScript";
-    text = ''
-      #! ${bash}/bin/bash
+  scriptSelector = writeShellScript "rofi-selectScript" ''
+    cd @scriptsPath@/scripts
 
-      cd @scriptsPath@/scripts
+    if [[ -z "$@" ]]; then
+      ${findutils}/bin/find ./ -maxdepth 1 -and -type l -or -type f -printf '%f\n'
+    else
+      "./$1" > /dev/null &
+    fi
+  '';
 
-      if [[ -z "$@" ]]; then
-        ${findutils}/bin/find ./ -maxdepth 1 -and -type l -or -type f -printf '%f\n'
-      else
-        "./$1" > /dev/null &
-      fi
-    '';
-  };
-  restoreTmux = writeScript "restore-tmux" (
-    import ./scripts/restoreTmux.nix.sh {
+  restoreTmux = writeShellScript "restore-tmux"
+    (import ./scripts/restoreTmux.nix.sh {
       st = "${st}/bin/st";
       rofi = "${rofi}/bin/rofi";
       tmux = "${tmux}/bin/tmux";
       grep = "${gnugrep}/bin/grep";
       test = "${coreutils}/bin/test";
-      bash = "${bash}/bin/bash";
-    }
-  );
+    });
 
-  fontawesome  = writeScript "fontawesome" (
+  fontawesome  = writeShellScript "fontawesome" (
     import ./scripts/fontawesome.nix.sh {
       inherit fetchFromGitHub;
-      bash = "${bash}/bin/bash";
       printf = "${coreutils}/bin/printf";
       rofi = "${rofi}/bin/rofi";
       cat = "${coreutils}/bin/cat";

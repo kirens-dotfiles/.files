@@ -1,6 +1,5 @@
-{ bash, xrandr, rofi, xinput, printf, test }:
+{ xrandr, rofi, xinput, printf, test }:
 ''
-#! ${bash}
 print_menu() {
   ${printf} "Normal\nOnly internal monitor\0"
   ${printf} "External\nOnly HDMI monitor\0"
