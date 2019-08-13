@@ -75,7 +75,18 @@
     enable = true;
     # Lock & suspend on lid close
     lidEventCommands = ''
-      systemctl suspend
+      PATH="${pkgs.coreutils}/bin:${pkgs.gawk}/bin:${pkgs.acpi}/bin:$PATH"
+
+      case "$(cat /proc/acpi/button/lid/*/state | awk '{print $2}')" in
+        open)
+          ;;
+        closed)
+          if test "$(acpi -a | awk -F ': ' '{print $2}')" != "on-line"
+          then
+            systemctl suspend
+          fi
+          ;;
+      esac
     '';
   };
 }
