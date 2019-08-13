@@ -16,6 +16,8 @@
 
   dotfiles-installer = self.callPackage ./dotfiles-installer { };
 
+  iso-writer = self.callPackage ./iso-writer { };
+
   home-manager = (import ../../deps/home-manager { pkgs = self; }).home-manager;
 
   slimThemes = super.slimThemes // self.callPackage ./slimThemes { };

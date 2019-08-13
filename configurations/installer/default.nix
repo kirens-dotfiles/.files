@@ -35,5 +35,5 @@
   # services.openssh.permitRootLogin = "yes";
 
   # Create an iso instead of an installer
-  entrypoint = config.system.build.isoImage;
+  entrypoint = pkgs.iso-writer config.system.build.isoImage;
 }
