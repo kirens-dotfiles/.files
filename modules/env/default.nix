@@ -54,6 +54,8 @@ let
     mullvadAccountNumber = "Identifier for Mullvad vpn account";
     togglAccessToken = "Access token for your toggl account";
     multiroomHost = "Hostname for multiroom device";
+    installerPublicSSHKey =
+      "A key that is permited to SSH to the booted installer device";
   };
   myCfgModule = lib.mkOption {
     default = {};
