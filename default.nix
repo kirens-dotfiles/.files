@@ -31,6 +31,9 @@ let
           (name: cfg: "ln -s ${cfg.home.activationPackage} $out/homes/${name}")
           config.home-manager.users
         );
+
+        # Second go overlays, mostly some hidden nixos packages
+        nixpkgs.overlays = [ (import ./pkgs/overlays/second-pass.nix config) ];
       };
     };
   in nixos.config.entrypoint // { inherit (nixos) pkgs config options; };
