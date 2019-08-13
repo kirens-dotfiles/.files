@@ -67,6 +67,7 @@ let
 in
   availableBuilds [
     "laptop"
+    "installer"
   ]
   //
   { inherit pkgs; }
