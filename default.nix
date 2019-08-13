@@ -71,6 +71,7 @@ in
   availableBuilds [
     "laptop"
     "installer"
+    "cerberus"
   ]
   //
   { inherit pkgs; }
