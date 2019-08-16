@@ -2,74 +2,105 @@ xkb_keymap {
 xkb_keycodes "evdev_aliases(qwerty)" {
     minimum = 8;
     maximum = 255;
-    <RTSH> = 9;
-    <AE01> = 10;
-    <AE02> = 11;
-    <AE03> = 12;
-    <AE04> = 13;
-    <AE05> = 14;
-    <AE06> = 15;
-    <AE07> = 16;
-    <AE08> = 17;
-    <AE09> = 18;
-    <AE10> = 19;
-    <AE11> = 20;
-    <AE12> = 21;
-    <BKSP> = 22;
-    <LCTL> = 23;
-    <AD01> = 24;
-    <AD02> = 25;
-    <AD03> = 26;
-    <AD04> = 27;
-    <AD05> = 28;
-    <AD06> = 29;
-    <AD07> = 30;
-    <AD08> = 31;
-    <AD09> = 32;
-    <AD10> = 33;
-    <AD11> = 34;
-    <AD12> = 35;
-    <RTRN> = 36;
-     <TAB> = 37;
-    <AC01> = 38;
-    <AC02> = 39;
-    <AC03> = 40;
-    <AC04> = 41;
-    <AC05> = 42;
-    <AC06> = 43;
-    <AC07> = 44;
-    <AC08> = 45;
-    <AC09> = 46;
-    <AC10> = 47;
-    <AC11> = 48;
-    <TLDE> = 49;
-    <LFSH> = 50;
-    <BKSL> = 51;
-    <AB01> = 52;
-    <AB02> = 53;
-    <AB03> = 54;
-    <AB04> = 55;
-    <AB05> = 56;
-    <AB06> = 57;
-    <AB07> = 58;
-    <AB08> = 59;
-    <AB09> = 60;
-    <AB10> = 61;
-    <CAPS> = 62;
+
+    // All keys are cammel case and prefixed with k as in key
+    // The names reference the print on the keyboard
+    // Only aliases should reference these to make remapping easier
+    <kEsc> =   9;
+    <kF1>  =  67;
+    <kF2>  =  68;
+    <kBL-> = 232;
+    <kF3>  =  69;
+    <kBL+> = 233;
+    <kF4>  =  70;
+    <kF5>  =  71;
+    <kF6>  =  72;
+    <kAPr> = 173;
+    <kF7>  =  73;
+    <kAPP> = 172;
+    <kF8>  =  74;
+    <kANe> = 171;
+    <kF9>  =  75;
+    <kVl-> = 122;
+    <kF10> =  76;
+    <kVl+> = 123;
+    <kF11> =  95;
+    <kMut> = 121;
+    <kF12> =  96;
+    <kPrt> = 107;
+    <kIns> = 118;
+    <kDel> = 119;
+    <kPar> =  49;
+    <k1>   =  10;
+    <k2>   =  11;
+    <k3>   =  12;
+    <k4>   =  13;
+    <k5>   =  14;
+    <k6>   =  15;
+    <k7>   =  16;
+    <k8>   =  17;
+    <k9>   =  18;
+    <k0>   =  19;
+    <kPls> =  20;
+    <kAcc> =  21;
+    <kBsp> =  22;
+    <kTab> =  23;
+    <kQ>   =  24;
+    <kW>   =  25;
+    <kE>   =  26;
+    <kR>   =  27;
+    <kT>   =  28;
+    <kY>   =  29;
+    <kU>   =  30;
+    <kI>   =  31;
+    <kO>   =  32;
+    <kP>   =  33;
+    <kARg> =  34;
+    <kUml> =  35;
+    <kApo> =  51;
+    <kCap> =  66;
+    <kA>   =  38;
+    <kS>   =  39;
+    <kD>   =  40;
+    <kF>   =  41;
+    <kG>   =  42;
+    <kH>   =  43;
+    <kJ>   =  44;
+    <kK>   =  45;
+    <kL>   =  46;
+    <kOUm> =  47;
+    <kAUm> =  48;
+    <kRtn> =  36;
+    <kLSh> =  50;
+    <kZ>   =  52;
+    <kX>   =  53;
+    <kC>   =  54;
+    <kV>   =  55;
+    <kB>   =  56;
+    <kN>   =  57;
+    <kM>   =  58;
+    <kCom> =  59;
+    <kDot> =  60;
+    <kDsh> =  61;
+    <kRSh> =  62;
+    <kLCt> =  37;
+    <kLWn> = 133;
+    <kAlt> =  64;
+    <kSp>  =  65;
+    <kAGr> = 108;
+    <kMen> = 135;
+    <kLt>  =  94;
+    <kLft> = 113;
+    <kHom> = 110;
+    <kUp>  = 111;
+    <kPUp> = 112;
+    <kDn>  = 116;
+    <kPDn> = 117;
+    <kRgt> = 114;
+    <kEnd> = 115;
+
+    // Other unknown keys
     <KPMU> = 63;
-    <LALT> = 64;
-    <SPCE> = 65;
-     <ESC> = 66;
-    <FK01> = 67;
-    <FK02> = 68;
-    <FK03> = 69;
-    <FK04> = 70;
-    <FK05> = 71;
-    <FK06> = 72;
-    <FK07> = 73;
-    <FK08> = 74;
-    <FK09> = 75;
-    <FK10> = 76;
     <NMLK> = 77;
     <SCLK> = 78;
      <KP7> = 79;
@@ -86,9 +117,6 @@ xkb_keycodes "evdev_aliases(qwerty)" {
      <KP0> = 90;
     <KPDL> = 91;
     <LVL3> = 92;
-    <LSGT> = 94;
-    <FK11> = 95;
-    <FK12> = 96;
     <AB11> = 97;
     <KATA> = 98;
     <HIRA> = 99;
@@ -99,23 +127,8 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <KPEN> = 104;
     <RCTL> = 105;
     <KPDV> = 106;
-    <PRSC> = 107;
-    <RALT> = 108;
     <LNFD> = 109;
-    <HOME> = 110;
-      <UP> = 111;
-    <PGUP> = 112;
-    <LEFT> = 113;
-    <RGHT> = 114;
-     <END> = 115;
-    <DOWN> = 116;
-    <PGDN> = 117;
-     <INS> = 118;
-    <DELE> = 119;
     <I120> = 120;
-    <MUTE> = 121;
-    <VOL-> = 122;
-    <VOL+> = 123;
     <POWR> = 124;
     <KPEQ> = 125;
     <I126> = 126;
@@ -125,9 +138,7 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <HNGL> = 130;
     <HJCV> = 131;
     <AE13> = 132;
-    <LWIN> = 133;
     <RWIN> = 134;
-    <COMP> = 135;
     <STOP> = 136;
     <AGAI> = 137;
     <PROP> = 138;
@@ -163,14 +174,10 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <I168> = 168;
     <I169> = 169;
     <I170> = 170;
-    <I171> = 171;
-    <I172> = 172;
-    <I173> = 173;
     <I174> = 174;
     <I175> = 175;
     <I176> = 176;
     <I177> = 177;
-    <I178> = 178;
     <I179> = 179;
     <I180> = 180;
     <I181> = 181;
@@ -224,8 +231,6 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <I229> = 229;
     <I230> = 230;
     <I231> = 231;
-    <I232> = 232;
-    <I233> = 233;
     <I234> = 234;
     <I235> = 235;
     <I236> = 236;
@@ -260,39 +265,92 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     virtual indicator 12 = "Shift Lock";
     virtual indicator 13 = "Group 2";
     virtual indicator 14 = "Mouse Keys";
-    alias <AC12> = <BKSL>;
-    alias <MENU> = <COMP>;
-    alias <HZTG> = <TLDE>;
-    alias <LMTA> = <LWIN>;
+
+    // Remappings
+    alias <RTSH> = <kEsc>;
+    alias <FK01> = <kF1>;
+    alias <FK02> = <kF2>;
+    alias <FK03> = <kF3>;
+    alias <FK04> = <kF4>;
+    alias <FK05> = <kF5>;
+    alias <FK06> = <kF6>;
+    alias <FK07> = <kF7>;
+    alias <FK08> = <kF8>;
+    alias <FK09> = <kF9>;
+    alias <FK10> = <kF10>;
+    alias <FK11> = <kF11>;
+    alias <FK12> = <kF12>;
+    alias <PRSC> = <kPrt>;
+    alias  <INS> = <kIns>;
+    alias <DELE> = <kDel>;
+    alias <COMP> = <kMen>;
+    alias <MENU> = <kMen>;
+    alias <TLDE> = <kPar>;
+    alias <Num1> = <k1>;
+    alias <Num2> = <k2>;
+    alias <Num3> = <k3>;
+    alias <Num4> = <k4>;
+    alias <Num5> = <k5>;
+    alias <Num6> = <k6>;
+    alias <Num7> = <k7>;
+    alias <Num8> = <k8>;
+    alias <Num9> = <k9>;
+    alias <Num0> = <k0>;
+    alias <Tick> = <kAcc>;
+    alias <BKSP> = <kBsp>;
+    alias <LCTL> = <kTab>;
+    alias <LatQ> = <kQ>;
+    alias <LatW> = <kW>;
+    alias <LatE> = <kE>;
+    alias <LatR> = <kR>;
+    alias <LatT> = <kT>;
+    alias <LatY> = <kY>;
+    alias <LatU> = <kU>;
+    alias <LatI> = <kI>;
+    alias <LatO> = <kO>;
+    alias <LatP> = <kP>;
+    alias <ARng> = <kARg>;
+    alias <AD12> = <kUml>;
+    alias <BKSL> = <kApo>;
+    alias  <ESC> = <kCap>;
+    alias <LatA> = <kA>;
+    alias <LatS> = <kS>;
+    alias <LatD> = <kD>;
+    alias <LatF> = <kF>;
+    alias <LatG> = <kG>;
+    alias <LatH> = <kH>;
+    alias <LatJ> = <kJ>;
+    alias <LatK> = <kK>;
+    alias <LatL> = <kL>;
+    alias <OUml> = <kOUm>;
+    alias <AUml> = <kAUm>;
+    alias <RTRN> = <kRtn>;
+    alias <LFSH> = <kLSh>;
+    alias <LatZ> = <kZ>;
+    alias <LatX> = <kX>;
+    alias <LatC> = <kC>;
+    alias <LatV> = <kV>;
+    alias <LatB> = <kB>;
+    alias <LatN> = <kN>;
+    alias <LatM> = <kM>;
+    alias <CAPS> = <kRSh>;
+    alias  <TAB> = <kLCt>;
+    alias <LMTA> = <kLWn>;
+    alias <LALT> = <kAlt>;
+    alias <SPCE> = <kSp>;
+    alias <RALT> = <kAGr>;
+    alias <ALGR> = <kAGr>;
+    alias <LSGT> = <kLt>;
+    alias <LEFT> = <kLft>;
+    alias <HOME> = <kHom>;
+    alias   <UP> = <kUp>;
+    alias <PGUP> = <kPUp>;
+    alias <DOWN> = <kDn>;
+    alias <PGDN> = <kPDn>;
+    alias <RGHT> = <kRgt>;
+    alias  <END> = <kEnd>;
+
     alias <RMTA> = <RWIN>;
-    alias <ALGR> = <RALT>;
-    alias <KPPT> = <I129>;
-    alias <LatQ> = <AD01>;
-    alias <LatW> = <AD02>;
-    alias <LatE> = <AD03>;
-    alias <LatR> = <AD04>;
-    alias <LatT> = <AD05>;
-    alias <LatY> = <AD06>;
-    alias <LatU> = <AD07>;
-    alias <LatI> = <AD08>;
-    alias <LatO> = <AD09>;
-    alias <LatP> = <AD10>;
-    alias <LatA> = <AC01>;
-    alias <LatS> = <AC02>;
-    alias <LatD> = <AC03>;
-    alias <LatF> = <AC04>;
-    alias <LatG> = <AC05>;
-    alias <LatH> = <AC06>;
-    alias <LatJ> = <AC07>;
-    alias <LatK> = <AC08>;
-    alias <LatL> = <AC09>;
-    alias <LatZ> = <AB01>;
-    alias <LatX> = <AB02>;
-    alias <LatC> = <AB03>;
-    alias <LatV> = <AB04>;
-    alias <LatB> = <AB05>;
-    alias <LatN> = <AB06>;
-    alias <LatM> = <AB07>;
 };
 
 xkb_types "complete" {
@@ -1179,51 +1237,51 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     name[group1]="Swedish";
 
     key  <ESC> {         [          Escape,          Escape,       BackSpace,       BackSpace ] };
-    key <AE01> {
+    key <Num1> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               1,          exclam,      exclamdown,     onesuperior ]
     };
-    key <AE02> {
+    key <Num2> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               2,        quotedbl,              at,     twosuperior ]
     };
-    key <AE03> {
+    key <Num3> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               3,      numbersign,        sterling,   threesuperior ]
     };
-    key <AE04> {
+    key <Num4> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               4,        currency,          dollar,      onequarter ]
     };
-    key <AE05> {
+    key <Num5> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               5,         percent,        EuroSign,            cent ]
     };
-    key <AE06> {
+    key <Num6> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               6,       ampersand,             yen,     fiveeighths ]
     };
-    key <AE07> {
+    key <Num7> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               7,           slash,       braceleft,        division ]
     };
-    key <AE08> {
+    key <Num8> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               8,       parenleft,     bracketleft,   guillemotleft ]
     };
-    key <AE09> {
+    key <Num9> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               9,      parenright,    bracketright,  guillemotright ]
     };
-    key <AE10> {
+    key <Num0> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               0,           equal,      braceright,          degree ]
     };
-    key <AE11> {
+    key <kPls> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [            plus,        question,       backslash,    questiondown ]
     };
-    key <AE12> {
+    key <Tick> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [      dead_acute,      dead_grave,       plusminus,         notsign ]
     };
@@ -1232,48 +1290,48 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
         symbols[Group1]= [       Caps_Lock,        NoSymbol,        NoSymbol,        NoSymbol,        NoSymbol ]
     };
     key  <TAB> {         [             Tab,    ISO_Left_Tab ] };
-    key <AD01> {
+    key <LatQ> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               q,               Q,              at,     Greek_OMEGA ]
     };
-    key <AD02> {
+    key <LatW> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               w,               W,         lstroke,         Lstroke ]
     };
-    key <AD03> {
+    key <LatE> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               e,               E,        EuroSign,            cent ]
     };
-    key <AD04> {
+    key <LatR> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               r,               R,      registered,      registered ]
     };
-    key <AD05> {
+    key <LatT> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               t,               T,           thorn,           THORN ]
     };
-    key <AD06> {
+    key <LatY> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               y,               Y,       leftarrow,             yen ]
     };
-    key <AD07> {
+    key <LatU> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               u,               U,       downarrow,         uparrow ]
     };
-    key <AD08> {
+    key <LatI> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               i,               I,      rightarrow,        idotless ]
     };
-    key <AD09> {
+    key <LatO> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               o,               O,              oe,              OE ]
     };
-    key <AD10> {
+    key <LatP> {
         type[group1]= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               p,               P,         section,       paragraph ],
         symbols[Group2]= [ enfilledcircbullet, enopencircbullet ]
     };
-    key <AD11> {
+    key <ARng> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [           aring,           Aring,  dead_diaeresis,  dead_abovering ]
     };
@@ -1283,51 +1341,51 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     };
     key <RTRN> {         [          Return ] };
     key <LCTL> {         [       Control_L ] };
-    key <AC01> {
+    key <LatA> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               a,               A,     ordfeminine,       masculine ]
     };
-    key <AC02> {
+    key <LatS> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               s,               S,          ssharp,         section ]
     };
-    key <AC03> {
+    key <LatD> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               d,               D,             eth,             ETH ]
     };
-    key <AC04> {
+    key <LatF> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               f,               F,         dstroke,     ordfeminine ]
     };
-    key <AC05> {
+    key <LatG> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               g,               G,             eng,             ENG ]
     };
-    key <AC06> {
+    key <LatH> {
         type[group1]= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               h,               H,            Left,            Left ],
         symbols[Group2]= [            Home,            Home ]
     };
-    key <AC07> {
+    key <LatJ> {
         type[group1]= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               j,               J,            Down,            Down ],
         symbols[Group2]= [            Next,            Next ]
     };
-    key <AC08> {
+    key <LatK> {
         type[group1]= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               k,               K,              Up,              Up ],
         symbols[Group2]= [           Prior,           Prior ]
     };
-    key <AC09> {
+    key <LatL> {
         type[group1]= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               l,               L,           Right,           Right ],
         symbols[Group2]= [             End,             End ]
     };
-    key <AC10> {
+    key <OUml> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [      odiaeresis,      Odiaeresis,          oslash,          Oslash ]
     };
-    key <AC11> {
+    key <AUml> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [      adiaeresis,      Adiaeresis,              ae,              AE ]
     };
@@ -1340,43 +1398,43 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
         type= "FOUR_LEVEL",
         symbols[Group1]= [      apostrophe,        asterisk,           acute,        multiply ]
     };
-    key <AB01> {
+    key <LatZ> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               z,               Z,   guillemotleft,            less ]
     };
-    key <AB02> {
+    key <LatX> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               x,               X,  guillemotright,         greater ]
     };
-    key <AB03> {
+    key <LatC> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               c,               C,       copyright,       copyright ]
     };
-    key <AB04> {
+    key <LatV> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               v,               V, leftdoublequotemark, leftsinglequotemark ]
     };
-    key <AB05> {
+    key <LatB> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               b,               B, rightdoublequotemark, rightsinglequotemark ]
     };
-    key <AB06> {
+    key <LatN> {
         type= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               n,               N,               n,               N ]
     };
-    key <AB07> {
+    key <LatM> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
         symbols[Group1]= [               m,               M,              mu,       masculine ]
     };
-    key <AB08> {
+    key <kCom> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [           comma,       semicolon,    dead_cedilla,     dead_ogonek ]
     };
-    key <AB09> {
+    key <kDot> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [          period,           colon,  periodcentered,   dead_abovedot ]
     };
-    key <AB10> {
+    key <kDsh> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [           minus,      underscore,   dead_belowdot,   dead_abovedot ]
     };
@@ -1490,7 +1548,7 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
         type= "PC_ALT_LEVEL2",
         symbols[Group1]= [           Print,         Sys_Req ]
     };
-    key <RALT> {
+    key <ALGR> {
         type= "ONE_LEVEL",
         symbols[Group1]= [ ISO_Level3_Shift ]
     };
@@ -1505,9 +1563,9 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     key <PGDN> {         [            Next ] };
     key  <INS> {         [          Insert ] };
     key <DELE> {         [          Delete ] };
-    key <MUTE> {         [   XF86AudioMute ] };
-    key <VOL-> {         [ XF86AudioLowerVolume ] };
-    key <VOL+> {         [ XF86AudioRaiseVolume ] };
+    key <kMut> {         [   XF86AudioMute ] };
+    key <kVl-> {         [ XF86AudioLowerVolume ] };
+    key <kVl+> {         [ XF86AudioRaiseVolume ] };
     key <POWR> {         [    XF86PowerOff ] };
     key <KPEQ> {         [        KP_Equal ] };
     key <I126> {         [       plusminus ] };
@@ -1519,8 +1577,8 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     key <I129> {         [      KP_Decimal,      KP_Decimal ] };
     key <HNGL> {         [          Hangul ] };
     key <HJCV> {         [    Hangul_Hanja ] };
-    key <LWIN> {         [         Super_L ] };
-    key <RWIN> {         [         Super_R ] };
+    key <LMTA> {         [         Super_L ] };
+    key <RMTA> {         [         Super_R ] };
     key <COMP> {         [     Mode_switch ] };
     key <STOP> {         [          Cancel ] };
     key <AGAI> {         [            Redo ] };
@@ -1554,9 +1612,9 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     key <I167> {         [     XF86Forward ] };
     key <I169> {         [       XF86Eject ] };
     key <I170> {         [       XF86Eject,       XF86Eject ] };
-    key <I171> {         [   XF86AudioNext ] };
-    key <I172> {         [   XF86AudioPlay,  XF86AudioPause ] };
-    key <I173> {         [   XF86AudioPrev ] };
+    key <kANe> {         [   XF86AudioNext ] };
+    key <kAPP> {         [   XF86AudioPlay,  XF86AudioPause ] };
+    key <kAPr> {         [   XF86AudioPrev ] };
     key <I174> {         [   XF86AudioStop,       XF86Eject ] };
     key <I175> {         [ XF86AudioRecord ] };
     key <I176> {         [ XF86AudioRewind ] };
@@ -1605,8 +1663,8 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     key <I228> {         [        XF86Game ] };
     key <I229> {         [        XF86Shop ] };
     key <I231> {         [          Cancel ] };
-    key <I232> {         [ XF86MonBrightnessDown ] };
-    key <I233> {         [ XF86MonBrightnessUp ] };
+    key <kBL-> {         [ XF86MonBrightnessDown ] };
+    key <kBL+> {         [ XF86MonBrightnessUp ] };
     key <I234> {         [  XF86AudioMedia ] };
     key <I235> {         [     XF86Display ] };
     key <I236> {         [ XF86KbdLightOnOff ] };
@@ -1627,8 +1685,8 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     modifier_map Mod2 { <NMLK> };
     modifier_map Mod5 { <LVL3> };
     modifier_map Control { <RCTL> };
-    modifier_map Mod4 { <LWIN> };
-    modifier_map Mod4 { <RWIN> };
+    modifier_map Mod4 { <LMTA> };
+    modifier_map Mod4 { <RMTA> };
     modifier_map Mod5 { <MDSW> };
     modifier_map Shift { <ALT> };
     modifier_map Mod1 { <META> };
@@ -1641,8 +1699,8 @@ xkb_geometry "pc(pc104)" {
     width=       470;
     height=      180;
 
-    alias <AC00> = <CAPS>;
-    alias <AA00> = <LCTL>;
+    alias <AC00> = <kRSh>;
+    alias <AA00> = <kLCt>;
 
     baseColor=   "white";
     labelColor=  "black";
@@ -1758,13 +1816,13 @@ xkb_geometry "pc(pc104)" {
             top=  1;
             left= 1;
             keys {
-                { <TLDE>, "NORM",   1 }, { <AE01>, "NORM",   1 },
-                { <AE02>, "NORM",   1 }, { <AE03>, "NORM",   1 },
-                { <AE04>, "NORM",   1 }, { <AE05>, "NORM",   1 },
-                { <AE06>, "NORM",   1 }, { <AE07>, "NORM",   1 },
-                { <AE08>, "NORM",   1 }, { <AE09>, "NORM",   1 },
-                { <AE10>, "NORM",   1 }, { <AE11>, "NORM",   1 },
-                { <AE12>, "NORM",   1 },
+                { <TLDE>, "NORM",   1 }, { <Num1>, "NORM",   1 },
+                { <Num2>, "NORM",   1 }, { <Num3>, "NORM",   1 },
+                { <Num4>, "NORM",   1 }, { <Num5>, "NORM",   1 },
+                { <Num6>, "NORM",   1 }, { <Num7>, "NORM",   1 },
+                { <Num8>, "NORM",   1 }, { <Num9>, "NORM",   1 },
+                { <Num0>, "NORM",   1 }, { <kPls>, "NORM",   1 },
+                { <Tick>, "NORM",   1 },
                 { <BKSP>, "BKSP",   1, color="grey20" }
             };
         };
@@ -1773,12 +1831,12 @@ xkb_geometry "pc(pc104)" {
             left= 1;
             keys {
                 {  <TAB>, "TABK",   1, color="grey20" },
-                { <AD01>, "NORM",   1 }, { <AD02>, "NORM",   1 },
-                { <AD03>, "NORM",   1 }, { <AD04>, "NORM",   1 },
-                { <AD05>, "NORM",   1 }, { <AD06>, "NORM",   1 },
-                { <AD07>, "NORM",   1 }, { <AD08>, "NORM",   1 },
-                { <AD09>, "NORM",   1 }, { <AD10>, "NORM",   1 },
-                { <AD11>, "NORM",   1 }, { <AD12>, "NORM",   1 },
+                { <LatQ>, "NORM",   1 }, { <LatW>, "NORM",   1 },
+                { <LatE>, "NORM",   1 }, { <LatR>, "NORM",   1 },
+                { <LatT>, "NORM",   1 }, { <LatY>, "NORM",   1 },
+                { <LatU>, "NORM",   1 }, { <LatI>, "NORM",   1 },
+                { <LatO>, "NORM",   1 }, { <LatP>, "NORM",   1 },
+                { <ARng>, "NORM",   1 }, { <AD12>, "NORM",   1 },
                 { <BKSL>, "BKSL",   1 }
             };
         };
@@ -1787,12 +1845,12 @@ xkb_geometry "pc(pc104)" {
             left= 1;
             keys {
                 { <CAPS>, "CAPS",   1, color="grey20" },
-                { <AC01>, "NORM",   1 }, { <AC02>, "NORM",   1 },
-                { <AC03>, "NORM",   1 }, { <AC04>, "NORM",   1 },
-                { <AC05>, "NORM",   1 }, { <AC06>, "NORM",   1 },
-                { <AC07>, "NORM",   1 }, { <AC08>, "NORM",   1 },
-                { <AC09>, "NORM",   1 }, { <AC10>, "NORM",   1 },
-                { <AC11>, "NORM",   1 },
+                { <LatA>, "NORM",   1 }, { <LatS>, "NORM",   1 },
+                { <LatD>, "NORM",   1 }, { <LatF>, "NORM",   1 },
+                { <LatG>, "NORM",   1 }, { <LatH>, "NORM",   1 },
+                { <LatJ>, "NORM",   1 }, { <LatK>, "NORM",   1 },
+                { <LatL>, "NORM",   1 }, { <OUml>, "NORM",   1 },
+                { <AUml>, "NORM",   1 },
                 { <RTRN>, "RTRN",   1, color="grey20" }
             };
         };
@@ -1801,11 +1859,11 @@ xkb_geometry "pc(pc104)" {
             left= 1;
             keys {
                 { <LFSH>, "LFSH",   1, color="grey20" },
-                { <AB01>, "NORM",   1 }, { <AB02>, "NORM",   1 },
-                { <AB03>, "NORM",   1 }, { <AB04>, "NORM",   1 },
-                { <AB05>, "NORM",   1 }, { <AB06>, "NORM",   1 },
-                { <AB07>, "NORM",   1 }, { <AB08>, "NORM",   1 },
-                { <AB09>, "NORM",   1 }, { <AB10>, "NORM",   1 },
+                { <LatZ>, "NORM",   1 }, { <LatX>, "NORM",   1 },
+                { <LatC>, "NORM",   1 }, { <LatV>, "NORM",   1 },
+                { <LatB>, "NORM",   1 }, { <LatN>, "NORM",   1 },
+                { <LatM>, "NORM",   1 }, { <kCom>, "NORM",   1 },
+                { <kDot>, "NORM",   1 }, { <kDsh>, "NORM",   1 },
                 { <RTSH>, "RTSH",   1, color="grey20" }
             };
         };
@@ -1814,11 +1872,11 @@ xkb_geometry "pc(pc104)" {
             left= 1;
             keys {
                 { <LCTL>, "MODK",   1, color="grey20" },
-                { <LWIN>, "SMOD",   1, color="grey20" },
+                { <LMTA>, "SMOD",   1, color="grey20" },
                 { <LALT>, "SMOD",   1, color="grey20" },
                 { <SPCE>, "SPCE",   1 },
-                { <RALT>, "SMOD",   1, color="grey20" },
-                { <RWIN>, "SMOD",   1, color="grey20" },
+                { <ALGR>, "SMOD",   1, color="grey20" },
+                { <RMTA>, "SMOD",   1, color="grey20" },
                 { <MENU>, "SMOD",   1, color="grey20" },
                 { <RCTL>, "SMOD",   1, color="grey20" }
             };
