@@ -83,6 +83,7 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <kDot> =  60;
     <kDsh> =  61;
     <kRSh> =  62;
+    <kAPs> = 127;
     <kLCt> =  37;
     <kLWn> = 133;
     <kAlt> =  64;
@@ -98,6 +99,7 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <kPDn> = 117;
     <kRgt> = 114;
     <kEnd> = 115;
+    <kPwr> = 124;
 
     // Other unknown keys
     <KPMU> = 63;
@@ -126,10 +128,8 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <RCTL> = 105;
     <KPDV> = 106;
     <LNFD> = 109;
-    <POWR> = 124;
     <KPEQ> = 125;
     <I126> = 126;
-    <PAUS> = 127;
     <I128> = 128;
     <I129> = 129;
     <HNGL> = 130;
@@ -1545,10 +1545,10 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     key <kMut> {         [   XF86AudioMute ] };
     key <kVl-> {         [ XF86AudioLowerVolume ] };
     key <kVl+> {         [ XF86AudioRaiseVolume ] };
-    key <POWR> {         [    XF86PowerOff ] };
+    key <kPwr> {         [    XF86PowerOff ] };
     key <KPEQ> {         [        KP_Equal ] };
     key <I126> {         [       plusminus ] };
-    key <PAUS> {
+    key <kAPs> {
         type= "PC_CONTROL_LEVEL2",
         symbols[Group1]= [           Pause,           Break ]
     };
@@ -1779,7 +1779,7 @@ xkb_geometry "pc(pc104)" {
                 { <FK12>, "NORM",   1, color="white" },
                 { <PRSC>, "NORM",   8, color="white" },
                 { <SCLK>, "NORM",   1, color="white" },
-                { <PAUS>, "NORM",   1, color="white" }
+                { <kAPs>, "NORM",   1, color="white" }
             };
         };
     }; // End of "Function" section
