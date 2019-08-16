@@ -2,7 +2,7 @@ xkb_keymap {
 xkb_keycodes "evdev_aliases(qwerty)" {
     minimum = 8;
     maximum = 255;
-     <ESC> = 9;
+    <RTSH> = 9;
     <AE01> = 10;
     <AE02> = 11;
     <AE03> = 12;
@@ -55,11 +55,11 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <AB08> = 59;
     <AB09> = 60;
     <AB10> = 61;
-    <RTSH> = 62;
+    <CAPS> = 62;
     <KPMU> = 63;
     <LALT> = 64;
     <SPCE> = 65;
-    <CAPS> = 66;
+     <ESC> = 66;
     <FK01> = 67;
     <FK02> = 68;
     <FK03> = 69;
@@ -1178,7 +1178,7 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
 
     name[group1]="Swedish";
 
-    key  <ESC> {         [          Escape ] };
+    key  <ESC> {         [          Escape,          Escape,       BackSpace,       BackSpace ] };
     key <AE01> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               1,          exclam,      exclamdown,     onesuperior ]
@@ -1388,7 +1388,7 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     key <LALT> {         [         Shift_L ] };
     key <SPCE> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [           space,           space,           space,    nobreakspace ]
+        symbols[Group1]= [           space,    nobreakspace,        Linefeed,        Linefeed ]
     };
     key <CAPS> {
         symbols[Group1]= [       BackSpace,       BackSpace ],
