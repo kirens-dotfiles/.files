@@ -1,5 +1,5 @@
 xkb_keymap {
-xkb_keycodes "evdev_aliases(qwerty)" {
+xkb_keycodes {
     minimum = 8;
     maximum = 255;
 
@@ -203,7 +203,7 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     alias  <END> = <kEnd>;
 };
 
-xkb_types "complete" {
+xkb_types {
 
     virtual_modifiers NumLock,Alt,LevelThree,LAlt,RAlt,RControl,LControl,ScrollLock,LevelFive,AltGr,Meta,Super,Hyper;
 
@@ -590,7 +590,7 @@ xkb_types "complete" {
     };
 };
 
-xkb_compatibility "complete" {
+xkb_compatibility {
 
     virtual_modifiers NumLock,Alt,LevelThree,LAlt,RAlt,RControl,LControl,ScrollLock,LevelFive,AltGr,Meta,Super,Hyper;
 
@@ -1082,7 +1082,7 @@ xkb_compatibility "complete" {
     };
 };
 
-xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
+xkb_symbols {
 
     name[group1]="Swedish";
 
