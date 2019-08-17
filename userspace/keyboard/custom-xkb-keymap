@@ -102,134 +102,8 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     <kPwr> = 124;
 
     // Other unknown keys
-    <KPMU> = 63;
-    <NMLK> = 77;
-    <SCLK> = 78;
-     <KP7> = 79;
-     <KP8> = 80;
-     <KP9> = 81;
-    <KPSU> = 82;
-     <KP4> = 83;
-     <KP5> = 84;
-     <KP6> = 85;
-    <KPAD> = 86;
-     <KP1> = 87;
-     <KP2> = 88;
-     <KP3> = 89;
-     <KP0> = 90;
-    <KPDL> = 91;
     <LVL3> = 92;
-    <KATA> = 98;
-    <HIRA> = 99;
-    <HENK> = 100;
-    <HKTG> = 101;
-    <MUHE> = 102;
-    <KPEN> = 104;
-    <RCTL> = 105;
-    <KPDV> = 106;
-    <LNFD> = 109;
-    <KPEQ> = 125;
-    <I126> = 126;
-    <I128> = 128;
-    <I129> = 129;
-    <HNGL> = 130;
-    <HJCV> = 131;
-    <RWIN> = 134;
-    <STOP> = 136;
-    <AGAI> = 137;
-    <PROP> = 138;
-    <UNDO> = 139;
-    <FRNT> = 140;
-    <COPY> = 141;
-    <OPEN> = 142;
-    <PAST> = 143;
-    <FIND> = 144;
-     <CUT> = 145;
-    <HELP> = 146;
-    <I147> = 147;
-    <I148> = 148;
-    <I150> = 150;
-    <I151> = 151;
-    <I152> = 152;
-    <I153> = 153;
-    <I155> = 155;
-    <I156> = 156;
-    <I157> = 157;
-    <I158> = 158;
-    <I159> = 159;
-    <I160> = 160;
-    <I161> = 161;
-    <I162> = 162;
-    <I163> = 163;
-    <I164> = 164;
-    <I165> = 165;
-    <I166> = 166;
-    <I167> = 167;
-    <I169> = 169;
-    <I170> = 170;
-    <I174> = 174;
-    <I175> = 175;
-    <I176> = 176;
-    <I177> = 177;
-    <I179> = 179;
-    <I180> = 180;
-    <I181> = 181;
-    <I182> = 182;
-    <I185> = 185;
-    <I186> = 186;
-    <I187> = 187;
-    <I188> = 188;
-    <I189> = 189;
-    <I190> = 190;
-    <FK13> = 191;
-    <FK14> = 192;
-    <FK15> = 193;
-    <FK16> = 194;
-    <FK17> = 195;
-    <FK18> = 196;
-    <FK19> = 197;
-    <FK20> = 198;
-    <FK21> = 199;
-    <FK22> = 200;
-    <FK23> = 201;
-    <FK24> = 202;
-    <MDSW> = 203;
-     <ALT> = 204;
-    <META> = 205;
-    <SUPR> = 206;
-    <HYPR> = 207;
-    <I208> = 208;
-    <I209> = 209;
-    <I210> = 210;
-    <I211> = 211;
-    <I212> = 212;
-    <I213> = 213;
-    <I214> = 214;
-    <I215> = 215;
-    <I216> = 216;
-    <I218> = 218;
-    <I220> = 220;
-    <I223> = 223;
-    <I224> = 224;
-    <I225> = 225;
-    <I226> = 226;
-    <I227> = 227;
-    <I228> = 228;
-    <I229> = 229;
-    <I231> = 231;
-    <I234> = 234;
-    <I235> = 235;
-    <I236> = 236;
-    <I237> = 237;
-    <I238> = 238;
-    <I239> = 239;
-    <I240> = 240;
-    <I241> = 241;
-    <I242> = 242;
-    <I243> = 243;
-    <I244> = 244;
-    <I245> = 245;
-    <I246> = 246;
+
     indicator 1 = "Caps Lock";
     indicator 2 = "Num Lock";
     indicator 3 = "Scroll Lock";
@@ -317,7 +191,6 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     alias <LMTA> = <kLWn>;
     alias <LALT> = <kAlt>;
     alias <SPCE> = <kSp>;
-    alias <RALT> = <kAGr>;
     alias <ALGR> = <kAGr>;
     alias <LSGT> = <kLt>;
     alias <LEFT> = <kLft>;
@@ -328,8 +201,6 @@ xkb_keycodes "evdev_aliases(qwerty)" {
     alias <PGDN> = <kPDn>;
     alias <RGHT> = <kRgt>;
     alias  <END> = <kEnd>;
-
-    alias <RMTA> = <RWIN>;
 };
 
 xkb_types "complete" {
@@ -1418,10 +1289,6 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
         symbols[Group1]= [           minus,      underscore,   dead_belowdot,   dead_abovedot ]
     };
     key <RTSH> {         [         Shift_R ] };
-    key <KPMU> {
-        type= "CTRL+ALT",
-        symbols[Group1]= [     KP_Multiply,     KP_Multiply,     KP_Multiply,     KP_Multiply,   XF86ClearGrab ]
-    };
     key <LALT> {         [         Shift_L ] };
     key <SPCE> {
         type= "FOUR_LEVEL",
@@ -1472,30 +1339,6 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
         type= "CTRL+ALT",
         symbols[Group1]= [             F10,             F10,             F10,             F10, XF86Switch_VT_10 ]
     };
-    key <NMLK> {         [        Num_Lock ] };
-    key <SCLK> {         [     Scroll_Lock ] };
-    key  <KP7> {         [         KP_Home,            KP_7 ] };
-    key  <KP8> {         [           KP_Up,            KP_8 ] };
-    key  <KP9> {         [        KP_Prior,            KP_9 ] };
-    key <KPSU> {
-        type= "CTRL+ALT",
-        symbols[Group1]= [     KP_Subtract,     KP_Subtract,     KP_Subtract,     KP_Subtract,  XF86Prev_VMode ]
-    };
-    key  <KP4> {         [         KP_Left,            KP_4 ] };
-    key  <KP5> {         [        KP_Begin,            KP_5 ] };
-    key  <KP6> {         [        KP_Right,            KP_6 ] };
-    key <KPAD> {
-        type= "CTRL+ALT",
-        symbols[Group1]= [          KP_Add,          KP_Add,          KP_Add,          KP_Add,  XF86Next_VMode ]
-    };
-    key  <KP1> {         [          KP_End,            KP_1 ] };
-    key  <KP2> {         [         KP_Down,            KP_2 ] };
-    key  <KP3> {         [         KP_Next,            KP_3 ] };
-    key  <KP0> {         [       KP_Insert,            KP_0 ] };
-    key <KPDL> {
-        type= "KEYPAD",
-        symbols[Group1]= [       KP_Delete,    KP_Separator ]
-    };
     key <LVL3> {
         type= "ONE_LEVEL",
         symbols[Group1]= [ ISO_Level3_Shift ]
@@ -1512,17 +1355,6 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
         type= "CTRL+ALT",
         symbols[Group1]= [             F12,             F12,             F12,             F12, XF86Switch_VT_12 ]
     };
-    key <KATA> {         [        Katakana ] };
-    key <HIRA> {         [        Hiragana ] };
-    key <HENK> {         [     Henkan_Mode ] };
-    key <HKTG> {         [ Hiragana_Katakana ] };
-    key <MUHE> {         [        Muhenkan ] };
-    key <KPEN> {         [        KP_Enter ] };
-    key <RCTL> {         [       Control_R ] };
-    key <KPDV> {
-        type= "CTRL+ALT",
-        symbols[Group1]= [       KP_Divide,       KP_Divide,       KP_Divide,       KP_Divide,      XF86Ungrab ]
-    };
     key <PRSC> {
         type= "PC_ALT_LEVEL2",
         symbols[Group1]= [           Print,         Sys_Req ]
@@ -1531,7 +1363,6 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
         type= "ONE_LEVEL",
         symbols[Group1]= [ ISO_Level3_Shift ]
     };
-    key <LNFD> {         [        Linefeed ] };
     key <HOME> {         [            Home ] };
     key   <UP> {         [              Up ] };
     key <PGUP> {         [           Prior ] };
@@ -1546,474 +1377,22 @@ xkb_symbols "pc_se_inet(evdev)_terminate(ctrl_alt_bksp)" {
     key <kVl-> {         [ XF86AudioLowerVolume ] };
     key <kVl+> {         [ XF86AudioRaiseVolume ] };
     key <kPwr> {         [    XF86PowerOff ] };
-    key <KPEQ> {         [        KP_Equal ] };
-    key <I126> {         [       plusminus ] };
     key <kAPs> {
         type= "PC_CONTROL_LEVEL2",
         symbols[Group1]= [           Pause,           Break ]
     };
-    key <I128> {         [     XF86LaunchA ] };
-    key <I129> {         [      KP_Decimal,      KP_Decimal ] };
-    key <HNGL> {         [          Hangul ] };
-    key <HJCV> {         [    Hangul_Hanja ] };
     key <LMTA> {         [         Super_L ] };
-    key <RMTA> {         [         Super_R ] };
     key <COMP> {         [     Mode_switch ] };
-    key <STOP> {         [          Cancel ] };
-    key <AGAI> {         [            Redo ] };
-    key <PROP> {         [        SunProps ] };
-    key <UNDO> {         [            Undo ] };
-    key <FRNT> {         [        SunFront ] };
-    key <COPY> {         [        XF86Copy ] };
-    key <OPEN> {         [        XF86Open ] };
-    key <PAST> {         [       XF86Paste ] };
-    key <FIND> {         [            Find ] };
-    key  <CUT> {         [         XF86Cut ] };
-    key <HELP> {         [            Help ] };
-    key <I147> {         [      XF86MenuKB ] };
-    key <I148> {         [  XF86Calculator ] };
-    key <I150> {         [       XF86Sleep ] };
-    key <I151> {         [      XF86WakeUp ] };
-    key <I152> {         [    XF86Explorer ] };
-    key <I153> {         [        XF86Send ] };
-    key <I155> {         [        XF86Xfer ] };
-    key <I156> {         [     XF86Launch1 ] };
-    key <I157> {         [     XF86Launch2 ] };
-    key <I158> {         [         XF86WWW ] };
-    key <I159> {         [         XF86DOS ] };
-    key <I160> {         [ XF86ScreenSaver ] };
-    key <I161> {         [ XF86RotateWindows ] };
-    key <I162> {         [    XF86TaskPane ] };
-    key <I163> {         [        XF86Mail ] };
-    key <I164> {         [   XF86Favorites ] };
-    key <I165> {         [  XF86MyComputer ] };
-    key <I166> {         [        XF86Back ] };
-    key <I167> {         [     XF86Forward ] };
-    key <I169> {         [       XF86Eject ] };
-    key <I170> {         [       XF86Eject,       XF86Eject ] };
     key <kANe> {         [   XF86AudioNext ] };
     key <kAPP> {         [   XF86AudioPlay,  XF86AudioPause ] };
     key <kAPr> {         [   XF86AudioPrev ] };
-    key <I174> {         [   XF86AudioStop,       XF86Eject ] };
-    key <I175> {         [ XF86AudioRecord ] };
-    key <I176> {         [ XF86AudioRewind ] };
-    key <I177> {         [       XF86Phone ] };
-    key <I179> {         [       XF86Tools ] };
-    key <I180> {         [    XF86HomePage ] };
-    key <I181> {         [      XF86Reload ] };
-    key <I182> {         [       XF86Close ] };
-    key <I185> {         [    XF86ScrollUp ] };
-    key <I186> {         [  XF86ScrollDown ] };
-    key <I187> {         [       parenleft ] };
-    key <I188> {         [      parenright ] };
-    key <I189> {         [         XF86New ] };
-    key <I190> {         [            Redo ] };
-    key <FK13> {         [       XF86Tools ] };
-    key <FK14> {         [     XF86Launch5 ] };
-    key <FK15> {         [     XF86Launch6 ] };
-    key <FK16> {         [     XF86Launch7 ] };
-    key <FK17> {         [     XF86Launch8 ] };
-    key <FK18> {         [     XF86Launch9 ] };
-    key <FK20> {         [ XF86AudioMicMute ] };
-    key <FK21> {         [ XF86TouchpadToggle ] };
-    key <FK22> {         [  XF86TouchpadOn ] };
-    key <FK23> {         [ XF86TouchpadOff ] };
-    key <MDSW> {         [     Mode_switch ] };
-    key  <ALT> {         [         Shift_L ] };
-    key <META> {         [        NoSymbol,          Meta_L ] };
-    key <SUPR> {         [        NoSymbol,         Super_L ] };
-    key <HYPR> {         [        NoSymbol,         Hyper_L ] };
-    key <I208> {         [   XF86AudioPlay ] };
-    key <I209> {         [  XF86AudioPause ] };
-    key <I210> {         [     XF86Launch3 ] };
-    key <I211> {         [     XF86Launch4 ] };
-    key <I212> {         [     XF86LaunchB ] };
-    key <I213> {         [     XF86Suspend ] };
-    key <I214> {         [       XF86Close ] };
-    key <I215> {         [   XF86AudioPlay ] };
-    key <I216> {         [ XF86AudioForward ] };
-    key <I218> {         [           Print ] };
-    key <I220> {         [      XF86WebCam ] };
-    key <I223> {         [        XF86Mail ] };
-    key <I224> {         [   XF86Messenger ] };
-    key <I225> {         [      XF86Search ] };
-    key <I226> {         [          XF86Go ] };
-    key <I227> {         [     XF86Finance ] };
-    key <I228> {         [        XF86Game ] };
-    key <I229> {         [        XF86Shop ] };
-    key <I231> {         [          Cancel ] };
     key <kBL-> {         [ XF86MonBrightnessDown ] };
     key <kBL+> {         [ XF86MonBrightnessUp ] };
-    key <I234> {         [  XF86AudioMedia ] };
-    key <I235> {         [     XF86Display ] };
-    key <I236> {         [ XF86KbdLightOnOff ] };
-    key <I237> {         [ XF86KbdBrightnessDown ] };
-    key <I238> {         [ XF86KbdBrightnessUp ] };
-    key <I239> {         [        XF86Send ] };
-    key <I240> {         [       XF86Reply ] };
-    key <I241> {         [ XF86MailForward ] };
-    key <I242> {         [        XF86Save ] };
-    key <I243> {         [   XF86Documents ] };
-    key <I244> {         [     XF86Battery ] };
-    key <I245> {         [   XF86Bluetooth ] };
-    key <I246> {         [        XF86WLAN ] };
     modifier_map Control { <LCTL> };
     modifier_map Mod1 { <LFSH> };
     modifier_map Shift { <RTSH> };
     modifier_map Shift { <LALT> };
-    modifier_map Mod2 { <NMLK> };
     modifier_map Mod5 { <LVL3> };
-    modifier_map Control { <RCTL> };
     modifier_map Mod4 { <LMTA> };
-    modifier_map Mod4 { <RMTA> };
-    modifier_map Mod5 { <MDSW> };
-    modifier_map Shift { <ALT> };
-    modifier_map Mod1 { <META> };
-    modifier_map Mod4 { <SUPR> };
-    modifier_map Mod4 { <HYPR> };
 };
-
-xkb_geometry "pc(pc104)" {
-
-    width=       470;
-    height=      180;
-
-    alias <AC00> = <kRSh>;
-    alias <AA00> = <kLCt>;
-
-    baseColor=   "white";
-    labelColor=  "black";
-    xfont=       "-*-helvetica-medium-r-normal--*-120-*-*-*-*-iso8859-1";
-    description= "Generic 104";
-
-    shape "NORM" {
-        corner= 1,
-        { [  18,  18 ] },
-        { [   2,   1 ], [  16,  16 ] }
-    };
-    shape "BKSP" {
-        corner= 1,
-        { [  38,  18 ] },
-        { [   2,   1 ], [  36,  16 ] }
-    };
-    shape "TABK" {
-        corner= 1,
-        { [  28,  18 ] },
-        { [   2,   1 ], [  26,  16 ] }
-    };
-    shape "BKSL" {
-        corner= 1,
-        { [  28,  18 ] },
-        { [   2,   1 ], [  26,  16 ] }
-    };
-    shape "RTRN" {
-        corner= 1,
-        { [  42,  18 ] },
-        { [   2,   1 ], [  40,  16 ] }
-    };
-    shape "CAPS" {
-        corner= 1,
-        { [  33,  18 ] },
-        { [   2,   1 ], [  31,  16 ] }
-    };
-    shape "LFSH" {
-        corner= 1,
-        { [  42,  18 ] },
-        { [   2,   1 ], [  40,  16 ] }
-    };
-    shape "RTSH" {
-        corner= 1,
-        { [  52,  18 ] },
-        { [   2,   1 ], [  50,  16 ] }
-    };
-    shape "MODK" {
-        corner= 1,
-        { [  27,  18 ] },
-        { [   2,   1 ], [  25,  16 ] }
-    };
-    shape "SMOD" {
-        corner= 1,
-        { [  23,  18 ] },
-        { [   2,   1 ], [  21,  16 ] }
-    };
-    shape "SPCE" {
-        corner= 1,
-        { [ 113,  18 ] },
-        { [   2,   1 ], [ 111,  16 ] }
-    };
-    shape "KP0" {
-        corner= 1,
-        { [  37,  18 ] },
-        { [   2,   1 ], [  35,  16 ] }
-    };
-    shape "KPAD" {
-        corner= 1,
-        { [  18,  37 ] },
-        { [   2,   1 ], [  16,  35 ] }
-    };
-    shape "LEDS" { { [  75,  20 ] } };
-    shape "LED" { { [   5,   1 ] } };
-    section "Function" {
-        key.color= "grey20";
-        priority=  7;
-        top=       22;
-        left=      19;
-        width=     351;
-        height=    19;
-        row {
-            top=  1;
-            left= 1;
-            keys {
-                {  <ESC>, "NORM",   1 },
-                { <FK01>, "NORM",  20, color="white" },
-                { <FK02>, "NORM",   1, color="white" },
-                { <FK03>, "NORM",   1, color="white" },
-                { <FK04>, "NORM",   1, color="white" },
-                { <FK05>, "NORM",  11, color="white" },
-                { <FK06>, "NORM",   1, color="white" },
-                { <FK07>, "NORM",   1, color="white" },
-                { <FK08>, "NORM",   1, color="white" },
-                { <FK09>, "NORM",  11, color="white" },
-                { <FK10>, "NORM",   1, color="white" },
-                { <FK11>, "NORM",   1, color="white" },
-                { <FK12>, "NORM",   1, color="white" },
-                { <PRSC>, "NORM",   8, color="white" },
-                { <SCLK>, "NORM",   1, color="white" },
-                { <kAPs>, "NORM",   1, color="white" }
-            };
-        };
-    }; // End of "Function" section
-
-    section "Alpha" {
-        key.color= "white";
-        priority=  8;
-        top=       61;
-        left=      19;
-        width=     287;
-        height=    95;
-        row {
-            top=  1;
-            left= 1;
-            keys {
-                { <TLDE>, "NORM",   1 }, { <Num1>, "NORM",   1 },
-                { <Num2>, "NORM",   1 }, { <Num3>, "NORM",   1 },
-                { <Num4>, "NORM",   1 }, { <Num5>, "NORM",   1 },
-                { <Num6>, "NORM",   1 }, { <Num7>, "NORM",   1 },
-                { <Num8>, "NORM",   1 }, { <Num9>, "NORM",   1 },
-                { <Num0>, "NORM",   1 }, { <kPls>, "NORM",   1 },
-                { <Tick>, "NORM",   1 },
-                { <BKSP>, "BKSP",   1, color="grey20" }
-            };
-        };
-        row {
-            top=  20;
-            left= 1;
-            keys {
-                {  <TAB>, "TABK",   1, color="grey20" },
-                { <LatQ>, "NORM",   1 }, { <LatW>, "NORM",   1 },
-                { <LatE>, "NORM",   1 }, { <LatR>, "NORM",   1 },
-                { <LatT>, "NORM",   1 }, { <LatY>, "NORM",   1 },
-                { <LatU>, "NORM",   1 }, { <LatI>, "NORM",   1 },
-                { <LatO>, "NORM",   1 }, { <LatP>, "NORM",   1 },
-                { <ARng>, "NORM",   1 }, { <AD12>, "NORM",   1 },
-                { <BKSL>, "BKSL",   1 }
-            };
-        };
-        row {
-            top=  39;
-            left= 1;
-            keys {
-                { <CAPS>, "CAPS",   1, color="grey20" },
-                { <LatA>, "NORM",   1 }, { <LatS>, "NORM",   1 },
-                { <LatD>, "NORM",   1 }, { <LatF>, "NORM",   1 },
-                { <LatG>, "NORM",   1 }, { <LatH>, "NORM",   1 },
-                { <LatJ>, "NORM",   1 }, { <LatK>, "NORM",   1 },
-                { <LatL>, "NORM",   1 }, { <OUml>, "NORM",   1 },
-                { <AUml>, "NORM",   1 },
-                { <RTRN>, "RTRN",   1, color="grey20" }
-            };
-        };
-        row {
-            top=  58;
-            left= 1;
-            keys {
-                { <LFSH>, "LFSH",   1, color="grey20" },
-                { <LatZ>, "NORM",   1 }, { <LatX>, "NORM",   1 },
-                { <LatC>, "NORM",   1 }, { <LatV>, "NORM",   1 },
-                { <LatB>, "NORM",   1 }, { <LatN>, "NORM",   1 },
-                { <LatM>, "NORM",   1 }, { <kCom>, "NORM",   1 },
-                { <kDot>, "NORM",   1 }, { <kDsh>, "NORM",   1 },
-                { <RTSH>, "RTSH",   1, color="grey20" }
-            };
-        };
-        row {
-            top=  77;
-            left= 1;
-            keys {
-                { <LCTL>, "MODK",   1, color="grey20" },
-                { <LMTA>, "SMOD",   1, color="grey20" },
-                { <LALT>, "SMOD",   1, color="grey20" },
-                { <SPCE>, "SPCE",   1 },
-                { <ALGR>, "SMOD",   1, color="grey20" },
-                { <RMTA>, "SMOD",   1, color="grey20" },
-                { <MENU>, "SMOD",   1, color="grey20" },
-                { <RCTL>, "SMOD",   1, color="grey20" }
-            };
-        };
-    }; // End of "Alpha" section
-
-    section "Editing" {
-        key.color= "grey20";
-        priority=  9;
-        top=       61;
-        left=      312;
-        width=     58;
-        height=    95;
-        row {
-            top=  1;
-            left= 1;
-            keys {
-                {  <INS>, "NORM",   1 }, { <HOME>, "NORM",   1 },
-                { <PGUP>, "NORM",   1 }
-            };
-        };
-        row {
-            top=  20;
-            left= 1;
-            keys {
-                { <DELE>, "NORM",   1 }, {  <END>, "NORM",   1 },
-                { <PGDN>, "NORM",   1 }
-            };
-        };
-        row {
-            top=  58;
-            left= 20;
-            keys {
-                {   <UP>, "NORM",   1 }
-            };
-        };
-        row {
-            top=  77;
-            left= 1;
-            keys {
-                { <LEFT>, "NORM",   1 }, { <DOWN>, "NORM",   1 },
-                { <RGHT>, "NORM",   1 }
-            };
-        };
-    }; // End of "Editing" section
-
-    section "Keypad" {
-        key.color= "grey20";
-        priority=  10;
-        top=       61;
-        left=      376;
-        width=     77;
-        height=    95;
-        row {
-            top=  1;
-            left= 1;
-            keys {
-                { <NMLK>, "NORM",   1 }, { <KPDV>, "NORM",   1 },
-                { <KPMU>, "NORM",   1 }, { <KPSU>, "NORM",   1 }
-            };
-        };
-        row {
-            top=  20;
-            left= 1;
-            keys {
-                {  <KP7>, "NORM",   1, color="white" },
-                {  <KP8>, "NORM",   1, color="white" },
-                {  <KP9>, "NORM",   1, color="white" },
-                { <KPAD>, "KPAD",   1 }
-            };
-        };
-        row {
-            top=  39;
-            left= 1;
-            keys {
-                {  <KP4>, "NORM",   1, color="white" },
-                {  <KP5>, "NORM",   1, color="white" },
-                {  <KP6>, "NORM",   1, color="white" }
-            };
-        };
-        row {
-            top=  58;
-            left= 1;
-            keys {
-                {  <KP1>, "NORM",   1, color="white" },
-                {  <KP2>, "NORM",   1, color="white" },
-                {  <KP3>, "NORM",   1, color="white" },
-                { <KPEN>, "KPAD",   1 }
-            };
-        };
-        row {
-            top=  77;
-            left= 1;
-            keys {
-                {  <KP0>, "KP0",   1, color="white" },
-                { <KPDL>, "NORM",   1, color="white" }
-            };
-        };
-    }; // End of "Keypad" section
-
-    solid "LedPanel" {
-        top=      22;
-        left=     377;
-        priority= 0;
-        color= "grey10";
-        shape= "LEDS";
-    };
-    indicator "Num Lock" {
-        top=      37;
-        left=     382;
-        priority= 1;
-        onColor= "green";
-        offColor= "green30";
-        shape= "LED";
-    };
-    indicator "Caps Lock" {
-        top=      37;
-        left=     407;
-        priority= 2;
-        onColor= "green";
-        offColor= "green30";
-        shape= "LED";
-    };
-    indicator "Scroll Lock" {
-        top=      37;
-        left=     433;
-        priority= 3;
-        onColor= "green";
-        offColor= "green30";
-        shape= "LED";
-    };
-    text "NumLockLabel" {
-        top=      25;
-        left=     378;
-        priority= 4;
-        width=  19.8;
-        height=  10;
-        XFont= "-*-helvetica-medium-r-normal--*-120-*-*-*-*-iso8859-1";
-        text=  "Num\nLock";
-    };
-    text "CapsLockLabel" {
-        top=      25;
-        left=     403;
-        priority= 5;
-        width=  26.4;
-        height=  10;
-        XFont= "-*-helvetica-medium-r-normal--*-120-*-*-*-*-iso8859-1";
-        text=  "Caps\nLock";
-    };
-    text "ScrollLockLabel" {
-        top=      25;
-        left=     428;
-        priority= 6;
-        width=  39.6;
-        height=  10;
-        XFont= "-*-helvetica-medium-r-normal--*-120-*-*-*-*-iso8859-1";
-        text=  "Scroll\nLock";
-    };
-};
-
 };
