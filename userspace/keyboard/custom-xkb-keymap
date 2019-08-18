@@ -6,7 +6,7 @@ xkb_keycodes {
     // All keys are cammel case and prefixed with k as in key
     // The names reference the print on the keyboard
     // Only aliases should reference these to make remapping easier
-    <kEsc> =   9;
+    // <kEsc> =   9;
     <kF1>  =  67;
     <kF2>  =  68;
     <kBL-> = 232;
@@ -101,9 +101,6 @@ xkb_keycodes {
     <kEnd> = 115;
     <kPwr> = 124;
 
-    // Other unknown keys
-    <LVL3> = 92;
-
     indicator 1 = "Caps Lock";
     indicator 2 = "Num Lock";
     indicator 3 = "Scroll Lock";
@@ -120,7 +117,6 @@ xkb_keycodes {
     virtual indicator 14 = "Mouse Keys";
 
     // Remappings
-    alias <RTSH> = <kEsc>;
     alias <FK01> = <kF1>;
     alias <FK02> = <kF2>;
     alias <FK03> = <kF3>;
@@ -136,8 +132,6 @@ xkb_keycodes {
     alias <PRSC> = <kPrt>;
     alias  <INS> = <kIns>;
     alias <DELE> = <kDel>;
-    alias <COMP> = <kMen>;
-    alias <MENU> = <kMen>;
     alias <TLDE> = <kPar>;
     alias <Num1> = <k1>;
     alias <Num2> = <k2>;
@@ -151,7 +145,7 @@ xkb_keycodes {
     alias <Num0> = <k0>;
     alias <Tick> = <kAcc>;
     alias <BKSP> = <kBsp>;
-    alias <LCTL> = <kTab>;
+    alias <LMTA> = <kTab>;
     alias <LatQ> = <kQ>;
     alias <LatW> = <kW>;
     alias <LatE> = <kE>;
@@ -177,8 +171,8 @@ xkb_keycodes {
     alias <LatL> = <kL>;
     alias <OUml> = <kOUm>;
     alias <AUml> = <kAUm>;
-    alias <RTRN> = <kRtn>;
-    alias <LFSH> = <kLSh>;
+    alias <LCTL> = <kRtn>;
+    alias  <ALT> = <kLSh>;
     alias <LatZ> = <kZ>;
     alias <LatX> = <kX>;
     alias <LatC> = <kC>;
@@ -188,10 +182,11 @@ xkb_keycodes {
     alias <LatM> = <kM>;
     alias <CAPS> = <kRSh>;
     alias  <TAB> = <kLCt>;
-    alias <LMTA> = <kLWn>;
-    alias <LALT> = <kAlt>;
+    alias <HYPR> = <kLWn>;
+    alias <SHFT> = <kAlt>;
     alias <SPCE> = <kSp>;
     alias <ALGR> = <kAGr>;
+    alias <COMP> = <kMen>;
     alias <LSGT> = <kLt>;
     alias <LEFT> = <kLft>;
     alias <HOME> = <kHom>;
@@ -203,162 +198,12 @@ xkb_keycodes {
     alias  <END> = <kEnd>;
 };
 
-xkb_types {
-
-    virtual_modifiers NumLock,Alt,LevelThree,LAlt,RAlt,RControl,LControl,ScrollLock,LevelFive,AltGr,Meta,Super,Hyper;
-
-    type "ONE_LEVEL" {
-        modifiers= none;
-        level_name[Level1]= "Any";
-    };
-    type "TWO_LEVEL" {
-        modifiers= Shift;
-        map[Shift]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
-    };
-    type "ALPHABETIC" {
-        modifiers= Shift+Lock;
-        map[Shift]= Level2;
-        map[Lock]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Caps";
-    };
-    type "KEYPAD" {
-        modifiers= Shift+NumLock;
-        map[Shift]= Level2;
-        map[NumLock]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Number";
-    };
-    type "SHIFT+ALT" {
-        modifiers= Shift+Alt;
-        map[Shift+Alt]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift+Alt";
-    };
-    type "PC_SUPER_LEVEL2" {
-        modifiers= Mod4;
-        map[Mod4]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Super";
-    };
-    type "PC_CONTROL_LEVEL2" {
-        modifiers= Control;
-        map[Control]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Control";
-    };
-    type "PC_LCONTROL_LEVEL2" {
-        modifiers= LControl;
-        map[LControl]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "LControl";
-    };
-    type "PC_RCONTROL_LEVEL2" {
-        modifiers= RControl;
-        map[RControl]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "RControl";
-    };
-    type "PC_ALT_LEVEL2" {
-        modifiers= Alt;
-        map[Alt]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Alt";
-    };
-    type "PC_LALT_LEVEL2" {
-        modifiers= LAlt;
-        map[LAlt]= Level2;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "LAlt";
-    };
-    type "CTRL+ALT" {
-        modifiers= Shift+Control+Alt+LevelThree;
-        map[Shift]= Level2;
-        preserve[Shift]= Shift;
-        map[LevelThree]= Level3;
-        map[Shift+LevelThree]= Level4;
-        preserve[Shift+LevelThree]= Shift;
-        map[Control+Alt]= Level5;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
-        level_name[Level3]= "Alt Base";
-        level_name[Level4]= "Shift Alt";
-        level_name[Level5]= "Ctrl+Alt";
-    };
-    type "EIGHT_LEVEL_SEMIALPHABETIC" {
-        modifiers= Shift+Lock+LevelThree+LevelFive;
-        map[Shift]= Level2;
-        map[Lock]= Level2;
-        map[LevelThree]= Level3;
-        map[Shift+LevelThree]= Level4;
-        map[Lock+LevelThree]= Level3;
-        preserve[Lock+LevelThree]= Lock;
-        map[Shift+Lock+LevelThree]= Level4;
-        preserve[Shift+Lock+LevelThree]= Lock;
-        map[LevelFive]= Level5;
-        map[Shift+LevelFive]= Level6;
-        map[Lock+LevelFive]= Level6;
-        preserve[Lock+LevelFive]= Lock;
-        map[Shift+Lock+LevelFive]= Level6;
-        preserve[Shift+Lock+LevelFive]= Lock;
-        map[LevelThree+LevelFive]= Level7;
-        map[Shift+LevelThree+LevelFive]= Level8;
-        map[Lock+LevelThree+LevelFive]= Level7;
-        preserve[Lock+LevelThree+LevelFive]= Lock;
-        map[Shift+Lock+LevelThree+LevelFive]= Level8;
-        preserve[Shift+Lock+LevelThree+LevelFive]= Lock;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
-        level_name[Level3]= "Alt Base";
-        level_name[Level4]= "Shift Alt";
-        level_name[Level5]= "X";
-        level_name[Level6]= "X Shift";
-        level_name[Level7]= "X Alt Base";
-        level_name[Level8]= "X Shift Alt";
-    };
-    type "FOUR_LEVEL" {
-        modifiers= Shift+LevelThree;
-        map[Shift]= Level2;
-        map[LevelThree]= Level3;
-        map[Shift+LevelThree]= Level4;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
-        level_name[Level3]= "Alt Base";
-        level_name[Level4]= "Shift Alt";
-    };
-    type "FOUR_LEVEL_ALPHABETIC" {
-        modifiers= Shift+Lock+LevelThree;
-        map[Shift]= Level2;
-        map[Lock]= Level2;
-        map[LevelThree]= Level3;
-        map[Shift+LevelThree]= Level4;
-        map[Lock+LevelThree]= Level4;
-        map[Shift+Lock+LevelThree]= Level3;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
-        level_name[Level3]= "Alt Base";
-        level_name[Level4]= "Shift Alt";
-    };
-    type "FOUR_LEVEL_SEMIALPHABETIC" {
-        modifiers= Shift+Lock+LevelThree;
-        map[Shift]= Level2;
-        map[Lock]= Level2;
-        map[LevelThree]= Level3;
-        map[Shift+LevelThree]= Level4;
-        map[Lock+LevelThree]= Level3;
-        preserve[Lock+LevelThree]= Lock;
-        map[Shift+Lock+LevelThree]= Level4;
-        preserve[Shift+Lock+LevelThree]= Lock;
-        level_name[Level1]= "Base";
-        level_name[Level2]= "Shift";
-        level_name[Level3]= "Alt Base";
-        level_name[Level4]= "Shift Alt";
-    };
-};
+xkb_types { include "complete" };
 
 xkb_compatibility {
+
+    include "complete"
+    // TODO: Switch to using an overlay desig
 
     virtual_modifiers NumLock,Alt,LevelThree,LAlt,RAlt,RControl,LControl,ScrollLock,LevelFive,AltGr,Meta,Super,Hyper;
 
@@ -442,6 +287,7 @@ xkb_compatibility {
         useModMapMods=level1;
         action= LockMods(modifiers=LevelFive);
     };
+    // TODO
     interpret Mode_switch+AnyOfOrNone(all) {
         virtualModifier= AltGr;
         useModMapMods=level1;
@@ -942,12 +788,14 @@ xkb_symbols {
     };
     key <LatO> {
         type= "FOUR_LEVEL_ALPHABETIC",
-        symbols[Group1]= [               o,               O,              oe,              OE ]
+        symbols[Group1]= [               o,               O,              oe,              OE ],
+        symbols[Group2]= [               i,               I,      rightarrow,        idotless ]
     };
     key <LatP> {
         type[group1]= "FOUR_LEVEL_ALPHABETIC",
         symbols[Group1]= [               p,               P,         section,       paragraph ],
-        symbols[Group2]= [ enfilledcircbullet, enopencircbullet ]
+        symbols[Group2]= [ enfilledcircbullet, enopencircbullet ],
+        symbols[Group3]= [               a,               A,         b,       B ]
     };
     key <ARng> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
@@ -957,7 +805,6 @@ xkb_symbols {
         type= "FOUR_LEVEL",
         symbols[Group1]= [  dead_diaeresis, dead_circumflex,      dead_tilde,      dead_caron ]
     };
-    key <RTRN> {         [          Return ] };
     key <LCTL> {         [       Control_L ] };
     key <LatA> {
         type= "FOUR_LEVEL_SEMIALPHABETIC",
@@ -1011,7 +858,7 @@ xkb_symbols {
         type= "FOUR_LEVEL",
         symbols[Group1]= [            Menu,        NoSymbol,        NoSymbol,        NoSymbol ]
     };
-    key <LFSH> {         [           Alt_L ] };
+    key  <ALT> {         [           Alt_L ] };
     key <BKSL> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [      apostrophe,        asterisk,           acute,        multiply ]
@@ -1056,11 +903,10 @@ xkb_symbols {
         type= "FOUR_LEVEL",
         symbols[Group1]= [           minus,      underscore,   dead_belowdot,   dead_abovedot ]
     };
-    key <RTSH> {         [         Shift_R ] };
-    key <LALT> {         [         Shift_L ] };
+    key <SHFT> {         [         Shift_L ] };
     key <SPCE> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [           space,    nobreakspace,        Linefeed,        Linefeed ]
+        symbols[Group1]= [           space,    nobreakspace,        Return, Return]
     };
     key <CAPS> {
         symbols[Group1]= [       BackSpace,       BackSpace ],
@@ -1107,10 +953,6 @@ xkb_symbols {
         type= "CTRL+ALT",
         symbols[Group1]= [             F10,             F10,             F10,             F10, XF86Switch_VT_10 ]
     };
-    key <LVL3> {
-        type= "ONE_LEVEL",
-        symbols[Group1]= [ ISO_Level3_Shift ]
-    };
     key <LSGT> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [            less,         greater,             bar,       brokenbar ]
@@ -1150,17 +992,17 @@ xkb_symbols {
         symbols[Group1]= [           Pause,           Break ]
     };
     key <LMTA> {         [         Super_L ] };
+    key <HYPR> {         [         Hyper_L ] };
     key <COMP> {         [     Mode_switch ] };
     key <kANe> {         [   XF86AudioNext ] };
     key <kAPP> {         [   XF86AudioPlay,  XF86AudioPause ] };
     key <kAPr> {         [   XF86AudioPrev ] };
     key <kBL-> {         [ XF86MonBrightnessDown ] };
     key <kBL+> {         [ XF86MonBrightnessUp ] };
+
     modifier_map Control { <LCTL> };
-    modifier_map Mod1 { <LFSH> };
-    modifier_map Shift { <RTSH> };
-    modifier_map Shift { <LALT> };
-    modifier_map Mod5 { <LVL3> };
+    modifier_map Shift { <SHFT> };
     modifier_map Mod4 { <LMTA> };
+    modifier_map Mod5 { <ALGR> };
 };
 };
