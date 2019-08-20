@@ -183,9 +183,9 @@ xkb_keycodes {
     alias <CAPS> = <kRSh>;
     alias  <TAB> = <kLCt>;
     alias <HYPR> = <kLWn>;
-    alias <SHFT> = <kAlt>;
+    alias <ALGR> = <kAlt>;
     alias <SPCE> = <kSp>;
-    alias <ALGR> = <kAGr>;
+    alias <SHFT> = <kAGr>;
     alias <COMP> = <kMen>;
     alias <LSGT> = <kLt>;
     alias <LEFT> = <kLft>;
@@ -700,7 +700,7 @@ xkb_symbols {
 
     name[group1]="Swedish";
 
-    key  <ESC> {         [          Escape,          Escape,       BackSpace,       BackSpace ] };
+    key  <ESC> {         [          Escape,          BackSpace,       BackSpace,       BackSpace ] };
     key <Num1> {
         type= "FOUR_LEVEL",
         symbols[Group1]= [               1,          exclam,      exclamdown,     onesuperior ]
@@ -906,7 +906,8 @@ xkb_symbols {
     key <SHFT> {         [         Shift_L ] };
     key <SPCE> {
         type= "FOUR_LEVEL",
-        symbols[Group1]= [           space,    nobreakspace,        Return, Return]
+        symbols[Group1]= [           space,    Return, Tab ],
+        symbols[Group2]= [          Return ]
     };
     key <CAPS> {
         symbols[Group1]= [       BackSpace,       BackSpace ],
@@ -1001,6 +1002,7 @@ xkb_symbols {
     key <kBL+> {         [ XF86MonBrightnessUp ] };
 
     modifier_map Control { <LCTL> };
+    modifier_map Mod1 { <ALT> };
     modifier_map Shift { <SHFT> };
     modifier_map Mod4 { <LMTA> };
     modifier_map Mod5 { <ALGR> };

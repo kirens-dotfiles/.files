@@ -105,9 +105,9 @@ xkb_keycodes {
 
     <vE>   = 77;
     <vO>   = 78;
-    <vARg>   = 79;
-    <vC> = 80;
-    <v6>   = 81;
+    <vARg> = 79;
+    <vC>   = 80;
+    <vSp>  = 81;
     <v7>   = 82;
     <v8>   = 83;
     <v9>   = 84;
@@ -380,11 +380,11 @@ xkb_symbols {
         symbols[Group2]= [ 1 ]
     };
     key <kS>   {
-        symbols[Group1]= [ s, S, braceleft ],
+        symbols[Group1]= [ s, S, parenleft ],
         symbols[Group2]= [ 2 ]
     };
     key <kD>   {
-        symbols[Group1]= [ d, D, parenleft, semicolon ],
+        symbols[Group1]= [ d, D, braceleft, semicolon ],
         symbols[Group2]= [ 3 ]
     };
     key <kF>   {
@@ -407,12 +407,12 @@ xkb_symbols {
     };
     key <Down> { [ Down, Next ] };
     key <kL>   { overlay1 = <Up>,
-        symbols[Group1]= [ k, K, parenright, quotedbl ],
+        symbols[Group1]= [ k, K, braceright, quotedbl ],
         symbols[Group2]= [ 8 ]
     };
     key <Up>   { [ Up, Prior ] };
     key <kOUm> { overlay1 = <Rght>,
-        symbols[Group1]= [ l, L, braceright, apostrophe ],
+        symbols[Group1]= [ l, L, parenright, apostrophe ],
         symbols[Group2]= [ 9 ]
     };
     key <Rght> { [ Right, End ] };
@@ -435,7 +435,7 @@ xkb_symbols {
         symbols[Group1]= [ v, V ],
         symbols[Group2]= [ bar ]
     };
-    key <kB>   { [ ] };
+    key <kB>   { [ b, B ] };
     key <kN>   { [ b, B ] };
     key <kM>   { [ n, N ] };
     key <kCom> { [ m, M ] };
@@ -448,10 +448,11 @@ xkb_symbols {
     key <kLWn> { [ Overlay1_Enable ] };
     key <kAlt> { [ ISO_Level3_Shift ] };
     modifier_map Mod5 { <kAlt> };
-    key <kSp>  {
-      symbols[Group1]= [ space, Return, nobreakspace ],
+    key <kSp>  { overlay1 = <vSp>,
+      symbols[Group1]= [ space, Return, space, nobreakspace ],
       symbols[Group2]= [ Tab ]
     };
+    key <vSp>  { [ Return ] };
     key <kAGr> { [ Shift_L ] };
     modifier_map Shift { <kAGr> };
     key <kMen> { [ Mode_switch ] };
