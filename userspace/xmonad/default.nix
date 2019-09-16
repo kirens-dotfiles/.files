@@ -1,121 +1,12 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.xmonad;
-  absoluteRuntimePath = config.home.homeDirectory + toString cfg.runtimePath;
 
-  configData = with pkgs; rec {
-    inherit
-      alsaUtils
-      copyq
-      xautolock
-      libqalculate
-      dbus
-      tmux
-      playerctl
-      imagemagick
-      st
-      ;
-
-    inherit (xorg) xmessage xbacklight xkbcomp;
-
-    multiroom = (pkgs.callPackage ../scripts/multiroom {
-      inherit (config.systemConfig.myCfg) multiroomHost;
-    }).package;
-
-    rofi = let
-      prgms = buildEnv {
-        name = "prgms";
-        paths = cfg.packages;
-      };
-    in runCommand
-      "xmonad-rofi-with-path"
-      { buildInputs = [ makeWrapper ]; }
-      ''
-        makeWrapper ${pkgs.rofi}/bin/rofi $out/bin/rofi \
-          --set XDG_DATA_DIRS ${prgms}/share \
-          --set PATH ${prgms}/bin
-      '';
-
-    xmobar = haskellPackages.xmobar;
-
-    rofi-scripts = pkgs.callPackage ../rofi/scripts.nix {
-      inherit (config.systemConfig.myCfg) togglAccessToken;
-      translate-shell = pkgs.translate-shell;
-    };
-
-    custom-keymap = ../keyboard/custom-xkb-keymap;
-
-    scripts = with pkgs;
-      lib.mapAttrs (name: pac: writeScript name (callPackage pac { })) {
-        lockptr = ../scripts/lockptr.nix;
-        printVol = ../scripts/prettyprints/vol.nix;
-        printVolLvl = ../scripts/prettyprints/vol_lvl.nix;
-        wireless = ../scripts/prettyprints/wireless.nix.js;
-        randomBackground = ../backgrounds;
-      };
+  xmonadConfigBuild = pkgs.callPackage ./xmonad.nix { } {
+    inherit (config.systemConfig.myCfg) togglAccessToken multiroomHost;
+    inherit (config.home) homeDirectory;
+    inherit (cfg) packages runtimePath;
   };
-  # A file that exposes nix-generated paths to the compilation.
-  nixVarsHs = pkgs.writeTextFile {
-    name = "Nix.Vars.hs";
-    text = import ./lib/Nix/Vars.nix.hs configData;
-  };
-
-  hsPkgsWithOverridenXMonad = pkgs.haskellPackages.override {
-    overrides = self: super: {
-      xmonad = pkgs.haskell.lib.appendPatch
-        super.xmonad ( pkgs.writeText "patch" ''
-          diff --git a/src/XMonad/Main.hs b/src/XMonad/Main.hs
-          index 70033a3..6486644 100644
-          --- a/src/XMonad/Main.hs
-          +++ b/src/XMonad/Main.hs
-          @@ -418,7 +421,8 @@ handle event@(PropertyEvent { ev_event_type = t, ev_atom = a })
-           handle e@ClientMessageEvent { ev_message_type = mt } = do
-               a <- getAtom "XMONAD_RESTART"
-               if (mt == a)
-          -        then restart "xmonad" True
-          +        then io (lookupEnv "XMONAD_BINARY")
-          +            >>= flip restart True . fromMaybe "xmonad"
-                   else broadcastMessage e
-
-           handle e = broadcastMessage e -- trace (eventName e) -- ignoring
-        '');
-    };
-  };
-  xmonadGhc = hsPkgsWithOverridenXMonad.ghcWithPackages (p: with p; [
-    xmonad
-    xmonad-contrib
-    xmonad-extras
-  ]);
-
-  xmonadConfigBuild = pkgs.stdenv.mkDerivation rec {
-    name = "custom-xmonad-config";
-    src = ./.;
-    #env = pkgs.buildEnv { name = name; path = bul; };
-    buildInputs = [ xmonadGhc pkgs.makeWrapper ];
-    buildPhase = ''
-      # Copy Nix.Vars
-      ln -s ${nixVarsHs} lib/Nix/Vars.hs
-      echo "XMonad is compiling source..."
-      ghc --make xmonad.hs -i -ilib -fforce-recomp -main-is main -v0 \
-        -o xmonad
-      echo "Compilation successfull!"
-    '';
-    installPhase = ''
-      mkdir -p $out/src/lib/Nix
-      cp --parents $(find ./ -type f -name "*.hs") $out/src
-      ln -s ${nixVarsHs} $out/src/lib/Nix/Vars.hs
-
-      cp xmonad $out/xmonad-x86_64-linux
-
-      # The only runtime reference we want is to where newer restart bins
-      makeWrapper $out/xmonad-x86_64-linux $out/xmonad \
-        ${lib.optionalString (! isNull cfg.runtimePath) ''
-          --unset PATH \
-          --set XMONAD_BINARY ${absoluteRuntimePath}
-        ''}
-    '';
-  };
-
 in {
   options.xmonad = with lib; {
     packages = mkOption {
@@ -130,6 +21,7 @@ in {
       type = with types; nullOr path;
     };
   };
+
   config = {
     xsession.windowManager.command = "${xmonadConfigBuild}/xmonad";
 

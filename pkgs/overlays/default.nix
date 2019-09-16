@@ -18,6 +18,8 @@
 
   iso-writer = self.callPackage ./iso-writer { };
 
+  customXmonadGhc = self.callPackage ./custom-xmonad-ghc { };
+
   home-manager = (import ../../deps/home-manager { pkgs = self; }).home-manager;
 
   slimThemes = super.slimThemes // self.callPackage ./slimThemes { };
