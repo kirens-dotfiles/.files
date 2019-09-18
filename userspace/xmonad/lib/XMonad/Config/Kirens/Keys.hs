@@ -4,7 +4,7 @@ module XMonad.Config.Kirens.Keys (
 
 -- import Xmonad ( X )
 import qualified XMonad.StackSet as StackSet
-import XMonad ( X, liftIO, workspaces, Resize (Expand, Shrink), screenWorkspace, ChangeLayout (NextLayout), whenJust )
+import XMonad ( X, liftIO, workspaces, Resize (Expand, Shrink), screenWorkspace, ChangeLayout (NextLayout), whenJust, modMask )
 import XMonad.Operations ( windows, kill, sendMessage )
 import Graphics.X11.Types ( KeyMask )
 import Data.Default ( Default (def) )
@@ -19,6 +19,7 @@ import qualified Prgms.ClipboardManager as CM
 import Prgms.ErrorPrompt ( noAction )
 import XMonad.Actions.CycleRecentWS ( cycleRecentWS )
 import qualified Graphics.X11.Types as Keys
+import Data.Map ( fromList, union )
 
 type KeyBnd = String
 
@@ -97,27 +98,27 @@ keysWithPar :: (KeyBnd -> a -> (KeyBnd, X ())) -> [KeyBnd] -> [a] -> [(KeyBnd, X
 keysWithPar fn ks as = [ fn k a | (k, a) <- zip ks as ]
 
 numsWith :: KeyBnd -> [KeyBnd]
-numsWith k = map ((k++).show) [1..9]
+numsWith k = map ((k++).show) [2, 3, 4, 7, 8]
 
-keyConfig actions conf = mkKeymap conf $
+keyConfig actions conf = union (fromList
+    [ ((modMask conf, Keys.xK_period), terminalPlain actions)
+    ]) $
+  mkKeymap conf $
   -- Quick launches
-  [ ("M-a", menu actions)
-  , ("M-s", terminalPlain actions)
+  [ ("M-<Space>", menu actions)
 
   -- Window mgmt
   , ("M-d", kill)
-  , ("M-<Return>", windows StackSet.focusMaster)
   , ("M-j", windows StackSet.focusDown)
   , ("M-k", windows StackSet.focusUp)
   , ("M-S-j", windows StackSet.swapDown)
   , ("M-S-k", windows StackSet.swapUp)
-  , ("M-S-<Return>", windows StackSet.swapMaster)
   , ("M-S-<Space>", sinkAll)
   -- For BSP Layout
-  , ("M-M1-k", sendMessage $ ExpandTowards U)
-  , ("M-M1-j", sendMessage $ ExpandTowards D)
-  , ("M-M1-h", sendMessage $ ExpandTowards L)
-  , ("M-M1-l", sendMessage $ ExpandTowards R)
+  , ("M-M5-k", sendMessage $ ExpandTowards U)
+  , ("M-M5-j", sendMessage $ ExpandTowards D)
+  , ("M-M5-h", sendMessage $ ExpandTowards L)
+  , ("M-M5-l", sendMessage $ ExpandTowards R)
   , ("M-h", sendMessage $ Rotate)
   , ("M-l", sendMessage $ Swap)
 
@@ -126,11 +127,11 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-C-l", nextWS)
   , ("M-f", sendMessage $ Toggle FULL)
   , ("M-<Tab>", cycleRecentWS [Keys.xK_Super_L] Keys.xK_Tab Keys.xK_grave)
-  , ( "M-0"
+  , ( "M-9"
     , selectWorkspace actions
       >>= windows . StackSet.greedyView . init
     )
-  , ( "M-S-0"
+  , ( "M-S-9"
     , selectWorkspace actions
       >>= windows . StackSet.shift . init
     )
@@ -155,9 +156,9 @@ keyConfig actions conf = mkKeymap conf $
   , ("M-q", lockscreen actions)
   , ("M-M1-S-o", resetScreens actions)
   , ("M-<Esc>", restartXMonad actions)
-  , ("M-S-<Esc>", liftIO$exitWith ExitSuccess)
+  , ("M-M1-S-<Esc>", liftIO$exitWith ExitSuccess)
   --, ("M-S-z", spawn "xscreensaver-command -lock")
-  , ("M-<Space>", defaultKeyboardLayout actions)
+  , ("M-a", defaultKeyboardLayout actions)
   ]
   -- Switch workspace
   ++ keysWithPar
@@ -173,12 +174,12 @@ keyConfig actions conf = mkKeymap conf $
   -- Switch monitor
   ++ keysWithPar
        (\bind i -> (bind, screenWorkspace i >>= flip whenJust (windows . (StackSet.view))))
-       (numsWith "M-M1-")
+       (numsWith "M-M5-")
        [0..2]
   -- Move window to monitors
   ++ keysWithPar
        (\bind i -> (bind, screenWorkspace i >>= flip whenJust (windows . (StackSet.shift))))
-       (numsWith "M-M1-S-")
+       (numsWith "M-M5-M1-")
        [0..2]
 
   -- `Start` is enough to open dmenu

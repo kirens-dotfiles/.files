@@ -112,7 +112,7 @@ green   = "#859900"
 
 
 specialWss = [ "spotify", "mail", "clipboard", "messaging" ]
-workspaces = map show [1..9] ++ specialWss
+workspaces = map show [2, 3, 4, 7, 8] ++ specialWss
 
 
 -----------------------------------------------------------------------}}}
