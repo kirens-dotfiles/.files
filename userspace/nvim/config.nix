@@ -9,6 +9,8 @@ in {
     set mouse=a
 
     set virtualedit=onemore
+
+    set undofile
   '';
   vam = {
     knownPlugins = vimPlugins // myModules.plugins;
@@ -21,8 +23,10 @@ in {
           "typescript-vim"
           "vim-colors-solarized"
           "vim-fish"
+          "vim-fugitive"
           "vim-go"
           "vim-javascript"
+          "vim-lastplace"
           "vim-localvimrc"
           "vim-nix"
           "vim-signify"
