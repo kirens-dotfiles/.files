@@ -234,8 +234,11 @@ in {
       # Turn off beeps.
       ${xset} -b
 
+      # Faster scrolling with text based controlls
+      ${xset} r rate 250 60
+
       # Switch keyboard layout
-      ${xkbcomp} ${./keyboard/custom-xkb-keymap} :0
+      ${xkbcomp} ${./keyboard/keymap} :0
 
       # Automatic locking
       ${xautolock} -time 5 -locker ${locker} &
