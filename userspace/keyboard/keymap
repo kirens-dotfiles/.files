@@ -108,22 +108,22 @@ xkb_keycodes {
     <vARg> = 79;
     <vC>   = 80;
     <vSp>  = 81;
-    <v7>   = 82;
-    <v8>   = 83;
-    <v9>   = 84;
-    <v10>  = 85;
-    <v11>  = 86;
-    <v12>  = 87;
-    <v13>  = 88;
-    <v14>  = 89;
-    <v15>  = 90;
-    <v16>  = 91;
-    <v17>  = 92;
+    <vW>   = 82;
+    <vP>   = 83;
+    <vUml> = 84;
+    <vA>   = 85;
+    <vS>   = 86;
+    <vD>   = 87;
+    <vG>   = 88;
+    <vAUm> = 89;
+    <vV>   = 90;
+    <vF>   = 91;
+    <vCap> = 92;
 
-    <v18>  = 98;
-    <v19>  = 99;
-    <v20>  = 100;
-    <v21>  = 101;
+    <vJ>   = 98;
+    <vK>   = 99;
+    <vL>   = 100;
+    <vOUm> = 101;
     <v22>  = 102;
 
     <v23>  = 104;
@@ -262,12 +262,6 @@ xkb_keycodes {
     virtual indicator 12 = "Shift Lock";
     virtual indicator 13 = "Group 2";
     virtual indicator 14 = "Mouse Keys";
-
-    // Remappings
-    alias <Left> = <kLft>;
-    alias   <Up> = <kUp>;
-    alias <Down> = <kDn>;
-    alias <Rght> = <kRgt>;
 };
 
 xkb_types { include "complete" };
@@ -335,91 +329,80 @@ xkb_symbols {
     key <kPls> { [ F11, F11, F11, XF86Switch_VT_11 ] };
     key <kAcc> { [ F12, F12, F12, XF86Switch_VT_12 ] };
 
-    key <kBsp> { [ ] };
+    key <kBsp> { [ Delete ] };
 
-    key <kTab> { overlay1 = <vTab>, symbols[Group1]= [ Super_L ] };
+    key <kTab> { [ Super_L ] };
     modifier_map Mod4 { <kTab> };
-    key <vTab> { [ Shift_L ] };
     modifier_map Shift { <vTab> };
     key <kQ>   { [ q, Q ] };
-    key <kW>   {
-        symbols[Group1]= [ w, W, aring, Aring ],
-        symbols[Group2]= [ question, questiondown ]
-    };
+    key <kW>   { overlay1 = <vW>, symbols[Group1]= [ w, W, aring, Aring ] };
+    key <vW>   { [ question, questiondown ] };
     key <kE>   {
         overlay1 = <vE>,
         symbols[Group1]= [ e, E, adiaeresis, Adiaeresis ],
-        symbols[Group2]= [ exclam, exclamdown ]
+        symbols[Group2]= [ EuroSign ]
     };
-    key <vE>   { [ EuroSign ] };
+    key <vE>   { [ exclam, exclamdown ] };
     key <kR>   { [ r, R ] };
     key <kT>   { [ t, T ] };
     key <kY>   { [ ] };
     key <kU>   { [ y, Y ] };
-    key <kI>   { [ u, U ] };
+    key <kI>   { [ u, U, y, Y ] };
     key <kO>   { overlay1 = <vO>, symbols[Group1]= [ i, I ] };
     key <vO>   { [ plus, plusminus ] };
-    key <kP>   {
-        symbols[Group1]= [ o, O, odiaeresis, Odiaeresis ],
-        symbols[Group2]= [ minus ]
+    key <kP>   { overlay1 = <vP>,
+        symbols[Group1]= [ o, O, odiaeresis, Odiaeresis ]
     };
+    key <vP>   { [ minus ] };
     key <kARg> { overlay1 = <vARg>,
         symbols[Group1]= [ p, P ],
-        symbols[Group2]= [ asterisk ]
+        symbols[Group2]= [ section, paragraph ]
     };
-    key <vARg> { [ section, paragraph ] };
-    key <kUml> {
-        symbols[Group1]= [ asciicircum, backslash,  numbersign ],
-        symbols[Group2]= [ slash ]
+    key <vARg> { [ asterisk ] };
+    key <kUml> { overlay1 = <vUml>,
+        symbols[Group1]= [ asciicircum, backslash, numbersign ]
     };
-    key <kApo> { [ dollar, percent ] };
+    key <vUml> { [ slash ] };
+    key <kApo> { [ dollar, percent, asciitilde ] };
 
-    key <kCap> { [ Escape, BackSpace, Delete ] };
-    key <kA>   {
-        symbols[Group1]= [ a, A, at ],
-        symbols[Group2]= [ 1 ]
+    key <kCap> { overlay1 = <vCap>,
+        symbols[Group1]= [ Escape, BackSpace, BackSpace, BackSpace ],
+        symbols[Group2]= [ BackSpace ]
     };
-    key <kS>   {
-        symbols[Group1]= [ s, S, parenleft ],
-        symbols[Group2]= [ 2 ]
-    };
-    key <kD>   {
-        symbols[Group1]= [ d, D, braceleft, semicolon ],
-        symbols[Group2]= [ 3 ]
-    };
-    key <kF>   {
-        symbols[Group1]= [ f, F, bracketleft, equal ],
-        symbols[Group2]= [ 4 ]
-    };
-    key <kG>   {
-        symbols[Group1]= [ g, G, less, greater ],
-        symbols[Group2]= [ 5 ]
-    };
+    key <vCap>   { [ BackSpace ] };
+    key <kA>   { overlay1 = <vA>, symbols[Group1]= [ a, A, at ] };
+    key <vA>   { [ 1 ] };
+    key <kS>   { overlay1 = <vS>, symbols[Group1]= [ s, S, parenleft ] };
+    key <vS>   { [ 2 ] };
+    key <kD>   { overlay1 = <vD>, symbols[Group1]= [ d, D, braceleft, semicolon ] };
+    key <vD>   { [ 3 ] };
+    key <kF>   { overlay1 = <vF>, symbols[Group1]= [ f, F, bracketleft, equal ] };
+    key <vF>   { [ 4 ] };
+    key <kG>   { overlay1 = <vG>, symbols[Group1]= [ g, G, less, greater ] };
+    key <vG>   { [ 5 ] };
     key <kH>   { [ ] };
-    key <kJ>   { overlay1 = <Left>,
+    key <kJ>   { overlay1 = <vJ>,
         symbols[Group1]= [ h, H, underscore ],
-        symbols[Group2]= [ 6 ]
+        symbols[Group2]= [ NoSymbol, NoSymbol, Left, Home ]
     };
-    key <Left> { [ Left, Home ] };
-    key <kK>   { overlay1 = <Down>,
+    key <vJ> { [ 6 ] };
+    key <kK>   { overlay1 = <vK>,
         symbols[Group1]= [ j, J, bracketright, grave ],
-        symbols[Group2]= [ 7 ]
+        symbols[Group2]= [ NoSymbol, NoSymbol, Down, Next ]
     };
-    key <Down> { [ Down, Next ] };
-    key <kL>   { overlay1 = <Up>,
+    key <vK> { [ 7 ] };
+    key <kL>   { overlay1 = <vL>,
         symbols[Group1]= [ k, K, braceright, quotedbl ],
-        symbols[Group2]= [ 8 ]
+        symbols[Group2]= [ NoSymbol, NoSymbol, Up, Prior ]
     };
-    key <Up>   { [ Up, Prior ] };
-    key <kOUm> { overlay1 = <Rght>,
+    key <vL>   { [ 8 ] };
+    key <kOUm> { overlay1 = <vOUm>,
         symbols[Group1]= [ l, L, parenright, apostrophe ],
-        symbols[Group2]= [ 9 ]
+        symbols[Group2]= [ NoSymbol, NoSymbol, Right, End ]
     };
-    key <Rght> { [ Right, End ] };
-    key <kAUm> {
-        symbols[Group1]= [ period, comma, colon ],
-        symbols[Group2]= [ 0 ]
-    };
+    key <vOUm> { [ 9 ] };
+    key <kAUm> { overlay1 = <vAUm>, symbols[Group1]= [ period, comma, colon ] };
+    key <vAUm> { [ 0 ] };
     key <kRtn> { [ Control_L ] };
     modifier_map Control { <kRtn> };
 
@@ -428,34 +411,32 @@ xkb_symbols {
     key <kX>   { [ x, X ] };
     key <kC>   { overlay1 = <vC>,
         symbols[Group1]= [ c, C ],
-        symbols[Group2]= [ ampersand ]
+        symbols[Group2]= [ copyright ]
     };
-    key <vC>   { [ copyright ] };
-    key <kV>   {
-        symbols[Group1]= [ v, V ],
-        symbols[Group2]= [ bar ]
-    };
+    key <vC>   { [ ampersand ] };
+    key <kV>   { overlay1 = <vV>, symbols[Group1]= [ v, V ] };
+    key <vV>   { [ bar ] };
     key <kB>   { [ b, B ] };
     key <kN>   { [ b, B ] };
     key <kM>   { [ n, N ] };
     key <kCom> { [ m, M ] };
     key <kDot> { [ ] };
     key <kDsh> { [ ] };
-    key <kRSh> { [ BackSpace, Delete ] };
+    key <kRSh> { [ Shift_R ] };
+    modifier_map Shift { <kRSh> };
     key <kAPs> { [ ] };
 
     key <kLCt> { [ ] };
-    key <kLWn> { [ Overlay1_Enable ] };
+    key <kLWn> { [ Mode_switch ] };
     key <kAlt> { [ ISO_Level3_Shift ] };
     modifier_map Mod5 { <kAlt> };
     key <kSp>  { overlay1 = <vSp>,
-      symbols[Group1]= [ space, Return, space, nobreakspace ],
-      symbols[Group2]= [ Tab ]
+      symbols[Group1]= [ space, space, Tab, nobreakspace ]
     };
     key <vSp>  { [ Return ] };
     key <kAGr> { [ Shift_L ] };
     modifier_map Shift { <kAGr> };
-    key <kMen> { [ Mode_switch ] };
+    key <kMen> { [ Overlay1_Enable ] };
     key <kLt>  { [ Menu ] };
 
     key <kHom> { [ ] };
@@ -464,23 +445,18 @@ xkb_symbols {
     key <kEnd> { [ ] };
     key <kPwr> { [ XF86PowerOff ] };
 
-    key <v6>   { [ ] };
-    key <v7>   { [ ] };
-    key <v8>   { [ ] };
-    key <v9>   { [ ] };
-    key <v10>  { [ ] };
-    key <v11>  { [ ] };
-    key <v12>  { [ ] };
-    key <v13>  { [ ] };
-    key <v14>  { [ ] };
-    key <v15>  { [ ] };
-    key <v16>  { [ ] };
-    key <v17>  { [ ] };
+    key <kUp>  { [ Up ] };
+    key <kDn>  { [ Down ] };
+    key <kLft> { [ Left ] };
+    key <kRgt> { [ Right ] };
 
-    key <v18>  { [ ] };
-    key <v19>  { [ ] };
-    key <v20>  { [ ] };
-    key <v21>  { [ ] };
+    key <kPUp> { [ Prior ] };
+    key <kPDn> { [ Next ] };
+    key <kHom> { [ Home ] };
+    key <kEnd> { [ End ] };
+
+    key <vTab>  { [ ] };
+
     key <v22>  { [ ] };
 
     key <v23>  { [ ] };
