@@ -8,7 +8,7 @@
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
   environment.systemPackages = with pkgs; [
-    git networkmanager gparted dotfiles-installer nix-build-install
+    git networkmanager gparted nix-build-install
   ];
 
   programs.fish.enable = true;
