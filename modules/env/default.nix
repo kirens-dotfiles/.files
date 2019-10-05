@@ -56,6 +56,7 @@ let
     multiroomHost = "Hostname for multiroom device";
     installerPublicSSHKey =
       "A key that is permited to SSH to the booted installer device";
+    lampaPass = "A password to control the lights";
   };
   myCfgModule = lib.mkOption {
     default = {};

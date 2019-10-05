@@ -1,4 +1,4 @@
-{ pkgs, stdenv, lib, coreutils }:
+{ config, pkgs, stdenv, lib, coreutils }:
 let
   inherit (builtins) concatStringsSep listToAttrs concatLists elemAt;
 
@@ -46,6 +46,6 @@ in listToAttrs (lib.flip map fishDirs (dir: {
   name = ".config/fish/${dir}";
   value = { source = mergeDirFromPackages (concatLists [
     (import ./packages { inherit pkgs lib stdenv fishDirs createCode; })
-    (import ./functions { inherit pkgs lib coreutils; })
+    (import ./functions { inherit pkgs lib coreutils config; })
   ]) dir; };
 }))

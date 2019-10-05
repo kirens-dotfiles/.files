@@ -1,4 +1,4 @@
-{ pkgs, lib, coreutils }:
+{ config, pkgs, lib, coreutils }:
 let
   removeUnwantedArgs = f: args:
     builtins.intersectAttrs
@@ -9,6 +9,7 @@ let
     f (removeUnwantedArgs f args);
 
   callFunction = pkg: callOnlyNessecary (import pkg) (pkgs // {
+    inherit config;
     cut     = "${coreutils}/bin/cut";
     du      = "${coreutils}/bin/du";
     echo    = "${coreutils}/bin/echo";

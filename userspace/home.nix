@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   dotfilesLoc = "/e/_FILES/.files";
   name = rec {
@@ -78,7 +78,7 @@ let
   );
 
   fishFunctions = import ./shell/fish/mergedPackages.nix {
-    inherit lib pkgs;
+    inherit lib pkgs config;
     inherit (pkgs)
       coreutils
       stdenv
