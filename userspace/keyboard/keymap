@@ -108,7 +108,7 @@ xkb_keycodes {
     <vARg> = 79;
     <vC>   = 80;
     <vSp>  = 81;
-    <vW>   = 82;
+    <vR>   = 82;
     <vP>   = 83;
     <vUml> = 84;
     <vA>   = 85;
@@ -335,15 +335,15 @@ xkb_symbols {
     modifier_map Mod4 { <kTab> };
     modifier_map Shift { <vTab> };
     key <kQ>   { [ q, Q ] };
-    key <kW>   { overlay1 = <vW>, symbols[Group1]= [ w, W, aring, Aring ] };
-    key <vW>   { [ question, questiondown ] };
+    key <kW>   { symbols[Group1]= [ w, W ] };
     key <kE>   {
         overlay1 = <vE>,
         symbols[Group1]= [ e, E, adiaeresis, Adiaeresis ],
         symbols[Group2]= [ EuroSign ]
     };
     key <vE>   { [ exclam, exclamdown ] };
-    key <kR>   { [ r, R ] };
+    key <kR>   { overlay1 = <vR>, [ r, R ] };
+    key <vR>   { [ question, questiondown ] };
     key <kT>   { [ t, T ] };
     key <kY>   { [ ] };
     key <kU>   { [ y, Y ] };
@@ -355,7 +355,7 @@ xkb_symbols {
     };
     key <vP>   { [ minus ] };
     key <kARg> { overlay1 = <vARg>,
-        symbols[Group1]= [ p, P ],
+        symbols[Group1]= [ p, P, aring, Aring ],
         symbols[Group2]= [ section, paragraph ]
     };
     key <vARg> { [ asterisk ] };
@@ -372,9 +372,9 @@ xkb_symbols {
     key <vCap>   { [ BackSpace ] };
     key <kA>   { overlay1 = <vA>, symbols[Group1]= [ a, A, at ] };
     key <vA>   { [ 1 ] };
-    key <kS>   { overlay1 = <vS>, symbols[Group1]= [ s, S, parenleft ] };
+    key <kS>   { overlay1 = <vS>, symbols[Group1]= [ s, S, braceleft ] };
     key <vS>   { [ 2 ] };
-    key <kD>   { overlay1 = <vD>, symbols[Group1]= [ d, D, braceleft, semicolon ] };
+    key <kD>   { overlay1 = <vD>, symbols[Group1]= [ d, D, parenleft, semicolon ] };
     key <vD>   { [ 3 ] };
     key <kF>   { overlay1 = <vF>, symbols[Group1]= [ f, F, bracketleft, equal ] };
     key <vF>   { [ 4 ] };
@@ -392,12 +392,12 @@ xkb_symbols {
     };
     key <vK> { [ 7 ] };
     key <kL>   { overlay1 = <vL>,
-        symbols[Group1]= [ k, K, braceright, quotedbl ],
+        symbols[Group1]= [ k, K, parenright, quotedbl ],
         symbols[Group2]= [ NoSymbol, NoSymbol, Up, Prior ]
     };
     key <vL>   { [ 8 ] };
     key <kOUm> { overlay1 = <vOUm>,
-        symbols[Group1]= [ l, L, parenright, apostrophe ],
+        symbols[Group1]= [ l, L, braceright, apostrophe ],
         symbols[Group2]= [ NoSymbol, NoSymbol, Right, End ]
     };
     key <vOUm> { [ 9 ] };
@@ -407,6 +407,7 @@ xkb_symbols {
     modifier_map Control { <kRtn> };
 
     key <kLSh> { [ Alt_L ] };
+    modifier_map Mod1 { <kLSh> };
     key <kZ>   { [ z, Z ] };
     key <kX>   { [ x, X ] };
     key <kC>   { overlay1 = <vC>,
