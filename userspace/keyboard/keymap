@@ -401,10 +401,15 @@ xkb_symbols {
         symbols[Group2]= [ NoSymbol, NoSymbol, Right, End ]
     };
     key <vOUm> { [ 9 ] };
-    key <kAUm> { overlay1 = <vAUm>, symbols[Group1]= [ period, comma, colon ] };
+    key <kAUm> {
+      overlay1 = <vAUm>,
+      symbols[Group1]= [ space, space, Tab, Tab ]
+    };
     key <vAUm> { [ 0 ] };
-    key <kRtn> { [ Control_L ] };
-    modifier_map Control { <kRtn> };
+    key <kRtn>  { overlay1 = <vSp>,
+      symbols[Group1]= [ period, comma, colon ]
+    };
+    key <vSp>  { [ Return ] };
 
     key <kLSh> { [ Alt_L ] };
     modifier_map Mod1 { <kLSh> };
@@ -423,20 +428,17 @@ xkb_symbols {
     key <kCom> { [ m, M ] };
     key <kDot> { [ ] };
     key <kDsh> { [ ] };
-    key <kRSh> { [ Shift_R ] };
-    modifier_map Shift { <kRSh> };
+    key <kRSh> { [ Control_L ] };
+    modifier_map Control { <kRSh> };
     key <kAPs> { [ ] };
 
     key <kLCt> { [ ] };
-    key <kLWn> { [ Mode_switch ] };
-    key <kAlt> { [ ISO_Level3_Shift ] };
-    modifier_map Mod5 { <kAlt> };
-    key <kSp>  { overlay1 = <vSp>,
-      symbols[Group1]= [ space, space, Tab, nobreakspace ]
-    };
-    key <vSp>  { [ Return ] };
-    key <kAGr> { [ Shift_L ] };
-    modifier_map Shift { <kAGr> };
+    key <kLWn> { [ ] };
+    key <kAlt> { [ Mode_switch ] };
+    key <kSp>  { [ Shift_L ] };
+    modifier_map Shift { <kSp> };
+    key <kAGr> { [ ISO_Level3_Shift ] };
+    modifier_map Mod5 { <kAGr> };
     key <kMen> { [ Overlay1_Enable ] };
     key <kLt>  { [ Menu ] };
 
