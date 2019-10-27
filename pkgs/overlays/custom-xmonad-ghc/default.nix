@@ -24,4 +24,5 @@ in hsPkgsWithOverridenXMonad.ghcWithPackages (p: with p; [
   xmonad
   xmonad-contrib
   xmonad-extras
+  composition
 ]) // { haskellPackages = hsPkgsWithOverridenXMonad; }
