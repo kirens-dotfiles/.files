@@ -20,6 +20,13 @@ import System.Environment (getExecutablePath)
 import System.Directory (getHomeDirectory)
 import XMonad.Util.Run
 import Control.Concurrent (forkIO)
+import Control.Monad (forM_)
+
+import XMonad.Actions.ModalKeyActions ( KeyMap
+                                      , prepareNamedMode
+                                      , eventHook
+                                      , getMode
+                                      )
 
 -- Layout Info
 import qualified XMonad.StackSet as S
@@ -33,7 +40,7 @@ import Data.Bool (bool)
 import Codec.Binary.UTF8.String (encodeString)
 
 -- My Config files
-import XMonad.Config.Kirens.Keys as MyKeys
+import qualified XMonad.Config.Kirens.Keys as MyKeys
 
 import qualified Prgms.ClipboardManager as CM
 
@@ -344,11 +351,13 @@ xmobarPrint screenId proc = do
   wt <- maybe (return "") (fmap show . NamedW.getName) . S.peek $ winset
   let title = DynLog.xmobarStrip wt
 
+  mode <- getMode
+
   let activeScreen = S.screen $ S.current winset
 
   if screenId == activeScreen
-  then return $ ws ++ " " ++ wt
-  else return $ xmobarClr base0 $ ws ++ " " ++ wt
+  then return $ unwords [xmobarClr cyan mode, ws, wt]
+  else return $ xmobarClr base0 $ unwords [xmobarClr cyan mode, ws, wt]
 
 xmobarClr clr text =
   "<fc=" ++ clr ++ ">" ++ text ++ "</fc>"
@@ -363,10 +372,14 @@ myLayout = mkToggle (FULL ?? EOT) emptyBSP
 -- Startup                                                             {{{
 --------------------------------------------------------------------------
 
-startup = do
+startup :: (XConfig Layout -> [(String, String, KeyMap)]) -> X ()
+startup keyModes = do
+    conf <- asks config
     setVolume 0
     setRandomBg
     CM.init copyQ
+
+    forM_ (keyModes conf) $ \(id, name, ks) -> prepareNamedMode id name ks
 
 -----------------------------------------------------------------------}}}
 -- Main                                                                {{{
@@ -402,11 +415,11 @@ configBase xmproc =
   , XMonad.modMask =
       mod4Mask
   , XMonad.keys =
-      myKeys
+      MyKeys.normal myActions
   , XMonad.logHook =
       void (theLogHook xmproc)
   , XMonad.startupHook =
-      startup
+      startup (MyKeys.modes myActions)
   , XMonad.mouseBindings =
       XMonad.mouseBindings def
   , XMonad.manageHook = composeAll
@@ -418,8 +431,7 @@ configBase xmproc =
    , className =? "Xmessage"  --> doFloat
    , manageDocks
    ]
-  , XMonad.handleEventHook =
-      XMonad.handleEventHook def
+  , XMonad.handleEventHook = eventHook
   , XMonad.focusFollowsMouse =
       XMonad.focusFollowsMouse def
   , XMonad.clickJustFocuses =
@@ -437,10 +449,9 @@ configBase xmproc =
 
 
 -----------------------------------------------------------------------}}}
--- Key bindings                                                        {{{
+-- Key bindings dependency injection                                   {{{
 --------------------------------------------------------------------------
-myKeys =
-  keyConfig$ def
+myActions = def
   { MyKeys.menu =
       Main.menu
   , MyKeys.selectWorkspace =
