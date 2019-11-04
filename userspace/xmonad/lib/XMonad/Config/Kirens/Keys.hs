@@ -163,8 +163,8 @@ modes actions conf = let
     mode Action $ do
       "m" ~> use Workspaces
       -- Launchers
-      "<Return>" ~> menu actions >> use Normal
-      "<Space>" ~> terminalPlain actions >> use Normal
+      "M5-<Space>" ~> menu actions
+      "<Space>" ~> terminalPlain actions
       -- Window mgmt
       "d" ~> kill
       "j" ~> windows StackSet.focusDown

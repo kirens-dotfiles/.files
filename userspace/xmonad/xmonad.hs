@@ -118,8 +118,10 @@ cyan    = "#2aa198"
 green   = "#859900"
 
 
-specialWss = [ "spotify", "mail", "clipboard", "messaging" ]
-workspaces = map show [2, 3, 4, 7, 8] ++ specialWss
+hiddenPre = words "git"
+hiddenPost = words "spotify mail clipboard messaging"
+specialWss = hiddenPre ++ hiddenPost
+workspaces = hiddenPre ++ words "tmp browser2 browser code code2 logs" ++ hiddenPost
 
 
 -----------------------------------------------------------------------}}}
