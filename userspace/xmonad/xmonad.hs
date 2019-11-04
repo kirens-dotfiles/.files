@@ -188,6 +188,7 @@ void = (>> return ())
 run bin args inp = liftIO $ runProcessWithInput bin args inp
 cmd bin args = run bin args ""
 exe bin args = void $ cmd bin args
+exeFork bin args = void $ xfork $ exe bin args
 
 -- Terminal stuff
 --------------------------------------------------------------------------
@@ -233,14 +234,14 @@ toggleMute = spawn$ Pkgs.amixer ++ " set Master 1+ toggle"
 -- Menu
 --------------------------------------------------------------------------
 
---menu = spawn$ Pkgs.rofi ++ " -matching fuzzy -modi combi -show combi -combi-modi drun"
-menu = spawn $ unwords
-  [ Pkgs.rofi
-  , "-terminal " ++  terminalBin
-  , "-modi \"combi,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies\""
-  , "-show combi"
-  , "-combi-modi \"drun,scripts:" ++ Pkgs.rofiScripts ++ "\""
-  ]
+menu =
+  exeFork
+    Pkgs.rofi
+    [ "-terminal", terminalBin
+    , "-modi", "combi,window,ssh,calc:" ++ Pkgs.qalc ++ " +u8 -nocurrencies"
+    , "-show", "combi"
+    , "-combi-modi", "drun,scripts:" ++ Pkgs.rofiScripts
+    ]
 
 rofi lines name input =
   run
