@@ -1,6 +1,7 @@
 { stdenv, findutils, xrandr, rofi, xinput, togglAccessToken
 , rofi-toggl, coreutils, translate-shell, st, tmux, writeScript, gnugrep
-, nodejs-slim-10_x, setxkbmap, fetchFromGitHub, writeShellScript }:
+, nodejs-slim-10_x, setxkbmap, fetchFromGitHub, writeShellScript
+, utillinux }:
 let
   translateScript = writeShellScript "rofi-translateScript"
     (import ./scripts/translate.nix.sh {
@@ -38,7 +39,10 @@ let
     if [[ -z "$@" ]]; then
       ${findutils}/bin/find ./ -maxdepth 1 -and -type l -or -type f -printf '%f\n'
     else
-      "./$1" > /dev/null &
+      # NOTE: It seems to be important to redirect streams since a lot of
+      #       things will start failing as soon as this process exits and the
+      #       streams otherwise would be closed
+      ${utillinux}/bin/setsid -f "./$1" > /tmp/null 2> /dev/null &
     fi
   '';
 
