@@ -33,12 +33,12 @@ let
         );
 
         # Second go overlays, mostly some hidden nixos packages
-        nixpkgs.overlays = [ (import ./pkgs/overlays/second-pass.nix config) ];
+        nixpkgs.overlays = [ (import ./packages/overlays/second-pass.nix config) ];
       };
     };
   in nixos.config.entrypoint // { inherit (nixos) pkgs config options; };
 
-  pkgs = import ./deps/nixpkgs (import ./pkgs);
+  pkgs = import ./deps/nixpkgs (import ./packages);
   inherit (pkgs) stdenv lib myLib;
 
   buildAll = builds: pkgs.runCommand "all-builds" { } (
