@@ -1,15 +1,9 @@
 [submodule "userspace/home-manager"]
 	path = deps/home-manager
 	url = https://github.com/kirens-dotfiles/home-manager.git
-[submodule "userspace/st/src"]
-	path = packages/overlays/st
-	url = https://github.com/kirens-dotfiles/st.git
 [submodule "nix/src/nixpkgs"]
 	path = deps/nixpkgs
 	url = https://github.com/kirens-dotfiles/nixpkgs.git
-[submodule "userspace/rofi/scripts/toggl.source"]
-	path = packages/overlays/rofi-toggl
-	url = https://github.com/kirens-dotfiles/rofi-toggl.git
 [submodule "userspace/powerline/src"]
 	path = userspace/shell/powerline/src
 	url = https://github.com/kirens-dotfiles/powerline-go.git
@@ -22,3 +16,6 @@
 [submodule "userspace/scripts/multiroom"]
 	path = userspace/scripts/multiroom
 	url = https://github.com/kirens-dotfiles/multiroom.git
+[submodule "pkgs"]
+	path = pkgs
+	url = git@github.com:kirens-dotfiles/nixpkgs-proxy.git

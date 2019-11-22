@@ -1,45 +1,15 @@
 # This is the system builder build description
 { }:
 let
+  libs = import ./pkgs;
   buildConfig = name: let
-    topLevelPkgs = pkgs;
-    nixos = import ./deps/nixpkgs/nixos {
-      configuration = { config, lib, ... }: {
-        # Use our customized pkgs
-        _module.args.pkgs = topLevelPkgs;
-
-        myCfg.dotfilesPath = toString ./.;
-
-        # Imports to add customization
-        imports = [
-          # Home manager
-          ./deps/home-manager/nixos
-
-          # Global modules
-          ./modules/env
-          ./modules/entrypoint
-
-          # Actual Configuration
-          (./configurations + "/${name}")
-        ];
-
-        # Link home generations in final symlink tree
-        system.extraSystemBuilderCmds = with lib; concatStringsSep "\n" (
-          [ "mkdir $out/homes" ]
-          ++
-          mapAttrsToList
-          (name: cfg: "ln -s ${cfg.home.activationPackage} $out/homes/${name}")
-          config.home-manager.users
-        );
-
-        # Second go overlays, mostly some hidden nixos packages
-        nixpkgs.overlays = [ (import ./packages/overlays/second-pass.nix config) ];
-      };
+    os = libs.nixos {
+      extraModules = [ (./configurations + "/${name}") ];
     };
-  in nixos.config.entrypoint // { inherit (nixos) pkgs config options; };
+  in os.config.entrypoint // { inherit (os) pkgs config options; };
 
   pkgs = import ./deps/nixpkgs (import ./packages);
-  inherit (pkgs) stdenv lib myLib;
+  inherit (libs.pkgs) stdenv lib myLib;
 
   buildAll = builds: pkgs.runCommand "all-builds" { } (
     myLib.foldSet
