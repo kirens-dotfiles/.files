@@ -88,6 +88,7 @@ in {
   home.stateVersion = "18.09";
 
   imports = [
+    ./nvim
     ./xmonad
     ./firefox
   ];
@@ -179,12 +180,6 @@ in {
           editor = "vi";
         };
       };
-    };
-
-    neovim = {
-      enable = true;
-      viAlias = true;
-      configure = importWith ./nvim/config.nix pkgs;
     };
 
     fish =
