@@ -1,9 +1,3 @@
-[submodule "userspace/home-manager"]
-	path = deps/home-manager
-	url = https://github.com/kirens-dotfiles/home-manager.git
-[submodule "nix/src/nixpkgs"]
-	path = deps/nixpkgs
-	url = https://github.com/kirens-dotfiles/nixpkgs.git
 [submodule "userspace/powerline/src"]
 	path = userspace/shell/powerline/src
 	url = https://github.com/kirens-dotfiles/powerline-go.git
